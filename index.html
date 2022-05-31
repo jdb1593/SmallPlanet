@@ -8,15 +8,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button class="show">팝업열기</button>
+    <div class="wrap">
+    <a href="#pop_info" class="btn_open">팝업 열기1</a>
+    <a href="#pop_info" class="btn_open">팝업 열기1</a>
+    <a href="#pop_info" class="btn_open">팝업 열기1</a>
 
-<div class="background">
-  <div class="window">
-    <div class="popup">
-      <button class="close">팝업닫기</button>
+
+  <div id="pop_info" class="pop_wrap" style="display:none;">
+    <div class="pop_inner">
+      <p class="dsc">팝업창</p>
+      <button type="button" class="btn_close">닫기</button>
     </div>
-  <div>
-<div>
+  </div>
+
+</div>
     <script src="index.js"></script>
 </body>
 </html>
