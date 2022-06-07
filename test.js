@@ -45,7 +45,7 @@ slider.style.width = sliderWidth * totalSlides + 'px';
 // next, prev
 var nextBtn = document.getElementById('next');
 var prevBtn = document.getElementById('previous');
-var closeBtn = document.getElementById('close');
+var closeBtn = document.getElementsByClassName('.close');
 nextBtn.addEventListener('click', function () {
     plusSlides(1);
 });

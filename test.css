@@ -202,7 +202,7 @@ a {
     border-radius: 0px 7px 7px 7px;
     color: #eee;
 }
-#slider-wrap.active #close {
+#slider-wrap.active .close {
     top: 0px;
 }
 
