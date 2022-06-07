@@ -1,0 +1,244 @@
+/* 
+    웹 문서 구조에서 특정 위치에 있는 요소를 선택하는 가상 클래스이다.
+    :root 선택자는 웹 문서 구조에서 가장 상위 요소를 선택할 때 사용한다.
+*/
+
+/* CSS:root 변수 선언 */
+/* 웹 문서에서 공통으로 사용될 속성을 미리 변수에 선언한다. */
+/* --변수 이름 지정 : 속성값 */
+:root {
+    --active-color: rgb(1, 90, 255);    
+    --hover-color: rgb(107, 107, 107);
+    --text-color: white;    
+}
+
+body{
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+}
+
+a {
+    /* text-decoration: none a태그의 밑에 밑줄을 없애줌 */
+    text-decoration: none;
+    color: var(--active-color);
+}
+
+header {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    /* width: 100% */
+    left: 0;
+    right: 0;
+    
+}
+
+main {
+    margin-top: 120px;
+}
+
+.navbar {
+    /* 컨테이너가 세로로 배치된다. */
+    display: flex;
+
+    /* 요소들 사이에 동일한 간격을 둡니다. */
+    justify-content: space-between;
+
+    /* 요소들을 컨테이너의 중앙으로 정렬 */
+    align-items: center;
+    
+    /* 위 아래, 오른쪽 왼쪽 Padding 지정하기 */
+    padding: 8px 12px ;
+}
+
+.navbar_logo {
+    margin-left: 2%;
+    font-size: 40px;
+    margin-top: 0;
+    content: '';
+}
+.navbar_logotext {
+    padding-bottom: 24px;
+    border-bottom: 2px solid var(--active-color);
+}
+
+.navbar_logo a:after{
+    display: block;
+    z-index: 1;
+    content: '';
+    padding-bottom: 21px;
+    border-bottom: solid 2px var(--hover-color);
+    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+    transition: transform 250ms ease-in-out; /*변형 방식*/
+}
+.navbar_logo a:hover:after {
+    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+}
+.menu {
+    position: fixed;
+    top: 1px;
+    left: 35%;
+    margin-top: 8px;
+}
+
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 8px 30px;
+}
+
+.menu a:after {/*after 가상요소*/
+    display:block;/*a요소를 블록 요소라고 선언*/
+    margin-top: 25px;
+    content: '';
+    border-bottom: solid 2px var(--hover-color);
+    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+    transition: transform 250ms ease-in-out; /*변형 방식*/
+ }
+ .menu a:hover:after {
+    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+ }
+
+
+
+.navbar_toggleBtn {
+    display: none;
+    position: absolute;
+    right: 28px;
+    font-size: 24px;
+    color: var(--hover-color);
+}
+
+/* input search 모양 */
+  
+body *, html * {
+    box-sizing: border-box;
+  }
+  
+  .search_mode {
+    position: fixed;
+    top: 1.8em;
+    right: 5%;
+  }
+
+  .header_line {
+      margin-top: -8px;
+  }
+  
+  .search-box input[type=text] {
+    border: none;
+    background: none;
+    z-index: 1;
+    width: 25px;
+    transition: all 0.25s ease-in 0.25s;
+    color: transparent;
+    font-size: 0.75rem;
+    line-height: 2px;
+  }
+  .search-box input[type=text]:hover {
+    cursor: pointer;
+  }
+  .search-box input[type=text]:hover:focus {
+    cursor: text;
+  }
+  .search-box input[type=text]:hover + span {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .search-box input[type=text]:focus {
+    width: 200px;
+    outline: none;
+    color: black;
+    background: none;
+  }
+  .search-box input[type=text]:focus + span {
+    width: 200px;
+  }
+  .search-box input[type=text]:focus + span::before {
+    width: 2px;
+    opacity: 0;
+    transition: all 0.25s ease-in;
+  }
+  /* 원모양 */
+  .search-box input[type=text] + span {
+    z-index: -1;
+    position: absolute;
+    border: 2px solid var(--active-color);
+    top: 0;
+    width: 25px;
+    height: 25px;
+    transition: all 0.25s ease-in 0.25s;
+    border-radius: 25px;
+    left: 0;
+  }
+  /* 짝대기 */
+  .search-box input[type=text] + span::before {
+    transition: all 0.25s ease-in 0.5s;
+    transform-origin: left top;
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 5px;
+    border-radius: 5px;
+    background: var(--active-color);
+    transform: rotate(45deg) translate(26px, -2px);
+  }
+
+
+
+/* 가로 해상도가 768px 보다 작은 화면에 적용 */
+@media  screen and (max-width:760px) {
+    .navbar {
+        flex-direction:column;
+    }
+    .navbar_logo {
+        flex-direction:column;
+        position: absolute;
+        left: 3%;
+    }        
+
+    .navbar_menu {
+        /* 요소를 박스로 생성안됨, 따라서 공간을 차지 안 함 */
+        display: none;
+        flex-direction:column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .navbar_icons {
+        display: none;
+        justify-content: center;
+        width: 100%;
+    }
+    
+
+    .navbar_toggleBtn {
+        /* 요소를 block 요소처럼 표시, 따라서 요소 앞 뒤로 줄바꿈이 됨 */
+        display: block;
+        margin-top: 15px;
+    }    
+  
+
+    .navbar_menu.active {
+        background-color: var(--active-color);
+        color: var(--text-color);
+        display: block;
+        margin-top: 67px;
+        
+    }
+        
+    .header_line {
+        margin-top: 60px;
+    }
+
+    .search_mode {
+        position: relative;
+        top: 25px;
+        left: 80px;
+        display: none;
+    }
+    
+}
