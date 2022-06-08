@@ -10,8 +10,8 @@ a {
     /* modal 스크롤 */
     width: 50%;
     height: 90%;
-    overflow-x: hide;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: fixed;
     margin-left: -20px;
     text-align: start;
