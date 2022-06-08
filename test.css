@@ -6,21 +6,19 @@ a {
     text-decoration:none;
 }
 
-
-
 .modal_main {    
     /* modal 스크롤 */
-    width: 590px;
-    height: 480px;
-    overflow-y: auto;
+    width: 65vh;
+    height: 77vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
     position: fixed;
     margin-left: -20px;
     text-align: start;
     position: absolute;
     top: 30px;
-    right: 30px;
-    padding-top: 10px;
-    padding: 20px;  
+    right: 2vh;
+    padding: 10px;
 }
 
 .modal_profile-picture {
@@ -71,14 +69,13 @@ a {
     padding-bottom: 30px;
 }
 
-.modal_tag {
-    width: 30px;
-    height: 20px;
+.modal_tag {    
     border: 1px solid #000;
-    border-radius: 15px;
-    flex-direction: row;
+    border-radius: 20px;
     text-align: center;
-    padding: 4px;    
+    padding: 0px 4px;
+    float: left;
+    margin: 3px;
 }
 
 
@@ -123,12 +120,9 @@ a {
 }
 .modal_commit-top {
     width: 30px;
-    margin-top: 20px;
+    margin-top: 70px;
 }
-.modal_commit-text2 {
-    position: relative;
-    left: 30px;
-}
+
 
 .modal_commit-box {
     width: 500px;
@@ -143,6 +137,13 @@ a {
     width: 450px;
     margin: 10px;
 }
+
+.modal_commit-text2 {
+    position: relative;
+    left: 141px;
+    
+}
+
 .modal_commit-under {
     margin: 10px;
     width: 390px;
@@ -162,7 +163,7 @@ a {
     position: relative;
     width: 100px;
     right: -140px;
-    top: -8px;
+    top: 1px;
     font-size: 10px;
 }
 
@@ -175,7 +176,7 @@ a {
 }
 .modal-commit-like2 {
     position: relative;
-    top: -23px;
+    top: -13px;
     right: -244px;
     font-size: 10px;
     width: 31px;
@@ -279,7 +280,7 @@ a {
 /* 모달팝업 스크린 */
 #slider-wrap {
     width: 1100px;
-    height: 500px;
+    height: 750px;
     position: relative;
     overflow: hidden;
 }
@@ -290,7 +291,7 @@ a {
     font-size: 20px;
     position: absolute;
     top: 3px;
-    left: 1110px;    
+    left: 120vh;    
     text-align: center;    
     border-radius: 7px;
     color: #eee;
@@ -298,6 +299,9 @@ a {
     -webkit-transition: all 0.1s ease;
     -o-transition: all 0.1s ease;
     transition: all 0.1s ease;
+}
+.slider {
+    position: relative;
 }
 
 .slider img{

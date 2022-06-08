@@ -1,8 +1,7 @@
 $(document).ready(function(){
     $('.slider').bxSlider({
         // 슬라이드 너비
-        slideWidth: 400,
-        
+        slideWidth: 450,
      });
   });
 
