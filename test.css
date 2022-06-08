@@ -8,16 +8,16 @@ a {
 
 .modal_main {    
     /* modal 스크롤 */
-    width: 65vh;
-    height: 77vh;
-    overflow-x: hidden;
+    width: 50%;
+    height: 90%;
+    overflow-x: hide;
     overflow-y: scroll;
     position: fixed;
     margin-left: -20px;
     text-align: start;
     position: absolute;
     top: 30px;
-    right: 2vh;
+    right: 2%;
     padding: 10px;
 }
 
@@ -118,6 +118,7 @@ a {
 .modal_commit-num {
     color: rgb(255, 115, 0);
 }
+
 .modal_commit-top {
     width: 30px;
     margin-top: 70px;
@@ -291,7 +292,7 @@ a {
     font-size: 20px;
     position: absolute;
     top: 3px;
-    left: 120vh;    
+    left: 1080px;    
     text-align: center;    
     border-radius: 7px;
     color: #eee;
