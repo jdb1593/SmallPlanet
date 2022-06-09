@@ -7,11 +7,16 @@
 /* 웹 문서에서 공통으로 사용될 속성을 미리 변수에 선언한다. */
 /* --변수 이름 지정 : 속성값 */
 :root {
-    --active-color: rgb(1, 90, 255);    
+    --active-color: #5180d8;    
     --hover-color: rgb(107, 107, 107);
     --text-color: white;    
 }
-
+.bx-wrapper,
+.bx-viewport,
+.bx-wrapper img {
+    height:350px;
+    padding: 0px 0px;
+} 
 body{
     margin: 0;
     font-family: 'Playfair Display', serif;
@@ -21,6 +26,14 @@ a {
     /* text-decoration: none a태그의 밑에 밑줄을 없애줌 */
     text-decoration: none;
     color: var(--active-color);
+}
+.menuNum{
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 21px;
+    color: #5180d8;
+    text-decoration: none;
+    margin-left: 0px;
+
 }
 
 header {
@@ -34,7 +47,11 @@ header {
 }
 
 main {
-    margin-top: 120px;
+    margin-top: 100px;
+}
+
+footer{
+    margin-bottom: 25px;
 }
 
 .navbar {
@@ -58,7 +75,10 @@ main {
     content: '';
 }
 .navbar_logotext {
-    padding-bottom: 24px;
+    font-family: 'Black Han Sans', sans-serif;
+    text-decoration: none;
+    list-style: none;
+    padding-bottom: 31px;
     border-bottom: 2px solid var(--active-color);
 }
 
@@ -83,11 +103,13 @@ main {
 
 .navbar_menu {
     display: flex;
+line-height: 55px;
     list-style: none;
     padding-left: 0;
 }
 
 .navbar_menu li {
+    color: #8AAAE5;
     padding: 8px 30px;
 }
 
@@ -98,10 +120,10 @@ main {
     border-bottom: solid 2px var(--hover-color);
     transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
     transition: transform 250ms ease-in-out; /*변형 방식*/
- }
- .menu a:hover:after {
+}
+.menu a:hover:after {
     transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
- }
+}
 
 
 
@@ -120,9 +142,9 @@ body *, html * {
   }
   
   .search_mode {
-    position: fixed;
-    top: 1.8em;
-    right: 5%;
+    position: relative;
+    top: -0.3em;
+    right: 15%;
   }
 
   .header_line {
@@ -187,6 +209,19 @@ body *, html * {
     transform: rotate(45deg) translate(26px, -2px);
   }
 
+.loginJoin{
+
+    font-family: 'Black Han Sans', sans-serif;;
+
+    position: absolute;
+    top: 37px;
+    right: 80px;
+}
+.loginJoin a{
+    color: rgb(63, 63, 63);
+    text-decoration: none;
+    font-size: 19px;
+}
 
 
 /* 가로 해상도가 768px 보다 작은 화면에 적용 */
@@ -241,4 +276,180 @@ body *, html * {
         display: none;
     }
     
+}
+/* bxSlider */
+.bximg{
+    width: 100%;
+}
+
+/* 푸터 css */
+.site-footer
+{
+  background-color:#8AAAE5;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color:#8AAAE5;
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer h6
+{
+  color:#fff;
+  font-size:16px;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px
+}
+.site-footer a
+{
+  color:#737373;
+}
+.site-footer a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links
+{
+  padding-left:0;
+  list-style:none
+}
+.footer-links li
+{
+  display:block
+}
+.footer-links a
+{
+    color: #989898;
+    text-decoration: none;
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+  color:#3366cc;
+  text-decoration:none;
+}
+.footer-links.inline li
+{
+  display:inline-block
+}
+.site-footer .social-icons
+{
+  text-align:right
+}
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+.copyright-text
+{
+  margin:0
+}
+@media (max-width:991px)
+{
+  .site-footer [class^=col-]
+  {
+    margin-bottom:30px
+  }
+}
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+.social-icons
+{
+  padding-left:0;
+  margin-bottom:0;
+  list-style:none
+}
+.social-icons li
+{
+  display:inline-block;
+  margin-bottom:4px
+}
+.social-icons li.title
+{
+  margin-right:15px;
+  text-transform:uppercase;
+  color:#96a2b2;
+  font-weight:700;
+  font-size:13px
+}
+.social-icons a{
+  background-color:#eceeef;
+  color:#818a91;
+  font-size:16px;
+  display:inline-block;
+  line-height:44px;
+  width:44px;
+  height:44px;
+  text-align:center;
+  margin-right:8px;
+  border-radius:100%;
+  -webkit-transition:all .2s linear;
+  -o-transition:all .2s linear;
+  transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+  color:#fff;
+  background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+  line-height:34px;
+  height:34px;
+  width:34px;
+  font-size:14px
+}
+.social-icons a.facebook:hover
+{
+  background-color:#3b5998
+}
+.social-icons a.twitter:hover
+{
+  background-color:#00aced
+}
+.social-icons a.linkedin:hover
+{
+  background-color:#007bb6
+}
+.social-icons a.dribbble:hover
+{
+  background-color:#ea4c89
+}
+@media (max-width:767px)
+{
+  .social-icons li.title
+  {
+    display:block;
+    margin-right:0;
+    font-weight:600
+  }
+}
+
+.foot-container{
+  background-color: rgba(223, 223, 223, 0.562);
+  padding-bottom: 40px;
+  border-radius: 40px;
 }
