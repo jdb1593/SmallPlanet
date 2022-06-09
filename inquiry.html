@@ -45,7 +45,8 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8;" href="#" class="navbar_logotext">SMALLPALNET</a>
+                <a style="color: #5180d8; border-bottom: 0px solid transparent;" href="index-sub.html"
+                    class="navbar_logotext">SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
@@ -55,7 +56,9 @@
                     <li><a class="menuNum" href="#">커뮤니티</a></li>
                     <li><a class="menuNum" href="#">자 료 실</a></li>
                     <li><a class="menuNum" href="#">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="#"
+                            style="border-bottom: 2px solid #5180d8; padding-bottom: 43px;">문의하기</a>
+                    </li>
                 </ul>
             </div>
 
@@ -77,20 +80,40 @@
         <hr class="header_line">
     </header>
     <main>
+        <br>
+        <div class="inquiry-form">
+            <form action="">
+                <h3 class="inq-title">문의 등록</h3>
+                <hr>
+                <div class="p">제 목</div>
+                <input class="inputs" type="text" placeholder="제목을 입력하세요" required><br><br>
+                <div class="p">E-MAIL</div>
+                <input class="inputs" type="email" placeholder="ex) abc@abc.com" required><br><br>
+                <div class="p">내 용</div>
+                <textarea class="inputs" name="" id="" cols="30" rows="10" required></textarea>
+                <div class="p">연 락 처</div>
+                <input class="inputs" type="tel" placeholder="'-'없이 입력해주세요" required>
+                <hr>
+                <div class="filebox">
+                    <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                    <label for="file">파일찾기</label>
+                    <input type="file" id="file">
+                </div>
+                <hr>
+                <div>
+                    <h5>개인정보 수집 및 이용에 대한 동의</h5>
+                    <p style="font-size: 10px;">정보통신망 이용촉진 및 정보보호 등에 관한 법률을 준수하며 고객님의 개인정보를 수집하고 소중하게 다루고 있습니다. <br>
+                        ①개인정보 수집 항목: 이름, 이메일 주소<br>
+                        ②수집목적:고객식별, 문의응대, 서비스 품질 향상<br>
+                        ③보유 및 이용기간: 수집 목적이 달성되면 지체없이 모든 개인정보를 파기합니다. 단, 관계법령에서 일정 기간 정보의 보관을 규정한 경우에 한해 분리 보관 후 파기합니다.
+                    </p>
 
-        <div class="slider">
-            <div><img class="bximg" src="./이미지/뉴모피즘1920.jpg" alt=""></div>
-            <div><img class="bximg" src="./이미지/img1920.jpg" alt=""></div>
-            <div><img class="bximg" src="./이미지/page1920.jpg" alt=""></div>
-            <div><img class="bximg" src="./이미지/애플워치1920.jpg" alt=""></div>
+                </div>
+                <div><input type="radio"> 동의합니다.</div>
+                <hr>
+                <a href="" style="font-family: 'Black Han Sans', sans-serif;" class="button">SUBMIT</a>
+            </form>
         </div>
-
-        <div class="main-align">
-            <h4 class="main-"></h4>
-
-        </div>
-
-
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -110,10 +133,10 @@
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/front-end-development/">소 개</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">커뮤니티</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">자료실</a></li>
-                        <li><a href="http://scanfcode.com/category/android/">Q & A</a></li>
+                        <li><a href="#">소 개</a></li>
+                        <li><a href="#">커뮤니티</a></li>
+                        <li><a href="#">자료실</a></li>
+                        <li><a href="#">Q & A</a></li>
                     </ul>
                 </div>
 
