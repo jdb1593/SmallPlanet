@@ -34,7 +34,26 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
     }
 
     .modal_profile-picture {
-        
+    width: 50px;
+    margin-right: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgb(223, 196, 200);
+    box-shadow: #ddd 1px 1px 1px 1px;
+    border-radius: 30px;
+    }
+    
+    .modal_profile-picture2 {
+        width: 50px;
+        margin-right: 10px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid rgb(223, 196, 200);
+        box-shadow: #ddd 1px 1px 1px 1px;
+        border-radius: 30px;
+        position: relative;
+        top: 18px;
+        left: 65px;
     }
 
 

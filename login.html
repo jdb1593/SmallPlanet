@@ -20,9 +20,10 @@
 	</head>
 
 	<body>
-		<div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"></div>
+		<div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"></div>
 		<div class="main">
 			<input type="checkbox" id="chk" aria-hidden="true">
+
 			<!-- 회원가입 -->
 			<div class="signup">
 				<form action="post">
@@ -30,7 +31,7 @@
 					<input class="sign-input" type="text" name="txt" placeholder="이름" required="">
 					<input class="sign-input" type="email" name="email" placeholder="이메일" required="">
 					<input class="sign-input" type="password" name="pswd" placeholder="비밀번호" required="">
-					<input class="sign-input" type="birthday" name="birth" placeholder="생년월일 (ex.940101)" required="">
+					<input class="sign-input" type="birthday" name="birth" placeholder="생년월일 (ex.20010101)" maxlength="8" required="">
 					<button>가입하기</button>
 				</form>
 			</div>
