@@ -41,6 +41,7 @@ label{
 	justify-content: center;
 	display: flex;
 	margin: 60px;
+	margin-bottom: 10px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: .5s ease-in-out;
@@ -57,6 +58,24 @@ label{
 	border: none;
 	outline: none;
 	border-radius: 5px;
+}
+
+.birth-year {
+	width: 60px;
+	position: relative;
+	right: 344px;
+	margin-right: -135px;
+}
+
+.birth {
+	position: relative;
+	top: -60px;
+    left: 146px;
+    padding: 11px;
+    width: 69px;
+	background-color: var(--input-signup) ;
+	border-radius: 5px;
+	border: 1px solid transparent;
 }
 
 .login-input{
@@ -127,3 +146,9 @@ button:hover{
 #chk:checked ~ .signup label{
 	transform: scale(.6);
 }
+.login-pw i {
+	position: relative;
+	top: -47px;
+	left: 260px;
+	z-index: 1;
+  }

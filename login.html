@@ -1,59 +1,97 @@
+<!-- partial:index.partial.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 	<meta charset="UTF-8">
 	<title>SMALL PLANET </title>
 	<link rel="stylesheet" href="./login.css">
-
+	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
 </head>
 
 <body>
-	<!-- partial:index.partial.html -->
-	<!DOCTYPE html>
-	<html>
+	<div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"></div>
+	<div class="main">
+		<input type="checkbox" id="chk" aria-hidden="true">
 
-	<head>
-		<title>Slide Navbar</title>
-		<link rel="stylesheet" type="text/css" href="slide navbar style.css">
-		<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-	</head>
-
-	<body>
-		<div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"></div>
-		<div class="main">
-			<input type="checkbox" id="chk" aria-hidden="true">
-
-			<!-- 회원가입 -->
-			<div class="signup">
-				<form action="post">
-					<label for="chk" aria-hidden="true">회원 가입</label>
-					<input class="sign-input" type="text" name="txt" placeholder="이름" required="">
-					<input class="sign-input" type="email" name="email" placeholder="이메일" required="">
-					<input class="sign-input" type="password" name="pswd" placeholder="비밀번호" required="">
-<<<<<<< HEAD
-					<input class="sign-input" type="birthday" name="birth" placeholder="생년월일 (ex.20010101)" maxlength="8" required="">
-=======
->>>>>>> origin/main
-					<button>가입하기</button>
-				</form>
-			</div>
-
-			<!-- 로그인 -->
-			<div class="login">
-				<form action="post">
-					<label for="chk" aria-hidden="true">로그인</label>
-					<input class="login-input" type="email" name="email" placeholder="이메일" required="">
-					<input class="login-input" type="password" name="pswd" placeholder="비밀번호" required="">
-					<button>login</button>
-				</form>
-			</div>
+		<!-- 회원가입 -->
+		<div class="signup">
+			<form action="post">
+				<label for="chk" aria-hidden="true">회원 가입</label>
+				<input class="sign-input" type="text" name="txt" placeholder="이름" required="">
+				<input class="sign-input" type="email" name="email" placeholder="이메일" required="">
+				<input class="sign-input" type="password" name="pswd" placeholder="비밀번호" required="">
+				<input class="sign-input birth-year" type="birthday" name="birth" placeholder="년(4자)" maxlength="4" required="">
+					<select name="month" class="birth">
+						<option value="">월</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+					</select>
+					<select name="day" class="birth">
+						<option value="">일</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+					</select>
+				<button style="margin-top: -38px;">가입하기</button>
+			</form>
 		</div>
-	</body>
 
-	</html>
-	<!-- partial -->
-
+		<!-- 로그인 -->
+		<div class="login">
+			<form action="post">
+				<label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
+				<input class="login-input" type="email" name="email" placeholder="이메일" required="">
+				<div class="login-pw">
+					<input class="login-input" type="password" name="pswd" placeholder="비밀번호" required="">
+					<i class="fa fa-eye fa-lg" onclick=""></i>
+				</div>
+				<button>login</button>
+			</form>
+		</div>
+	</div>
+	<script src="login.js"></script>
 </body>
-
 </html>
+<!-- partial -->
