@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
 <!-- partial:index.partial.html -->
 <!DOCTYPE html>
 <html>
@@ -26,56 +28,27 @@
 				<input class="sign-input" type="password" name="user_pw" id="password" placeholder="비밀번호" required="" minlength="8" maxlength="20">
 				<input class="sign-input" type="password" name="user_pwc" id="password" placeholder="비밀번호 확인" required="" minlength="8" maxlength="20">
 				<input class="sign-input birth-year" type="user_birthday" name="birth" placeholder="년(4자)" maxlength="4" required="">
-					<select name="month" class="birth">
-						<option value="">월</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-					</select>
+                <%
+                    for(int i = 1; i<=12; i++){                        
+                   %> 
+                    <select name="month" class="birth">
+                        <option value="">월</option>
+                        <option value="<%=i%>"><%=i%></option>                        
+                    </select>
+                   <% }
+                %>
+					
+				<%
+					for(int j = 1; j < =31; i++) {
+						%>
+						<select name="day" class="birth">
+							<option value="">일</option>
+							<option value="<%=j%>"><%=j%></option>
+						</select>
+						<%
+					}
+				%>
 
-					<select name="day" class="birth">
-						<option value="">일</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-						<option value="13">13</option>
-						<option value="14">14</option>
-						<option value="15">15</option>
-						<option value="16">16</option>
-						<option value="17">17</option>
-						<option value="18">18</option>
-						<option value="19">19</option>
-						<option value="20">20</option>
-						<option value="21">21</option>
-						<option value="22">22</option>
-						<option value="23">23</option>
-						<option value="24">24</option>
-						<option value="25">25</option>
-						<option value="26">26</option>
-						<option value="27">27</option>
-						<option value="28">28</option>
-						<option value="29">29</option>
-						<option value="30">30</option>
-						<option value="31">31</option>
-					</select>
 				<button onclick="checkPassword()" style="margin-top: -38px;">가입하기</button>
 				<div class="close-btn">
 					<a href="index-sub.html">X</a>

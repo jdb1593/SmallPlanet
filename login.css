@@ -18,9 +18,10 @@ body{
 	font-family: 'Jua', sans-serif;
 	
 }
+/* 전체 요소 */
 .main{
 	width: 350px;
-	height: 500px;
+	height: 510px;
 	background:	white;
 	overflow: hidden;	
 	border-radius: 20px;
@@ -28,6 +29,7 @@ body{
 }
 #chk{
 	display: none;
+	
 }
 .signup{
 	position: relative;
@@ -45,6 +47,10 @@ label{
 	font-weight: bold;
 	cursor: pointer;
 	transition: .5s ease-in-out;
+}
+
+.signup-title {
+	margin-top: 8px;
 }
 
 .sign-input{
@@ -77,6 +83,8 @@ label{
 	border-radius: 5px;
 	border: 1px solid transparent;
 }
+
+
 
 .login-input{
 	width: 60%;
@@ -122,8 +130,9 @@ button:hover{
 	width: 100px;
 }
 
+/* 로그인 요소 */
 .login{
-	height: 460px;
+	height: 550px;
 	background: var(--login-background);
 	border-radius: 60% / 10%;
 	transform: translateY(-180px);
@@ -135,7 +144,7 @@ button:hover{
 
 /* 로그인 화면 애니메이션 */
 #chk:checked ~ .login{
-	transform: translateY(-500px);
+	transform: translateY(-550px);
 }
 
 /* 로그인 화면 올라올시 글자 커짐 */
@@ -151,4 +160,25 @@ button:hover{
 	top: -47px;
 	left: 260px;
 	z-index: 1;
-  }
+}
+
+.close-btn {
+	width: 60px;
+	position: relative;
+	left: 320px;
+	bottom: 410px;
+	z-index: 10;	
+}
+
+.close-btn a {
+	text-decoration: none;
+	color: var(--button);
+}
+
+.close-btn a:hover {
+	color: white;
+	background-color: #5180d8;
+	border-radius: 10px;
+	padding: 5px;
+	left: -40px;
+}
