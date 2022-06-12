@@ -610,3 +610,13 @@ footer{
 .button.reverse:hover span {
   --m: calc(var(--font-size));
 }
+
+/* introduce page css */
+.teamP{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+  margin-top: 50px;
+}
