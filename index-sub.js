@@ -11,3 +11,15 @@ toggleBtn.addEventListener('click', () => {
 });
 
 document.querySelectorAll('.button').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
+
+// 모달 팝업
+function show () {
+    document.querySelector(".background").className = "background show";
+  }
+  
+  function close () { 
+    document.querySelector(".background").className = "background hide";
+  }
+  
+  document.querySelector("#modal_show").addEventListener('click', show);
+  document.querySelector("#modal_close").addEventListener('click', close);
