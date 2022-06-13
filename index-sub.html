@@ -26,18 +26,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <!-- Login css -->
-    <link rel="stylesheet" href="login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-    
+
     <script>
         $(document).ready(function () {
             $('.slider').bxSlider({
                 slideWidth: 2000,
                 speed: 1300,
-                auto: true,                
+                auto: true,
             });
         });
     </script>
@@ -71,7 +66,8 @@
                     <span> </span>
                 </div>
             </div>
-            <div class="loginJoin"><button id="modal_show">LOGIN / JOIN</button></div>            
+            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
@@ -81,97 +77,9 @@
         <hr class="header_line">
     </header>
     <main>
-        <!-- 모달 팝업 -->
-        <div class="background">
-            <div class="window">
-                <div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"> <span style="  position: relative; top: 42px; left: -10px;">SMALLPLANET</span></div>	
-                <div class="login_main">
-                    <input type="checkbox" id="chk" aria-hidden="true">
 
-                    <!-- 회원가입 -->
-                    <div class="signup">
-                        <form action="post">
-                            <label for="chk" class="signup-title" aria-hidden="true">회원 가입</label>
-                            <input class="sign-input" type="text" name="user_name" placeholder="이름" required="">
-                            <input class="sign-input" type="email" name="user_email" placeholder="이메일" required="">
-                            <input class="sign-input" type="password" name="user_pw" id="password1" placeholder="비밀번호" required="" minlength="8" maxlength="20">
-                            <input class="sign-input" type="password" name="user_pwc" id="password2" placeholder="비밀번호 확인" required="" minlength="8" maxlength="20">
-                            <input class="sign-input birth-year" type="user_birthday" name="birth" placeholder="년(4자)" maxlength="4" required="">
-                                <select name="month" class="birth">
-                                    <option value="">월</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                </select>
+        
 
-                                <select name="day" class="birth">
-                                    <option value="">일</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                </select>
-                            <button type="submit" class="login_button" onclick="checkPassword(), test()" style="margin-top: -38px;">가입하기</button>
-                                
-                        </form>
-                        <div class="close-btn" id="modal_close">
-                            <a href="#">X</a>
-                        </div>
-                        
-                    </div>
-
-                    <!-- 로그인 -->
-                    <div class="login" style="position: relative; top: 40px;">
-                        <form action="post" class="login-form">
-                            <label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
-                            <input class="login-input" type="email" name="user_email" placeholder="이메일" required="">
-                            <div class="login-pw">
-                                <input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required="">
-                                <i class="fa fa-eye fa-lg" onclick=""></i>
-                            </div>
-                            <button class="login_button" onclick="openConfirmID()">login</button>
-                        </form>
-                    </div>
-                </div>
-              </div>
-        </div>
-            
         <div class="slider">
             <div><img class="bximg" src="./이미지/뉴모피즘1920.jpg" alt=""></div>
             <div><img class="bximg" src="./이미지/img1920.jpg" alt=""></div>
@@ -243,7 +151,6 @@
         </div>
     </footer>
     <script src="index-sub.js"></script>
-    <script src="login.js"></script>
 </body>
 
 </html>
