@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="KO">
+<html class="introhtml"lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@
 
 </head>
 
-<body>
+<body class="introbody">
     <header style="z-index: 999;">
         <!-- Logo -->
         <nav class="navbar">
@@ -75,9 +75,26 @@
             </a>
         </nav>
         <hr class="header_line">
-    </header>
+    </header> 
+ 
 
-    <footer class="foot-container" style="z-index: 999; position:absolute; bottom: 0px; display: block;">
+    <div id="fullpage" style="width: 100%; display: block;">
+        <div class='quick'>
+            <ul class="quickInUl"></ul>
+        </div>
+        <div class="fullsection full1" pageNum="1"><span>1 PAGE</span></div>
+        <div class="fullsection full2" pageNum="2"><span>2 PAGE</span></div>
+        <div class="fullsection full3" pageNum="3"><span>3 PAGE</span></div>
+        <div class="fullsection full4" pageNum="4"><span>4 PAGE</span></div>
+        <div class="fullsection full5" pageNum="5"><span>5 PAGE</span></div>
+        <div class="fullsection full6" pageNum="6"><span>6 PAGE</span></div>
+        <div class="fullsection full7" pageNum="7"><span>7 PAGE</span></div>
+        <div class="fullsection full8" pageNum="8"><span>8 PAGE</span></div>
+        <div class="fullsection full9" pageNum="9"><span>9 PAGE</span></div>
+    </div>
+
+
+    <footer class="foot-container" style="display:none; z-index: 999; position: absolute; bottom: 0; width:100%;">
         <div class="container">
             <br>
             <div class="row">
@@ -136,18 +153,6 @@
         </div>
 
     </footer>
-
-    <div id="fullpage" style="width: 100%; display: block;">
-        <div class='quick'>
-            <ul class="quickInUl"></ul>
-        </div>
-        <div class="fullsection full1" pageNum="1"><span>1 PAGE</span></div>
-        <div class="fullsection full2" pageNum="2"><span>2 PAGE</span></div>
-        <div class="fullsection full3" pageNum="3"><span>3 PAGE</span></div>
-        <div class="fullsection full4" pageNum="4"><span>4 PAGE</span></div>
-        <div class="fullsection full5" pageNum="5"><span>5 PAGE</span></div>
-    </div>
-
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
@@ -171,6 +176,7 @@
                     var before = page.index();
                     if (page.index() >= 0) page.prev().addClass("on").siblings(".on").removeClass("on");//퀵버튼옮기기
                     var pagelength = 0;
+                    $(".foot-container").css("display","none");
                     for (var i = 1; i < (before); i++) {
                         pagelength += $(".full" + i).height();
                     }
@@ -199,9 +205,9 @@
                         $("#fullpage").animate({ "top": -pagelength + "px" }, 1000, "swing");
                     }
                     else { // 현재 마지막 페이지 일때는
-                        console.log("마지막 페이지 입니다!");
+                        $(".foot-container").css("display","block");                        
+                        console.log("마지막페이지입니다.")                        
                     };
-
                 }
             });
             $(window).resize(function () {
