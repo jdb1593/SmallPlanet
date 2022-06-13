@@ -10791,7 +10791,7 @@ $(document).ready(function() {
 		  maxHeight: null,             // 최대 높이
 		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		  lang: "ko-KR",					// 한글 설정
-		  //placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+		  placeholder: '내용을 입력하세요.',	//placeholder 설정
 
       // 툴바 커스텀마이징
       toolbar: [
