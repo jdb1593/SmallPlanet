@@ -28,27 +28,24 @@
 				<input class="sign-input" type="password" name="user_pw" id="password" placeholder="비밀번호" required="" minlength="8" maxlength="20">
 				<input class="sign-input" type="password" name="user_pwc" id="password" placeholder="비밀번호 확인" required="" minlength="8" maxlength="20">
 				<input class="sign-input birth-year" type="user_birthday" name="birth" placeholder="년(4자)" maxlength="4" required="">
-                <%
-                    for(int i = 1; i<=12; i++){                        
-                   %> 
-                    <select name="month" class="birth">
-                        <option value="">월</option>
-                        <option value="<%=i%>"><%=i%></option>                        
-                    </select>
-                   <% }
-                %>
+                <select name="month" class="birth">
+					<option value="">월</option>
+                    <%for(int i = 1; i<=12; i++){                        
+                   %>                
+                        <option value="<%=i%>"><%=i%></option>   
+                   <% } %>
+				</select>
 					
+				<select name="day" class="birth">
+					<option value="">일</option>
 				<%
 					for(int j = 1; j < =31; i++) {
-						%>
-						<select name="day" class="birth">
-							<option value="">일</option>
-							<option value="<%=j%>"><%=j%></option>
-						</select>
+						%>							
+							<option value="<%=j%>"><%=j%></option>						
 						<%
 					}
 				%>
-
+				</select>
 				<button onclick="checkPassword()" style="margin-top: -38px;">가입하기</button>
 				<div class="close-btn">
 					<a href="index-sub.html">X</a>
@@ -57,20 +54,6 @@
 		</div>
 
 		<!-- 로그인 -->
-		<div class="login" style="position: relative; top: 40px;">
-			<form action="post" class="login-form">
-				<label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
-				<input class="login-input" type="email" name="user_email" placeholder="이메일" required="">
-				<div class="login-pw">
-					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required="">
-					<i class="fa fa-eye fa-lg" onclick=""></i>
-				</div>
-				<button onclick="openConfirmID()">login</button>
-			</form>
-		</div>
-	</div>
-	
-	
 	<script src="login.js"></script>
 </body>
 </html>
