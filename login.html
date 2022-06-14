@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<title>SMALL PLANET </title>
 	<link rel="stylesheet" href="./login.css">
-	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+	
 	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 	 <!-- icon 이미지 -->
 	 <script src="https://kit.fontawesome.com/cd6c1c6007.js" crossorigin="anonymous"></script>
@@ -32,61 +32,61 @@
 				<div id="password-danger" style="display: none;">숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.</div>
 				<div id="password-danger3" style="display: none;">같은 문자를 4번 이상 사용 하실 수 없습니다.</div>
 				<input class="sign-input pw" type="password" name="user_pwc" id="password_2" placeholder="비밀번호 확인" required="" minlength="8" maxlength="20">
-				<div id="alert-success" style="display: none;">비밀번호가 일치합니다.</div>
+				<div id="alert-success" style="display: none; color: #000;">비밀번호가 일치합니다.</div>
     			<div id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</div>
 				<div>
 					<input class="sign-input birth-year" type="text" id="year" name="birth" placeholder="년(4자)" maxlength="4" pattern="[0-9]+" min="1900" max="2022" required="">
 					<div id="password-danger2" style="display: none;">년도는 1900 ~ 2022 사이로 기입해주세요.</div>
 						<select name="month" class="birth" id="mon">
-							<option id="mon"value="1">1</option>
-							<option id="mon"value="2">2</option>
-							<option id="mon"value="3">3</option>
-							<option id="mon"value="4">4</option>
-							<option id="mon"value="5">5</option>
-							<option id="mon"value="6">6</option>
-							<option id="mon"value="7">7</option>
-							<option id="mon"value="8">8</option>
-							<option id="mon"value="9">9</option>
-							<option id="mon"value="10">10</option>
-							<option id="mon"value="11">11</option>
-							<option id="mon"value="12">12</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
 						</select>
 
 						<select name="day" class="birth" id="day"value="일">
-							<option id="day"value="1">1</option>
-							<option id="day"value="2">2</option>
-							<option id="day"value="3">3</option>
-							<option id="day"value="4">4</option>
-							<option id="day"value="5">5</option>
-							<option id="day"value="6">6</option>
-							<option id="day"value="7">7</option>
-							<option id="day"value="8">8</option>
-							<option id="day"value="9">9</option>
-							<option id="day"value="10">10</option>
-							<option id="day"value="11">11</option>
-							<option id="day"value="12">12</option>
-							<option id="day"value="13">13</option>
-							<option id="day"value="14">14</option>
-							<option id="day"value="15">15</option>
-							<option id="day"value="16">16</option>
-							<option id="day"value="17">17</option>
-							<option id="day"value="18">18</option>
-							<option id="day"value="19">19</option>
-							<option id="day"value="20">20</option>
-							<option id="day"value="21">21</option>
-							<option id="day"value="22">22</option>
-							<option id="day"value="23">23</option>
-							<option id="day"value="24">24</option>
-							<option id="day"value="25">25</option>
-							<option id="day"value="26">26</option>
-							<option id="day"value="27">27</option>
-							<option id="day"value="28">28</option>
-							<option id="day"value="29">29</option>
-							<option id="day"value="30">30</option>
-							<option id="day"value="31">31</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25">25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>
 						</select>
 					</div>
-				<button type="submit" onclick="checkPassword()" style="margin-top: -38px;">가입하기</button>
+					<input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기" class="button">
 				<div class="close-btn">
 					<a href="index-sub.html">X</a>
 				</div>
