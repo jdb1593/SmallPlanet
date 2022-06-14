@@ -2,13 +2,18 @@ package boardPack;
 
 public class BoardVO {
 	private int seq;
+	private int ref;
+	private int is_comment;
+	private int is_comment_reply;
 	private String subject;
 	private String title;
 	private String writer;
 	private String content;
 	private String fileName;
+	private int fileSize;
 	private String uploadDate;
 	private String updateDate;
+	private int depth;
 	private int cnt;
 	
 	
@@ -73,6 +78,36 @@ public class BoardVO {
 	}
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getIs_comment() {
+		return is_comment;
+	}
+	public void setIs_comment(int is_comment) {
+		this.is_comment = is_comment;
+	}
+	public int getIs_comment_reply() {
+		return is_comment_reply;
+	}
+	public void setIs_comment_reply(int is_comment_reply) {
+		this.is_comment_reply = is_comment_reply;
+	}
+	public int getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 	
 	

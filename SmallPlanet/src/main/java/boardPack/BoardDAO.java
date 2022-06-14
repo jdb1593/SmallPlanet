@@ -128,4 +128,31 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 	}
+	
+	//게시글 읽기
+	public BoardVO getBoard(String _boardName, int _seq) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		BoardVO vo = new BoardVO();
+		
+		try {
+			con = pool.getConnection();
+			sql = "select * from "+_boardName+" where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, _seq);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo.setSeq(rs.getInt("seq"));
+				vo.setRef(rs.getInt("ref"));
+				vo.setSubject(rs.getString("subject"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vo;
+	}
 }
