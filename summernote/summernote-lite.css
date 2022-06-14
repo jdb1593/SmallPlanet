@@ -22,7 +22,25 @@
     border: 1px solid transparent;
 }
 
+.summer_editor_title, #list-select, #list-select2 {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 .summer_editor_title {
+    width: 100%;
+    margin-top: 10px;
     margin-bottom: 10px;
-    width: auto;
+}
+
+#list-select {
+    width: 80.4%;
+}
+
+#list-select2 { 
+    width: 19%;
+}
+
+#list-select, #list-select2 {
+    height: 40px;
 }
