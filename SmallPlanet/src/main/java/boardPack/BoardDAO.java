@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -38,7 +39,7 @@ public class BoardDAO {
 		
 		try {
 			con = pool.getConnection();
-			sql = "select * from "+_board+" limit ?, ?";
+			sql = "select * from "+_board+" order by ref desc limit ?, ?";
 			pstmt = con.prepareStatement(sql);
 //			pstmt.setString(1, _board);
 			pstmt.setInt(1, _start);
@@ -64,7 +65,7 @@ public class BoardDAO {
 	}
 	
 	//게시물 등록
-	public void insertBoard(String _boardName,HttpServletRequest _req) {
+	public void insertBoard(HttpServletRequest _req,HttpServletResponse response) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -74,23 +75,26 @@ public class BoardDAO {
 		String fileName = null;
 		
 		try {
+			multi = new MultipartRequest(_req, SAVEFOLDER,MAXSIZE,ENCTYPE,
+					new DefaultFileRenamePolicy());
+			String boardName = multi.getParameter("board");
+			
 			con = pool.getConnection();
-//			sql = "select max(seq) from "+_boardName;
-//			pstmt = con.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
+			sql = "select max(seq) from "+boardName;
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			
 			int ref = 1;
-//			if(rs.next()) {
-//				ref = rs.getInt(1) + 1;
-//			}
+			if(rs.next()) {
+				ref = rs.getInt(1) + 1;
+			}
 			
 			//file
 			File file = new File(SAVEFOLDER);
 			if(!file.exists()) {
 				file.mkdir();
 			}
-			multi = new MultipartRequest(_req, SAVEFOLDER,MAXSIZE,ENCTYPE,
-					new DefaultFileRenamePolicy());
+			
 			if(multi.getFilesystemName("fileName") != null) {
 				fileName = multi.getFilesystemName("fileName");
 				fileSize = (int)multi.getFile("fileName").length();
@@ -104,8 +108,20 @@ public class BoardDAO {
 //			}
 			
 			//insert
-			sql = "insert "+_boardName
-					+"(ref,is_comment,is_comment_reply,subject,title,writer,content,fileName,depth)";
+			sql = "insert "+boardName
+					+"(ref,is_comment,is_comment_reply,subject,title,writer,content,fileName,fileSize,depth)"
+					+" values(?,0,0,?,?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			pstmt.setString(2, multi.getParameter("subject"));
+			pstmt.setString(3, title);
+			pstmt.setString(4, multi.getParameter("writer"));
+			pstmt.setString(5, content);
+			pstmt.setString(6, fileName);
+			pstmt.setInt(7, fileSize);
+			pstmt.setInt(8, 0);
+			pstmt.executeUpdate();
+			response.sendRedirect(boardName+".jsp");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

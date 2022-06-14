@@ -1,0 +1,184 @@
+:root {
+	--button: #5180d8;
+	--button-hover: rgb(83, 25, 255);
+	--signup-background: rgb(255, 255, 255);
+	--login-background: rgb(236, 236, 236);
+	--input-signup:rgb(231, 231, 231);
+	--input-login: rgb(255, 255, 255);
+}
+
+
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jua', sans-serif;
+	
+}
+/* 전체 요소 */
+.main{
+	width: 350px;
+	height: 510px;
+	background:	white;
+	overflow: hidden;	
+	border-radius: 20px;
+	box-shadow: 5px 20px 50px rgb(146, 146, 146);
+}
+#chk{
+	display: none;
+	
+}
+.signup{
+	position: relative;
+	width:100%;
+	height: 100%;
+}
+/*  */
+label{
+	color:	black;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 60px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+
+.signup-title {
+	margin-top: 8px;
+}
+
+.sign-input{
+	width: 60%;
+	height: 20px;
+	background:	var(--input-signup);
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
+.birth-year {
+	width: 60px;
+	position: relative;
+	right: 344px;
+	margin-right: -135px;
+}
+
+.birth {
+	position: relative;
+	top: -60px;
+    left: 146px;
+    padding: 11px;
+    width: 69px;
+	background-color: var(--input-signup) ;
+	border-radius: 5px;
+	border: 1px solid transparent;
+}
+
+
+
+.login-input{
+	width: 60%;
+	height: 20px;
+	background:	var(--input-login);
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
+button{
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: var(--button);
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+button:hover{
+	background: var(--button-hover);
+}
+
+.logo{
+	position: absolute;
+	top: 0;
+	margin-top: 50px;
+}
+
+.logo_img {
+	width: 100px;
+}
+
+/* 로그인 요소 */
+.login{
+	height: 550px;
+	background: var(--login-background);
+	border-radius: 60% / 10%;
+	transform: translateY(-180px);
+	transition: .8s ease-in-out;
+}
+.login label{	
+	transform: scale(.6);
+}
+
+/* 로그인 화면 애니메이션 */
+#chk:checked ~ .login{
+	transform: translateY(-550px);
+}
+
+/* 로그인 화면 올라올시 글자 커짐 */
+#chk:checked ~ .login label{
+	transform: scale(1);	
+}
+/* 로그인 화면 올라올시 회원가입 글자 작아짐 */
+#chk:checked ~ .signup label{
+	transform: scale(.6);
+}
+.login-pw i {
+	position: relative;
+	top: -47px;
+	left: 260px;
+	z-index: 1;
+}
+
+.close-btn {
+	width: 60px;
+	position: relative;
+	left: 320px;
+	bottom: 410px;
+	z-index: 10;	
+}
+
+.close-btn a {
+	text-decoration: none;
+	color: var(--button);
+}
+
+.close-btn a:hover {
+	color: white;
+	background-color: #5180d8;
+	border-radius: 10px;
+	padding: 5px;
+	left: -40px;
+}
