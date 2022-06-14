@@ -99,7 +99,7 @@ label{
 	border-radius: 5px;
 }
 
-button{
+button, .button{
 	width: 60%;
 	height: 40px;
 	margin: 10px auto;
@@ -116,7 +116,7 @@ button{
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-button:hover{
+button:hover, .button:hover{
 	background: var(--button-hover);
 }
 
