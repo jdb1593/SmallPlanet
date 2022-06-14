@@ -7,7 +7,7 @@
 <%
 	String email = request.getParameter("email");
 	String name = request.getParameter("name");
-	String brithday = request.getParameter("birthday");
+	String brithyear = request.getParameter("birthyear");
 	String msg = "failed";
 	String url = "signIn.jsp";
 	
@@ -23,7 +23,7 @@
 <form name="emailfrm" method="post" action="signIn.jsp">
 	<input type="hidden" name="emails" value="<%=email %>">
 	<input type="hidden" name="names" value="<%=name %>">
-	<input type="hidden" name="birthdays" value="<%=brithday %>">
+	<input type="hidden" name="birthyears" value="<%=brithyear %>">
 </form>
 <script>
 	alert("<%=msg %>");

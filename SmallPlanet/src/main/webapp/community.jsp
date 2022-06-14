@@ -36,7 +36,7 @@
 	<tr>
 		<td><%=seq %></td>
 		<td><%=subject %></td>
-		<td><%=title %></td>
+		<td><a href="#"><%=title %></a></td>
 		<td><%=writer %></td>
 		<td><%=uploadDate %></td>
 		<td><%=cnt %></td>
