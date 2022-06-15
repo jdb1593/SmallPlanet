@@ -53,7 +53,15 @@ function checkPassword(password,id){
         $('#password').val('').focus();
         return false;
     }
+    let signupfrm = document.signUp;
+    let birthyear =  signupfrm.birthyear.value;
+    let birthmonth =  signupfrm.birthmonth.value;
+    let birthdate =  signupfrm.birthdate.value;
     
+    let concat_birthday = CONCAT(birthyear,'-',birthmonth,'-',birthdate);
+    signupfrm.birthday.value = concat_birthday;
+    
+    signupfrm.submit();
 }
 
 
