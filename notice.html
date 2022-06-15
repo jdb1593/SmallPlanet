@@ -26,7 +26,30 @@
     <!-- bxSlider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>   
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <style>
+        .notice_category {
+            padding-left: 68px;
+            padding-bottom: 10px;
+        }
+
+        .notice_title {
+            padding-left: 65px;
+        }
+
+        .member_wrap {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .write_date {
+            font-size: 11px;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,7 +57,8 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html"
+                    class="navbar_logotext">SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
@@ -65,10 +89,92 @@
         </nav>
         <hr class="header_line">
     </header>
-    <!-- 본문 -->
-    <main>        
-        
-        
+    <main>
+        <!-- 회원정보 -->
+        <div class="member_wrap">
+            <div class="notice_category"><b>카테고리</b></div>
+            <div class="notice_title">
+                <h2>게시글 제목입니다.</h2>
+                <p style="font-size: 12px;">조회수: 35,040</p>
+            </div>
+            <div class="member_info" style="display: flex;">
+                <div><a href=""><img style="margin: 0px 10px;" class="rounded-circle"
+                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></a></div>
+                <div style="display:flex; ">
+                    <div style="display: block; padding-top: 5px;">
+                        <div class="member_name"><a href="" style="text-decoration: none;">회원이름</a></div>
+                        <div class="write_date">2000.06.30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 본문 -->
+        <div style="justify-content: center; width: 50%;">
+            <div style="width: 90%; text-align: left; margin-left: 30px; padding: 0px 0px;">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                    publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
+                <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
+                <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
+            </div>
+        </div>
+        <!-- 댓글 -->
+        <section class=" mb-5" style="width: 50%;">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <!-- Comment form-->
+                    <form class="mb-4" style="display: flex">
+                        <textarea class="form-control" rows="2" placeholder="댓글을 입력해주세요"></textarea><input type="button"
+                            value="DONE"
+                            style="border: 0px solid gray; border-radius: 10px; background-color: #5180d8; color: white; margin-left: 5px;"></input>
+                    </form>
+
+                    <!-- Comment with nested comments-->
+                    <div class="d-flex mb-4">
+                        <!-- Parent comment-->
+                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">회원이름1</div>
+                            첫번째 댓글 입니다
+                            <!-- Child comment 1-->
+                            <div class="d-flex mt-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">회원이름2</div>
+                                    첫번째 댓글에 대한 첫번째 대댓글
+                                </div>
+                            </div>
+                            <!-- Child comment 2-->
+                            <div class="d-flex mt-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">회원이름3</div>
+                                    첫번째 댓글에 대한 두번째 대댓글
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single comment-->
+                    <div class="d-flex">
+                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">회원이름4</div>
+                            두번째 댓글 입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -122,7 +228,7 @@
         </div>
     </footer>
     <script src="community_list.js"></script>
-    
+
 </body>
 
 </html>
