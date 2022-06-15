@@ -49,6 +49,15 @@
         .write_date {
             font-size: 11px;
         }
+        
+        .button-group a {
+            color: white;
+            background-color: #5180d8;
+            text-decoration: none;
+            border: 2px solid #5180d8;
+            border-radius: 10px;
+            padding: 2px;
+        }
     </style>
 </head>
 
@@ -71,14 +80,7 @@
                     <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
                 </ul>
             </div>
-
-            <!-- 검색창 -->
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" />
-                    <span> </span>
-                </div>
-            </div>
+            
             <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
 
 
@@ -94,8 +96,13 @@
         <div class="member_wrap">
             <div class="notice_category"><b>카테고리</b></div>
             <div class="notice_title">
-                <h2>게시글 제목입니다.</h2>
+                <h2>게시글 제목입니다.</h2>        
+                
                 <p style="font-size: 12px;">조회수: 35,040</p>
+            </div>
+            <div class="button-group" style="position: relative; top: -53px; left: 643px;">
+                <a href="#">수정</a>
+                <a href="#">삭제</a>
             </div>
             <div class="member_info" style="display: flex;">
                 <div><a href=""><img style="margin: 0px 10px;" class="rounded-circle"
@@ -111,7 +118,7 @@
 
         <!-- 본문 -->
         <div style="justify-content: center; width: 50%;">
-            <div style="width: 90%; text-align: left; margin-left: 30px; padding: 0px 0px;">
+            <div style="width: 90%; text-align: left; margin-left: 30px; padding: 30px 0px;">
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                     industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
                     and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
@@ -119,6 +126,11 @@
                     with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
                     publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
             </div>
+            <div style="border-bottom: 1px solid #5180d8; width: auto ;">
+                <span>첨부파일 이름</span>
+                <span>첨부파일 크기</span>
+            </div>
+            
             <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
