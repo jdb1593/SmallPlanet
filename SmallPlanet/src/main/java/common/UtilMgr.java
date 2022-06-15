@@ -1,5 +1,7 @@
 package common;
 
+import java.io.File;
+
 public class UtilMgr {
 	
 	public static String replace(String _str,String _pattern,String _replace) {
@@ -14,5 +16,12 @@ public class UtilMgr {
 		result.append(_str.substring(s));
 		return result.toString();
 	}
-
+	
+	public static void deleteFile(String s) {
+		File file = new File(s);
+		if (file.isFile()) {
+			file.delete();
+		}
+	}
 }
+
