@@ -96,12 +96,13 @@
 	                   <% } %>
 					</select>
 						
-					<select name="birthday" class="birth" id="day" value="일">
+					<select name="birthdate" class="birth" id="day" value="일">
 						<!-- <option value="">일</option> -->
 					<%for(int j = 1; j <=31; j++) {%>							
 								<option value="<%=j%>"><%=j%></option>						
 					<% } %>
 					</select>
+					<input type="hidden" name="birthday" value="">
 				</div>
 				<!-- <input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기"> -->
 				<button type="submit" onclick="checkPassword()" style="margin-top: -38px;">가입하기</button>

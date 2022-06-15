@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@page import="userPack.UserVO" %>
+<jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<%
+	String email = (String)session.getAttribute("user");
+	UserVO uVO = uDAO.getUser(email);
+	String authoroty = uVO.getAuthoroty();
+%>
 <!DOCTYPE html>
 <html lang="KO">
 
@@ -81,13 +87,17 @@
         <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
         <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
             <select name="board" id="list-select">
-                <option value="community">게시판을 선택해 주세요.</option>
+                <option value="community">커뮤니티</option>
+                <option value="qnaBoard">Q&A</option>
+               	<%if(authoroty=="admin"){ %>
+                <option value="dataBoard">자료실</option>
+                <%} %>
             </select>    
             <select name="subject" id="list-select2">
                 <option value="test">말머리 선택</option>
             </select>         
-            <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title">
-            <input name="writer">
+            <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title" required>
+            <input type="hidden" name="writer" value="<%=email %>">
             <textarea name="content" id="summernote"></textarea>
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
 	        <input type="submit" value="submit" class="button submit-write">

@@ -92,4 +92,36 @@ private ConMgr pool;
 		}
 		return flag;
 	}
+	
+	//유저 정보 가져오기
+	public UserVO getUser(String _email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String userName = null;
+		UserVO vo = new UserVO();
+		
+		try {
+			con = pool.getConnection();
+			sql = "select * from users where email = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, _email);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo.setEmail(rs.getString("email"));
+				vo.setName(rs.getString("name"));
+				vo.setPassword(rs.getString("password"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setRegDate(rs.getString("regDate"));
+				vo.setAuthoroty(rs.getString("authoroty"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vo;
+	}
 }
