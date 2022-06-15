@@ -26,34 +26,14 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
     .modal_main::-webkit-scrollbar{
         width:5px;
     }
-    .container::-webkit-scrollbar-thumb {
-        background-color: rgba(0,0,0,0.3);
+    .modal_main::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,.3);
+        border-radius: 2px
     }
-    .container::-webkit-scrollbar-track {
-        background-color: rgba(255,255,255,0.3);
-    }
+   
 
     .modal_profile-picture {
-    width: 50px;
-    margin-right: 10px;
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid rgb(223, 196, 200);
-    box-shadow: #ddd 1px 1px 1px 1px;
-    border-radius: 30px;
-    }
-    
-    .modal_profile-picture2 {
-        width: 50px;
-        margin-right: 10px;
-        text-align: center;
-        vertical-align: middle;
-        border: 1px solid rgb(223, 196, 200);
-        box-shadow: #ddd 1px 1px 1px 1px;
-        border-radius: 30px;
-        position: relative;
-        top: 18px;
-        left: 65px;
+        
     }
 
 
@@ -87,6 +67,8 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
 
     .modal_header {
         margin-top: 10px;
+        font-size: 20px;
+        font-weight: bold;
     }
 
     .modal_container {
@@ -98,9 +80,12 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
         border: 1px solid #000;
         border-radius: 20px;
         text-align: center;
-        padding: 0px 4px;
+        padding: 4px 6px;
         float: left;
         margin: 3px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height:14px;
     }
 
 
@@ -113,22 +98,22 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
         box-shadow: #ddd 1px 1px 1px 1px;
         border-radius: 30px;
     }
-    .cmts{
-        position: relative;
-        top: 5px;
+    .cmts, .cmts2{
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
     }
-    .cmts2{
-        margin-top: -57px;
+    .cmt_contents{
+        margin: 10px;
     }
-    .cmts2, .cmts{
-        
+    .cmt_contents2{
+        margin: 10px 10px 10px 40px;
     }
 
     .modal_commit {    
         width: auto;    
     }
     .modal-commits{
-        margin-top:-40px;
+        /* margin-top:-40px; */
         /* display: inline; */
         /* width: 400px; */
     }
@@ -329,7 +314,7 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
         font-size: 20px;
         position: absolute;
         top: 1%;
-        left: 90%;    
+        left: 95%;    
         text-align: center;    
         border-radius: 7px;
         color: #eee;
@@ -401,99 +386,98 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
                 </div>
             </div>
             
-
-            <div class="gall_ico_line cb">
-                <!-- 좋아요 체크 -->
-            
-                <?php 
-                    $qry2 = " select * from g5_board_good where wr_id = '".$row['wr_id']."' and bo_table = '0101' and mb_id = '".$member['mb_id']."' ";
-                    $row2 = sql_fetch($qry2);
-                    {
-                ?>
-
-                <button type="button" class="js_good_<?=$row['wr_id']?> fl" onclick="go_good('<?=$member['mb_id']?>','<?=$row['wr_id']?>','0101','<?=$row['wr_id']?>','<?=$row['wr_good']?>');" id="js_good_<?=$i?>" name="js_good_<?=$i?>"><span class="heart fl txt <?php if(count($row2)>= 1 and $row2['mb_id'] == $member['mb_id']) echo "act"?>"> <span class="num"><?=$row['wr_good']?></span></span></button>
-
-                <!-- 좋아요 버튼 -->
-                    <script>
-                        function go_good(mb_id , wr_id, bd ,i,good){
-                            <?php if(!$member['mb_id']){ ?>
-                                alert('로그인 후 이용 바랍니다.');
-                            <?}else{?>
-                                    var str = good;
-                                    str = parseInt(good);
-                                    str_p = str + 1;
-                                    str_d = str_p - 1;
-
-                                    $.ajax({
-                                        url:'/bbs/ajax.good.php',
-                                        data : {
-                                            'mb_id':mb_id , 
-                                            'wr_id':wr_id , 
-                                            'bd':bd,
-                                            },
-                                        type:'POST',
-                                        dataType:'json',
-                                        success:function(data){
-                                            if(data == 1){
-                                                $(".js_good_"+i).find(".num").text(str_p);
-                                                $(".js_good_"+i).find("span").addClass('act');
-
-                                            }else if(data == 2){
-                                                $(".js_good_"+i).find(".num").text(str_d);
-                                                $(".js_good_"+i).find("span").removeClass('act');
-                                                location.reload();
-                                            }
-                                        },error:function(request,status,error){
-            //                                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                                        }
-                                    });
-
-                            <?}?>
-                        }
-
-                    </script>
-
-                <?php } ?>
-                <!-- 좋아요 체크 끝 -->
-
-                <a href="/bbs/board.php?bo_table=0101&wr_id=<?=$row['wr_id']?>"><span class="comment fl txt"><?=$row['wr_comment']?><?php if($row['wr_comment'] > 9999) echo "+" ?></span></a>
-                <?php
-                //스크랩 sql
-
-                $sql3 = " select count(*) as cnt from {$g5['scrap_table']}
-                where mb_id = '{$member['mb_id']}'
-                and bo_table = '0101'
-                and wr_id = '{$row['wr_id']}' ";
-                    $row3 = sql_fetch($sql3);
-                    {
-                    if ($row3['cnt']) {
-                    
-                ?>
-                <a href="<?=G5_BBS_URL?>/scrap_popin.php?bo_table=0101&wr_id=<?=$row['wr_id']?>" target="_blank" onclick="win_scrap(this.href); return false;" class="cut fr txt <?php if ($row3['cnt']) echo "act" ?> "></a>
-                    <?php }else{ ?>
-                <a href="<?=G5_BBS_URL?>/scrap_popin.php?bo_table=0101&wr_id=<?=$row['wr_id']?>" target="_blank" onclick="win_scrap(this.href); return false;" class="cut fr txt "></a>
-                    <?php } ?>
-                <?php } ?>
-            </div>
-
             <div>
                 <!-- 게시글 내용 -->
                 <h1 class="modal_header"><?=$row['wr_subject']?></h1>
-                <p style='font-weight:bold;'><?=$row['wr_datetime']?></p>
+                <p style='font-size:10px; color:gray;'><?=$row['wr_datetime']?></p>
                 <div class="modal_container"><?=nl2br($row['wr_3'])?></div>
                 <div style="width: 64vh; line-height: 40px;">
                     <?php
                         $ctags = explode(",",$row['wr_1']);
                         $ctags = "<div class='modal_tag'>#".implode("</div><div class='modal_tag'>#",$ctags)."</div>";
                         echo $ctags;
-                        echo $member['mb_level'];
+                        // echo $member['mb_level'];
                     ?>
                 </div>
+
+                <div class="gall_ico_line cb" style="clear:both;">
+                    <!-- 좋아요 체크 -->
+                
+                    <?php 
+                        $qry2 = " select * from g5_board_good where wr_id = '".$row['wr_id']."' and bo_table = '0101' and mb_id = '".$member['mb_id']."' ";
+                        $row2 = sql_fetch($qry2);
+                        {
+                    ?>
+
+                    <button type="button" class="js_good_<?=$row['wr_id']?> fl" onclick="go_good('<?=$member['mb_id']?>','<?=$row['wr_id']?>','0101','<?=$row['wr_id']?>','<?=$row['wr_good']?>');" id="js_good_<?=$i?>" name="js_good_<?=$i?>"><span class="heart fl txt <?php if(count($row2)>= 1 and $row2['mb_id'] == $member['mb_id']) echo "act"?>"> <span class="num"><?=$row['wr_good']?></span></span></button>
+
+                    <!-- 좋아요 버튼 -->
+                        <script>
+                            function go_good(mb_id , wr_id, bd ,i,good){
+                                <?php if(!$member['mb_id']){ ?>
+                                    alert('로그인 후 이용 바랍니다.');
+                                <?}else{?>
+                                        var str = good;
+                                        str = parseInt(good);
+                                        str_p = str + 1;
+                                        str_d = str_p - 1;
+
+                                        $.ajax({
+                                            url:'/bbs/ajax.good.php',
+                                            data : {
+                                                'mb_id':mb_id , 
+                                                'wr_id':wr_id , 
+                                                'bd':bd,
+                                                },
+                                            type:'POST',
+                                            dataType:'json',
+                                            success:function(data){
+                                                if(data == 1){
+                                                    $(".js_good_"+i).find(".num").text(str_p);
+                                                    $(".js_good_"+i).find("span").addClass('act');
+
+                                                }else if(data == 2){
+                                                    $(".js_good_"+i).find(".num").text(str_d);
+                                                    $(".js_good_"+i).find("span").removeClass('act');
+                                                    location.reload();
+                                                }
+                                            },error:function(request,status,error){
+                //                                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                                            }
+                                        });
+
+                                <?}?>
+                            }
+
+                        </script>
+
+                    <?php } ?>
+                    <!-- 좋아요 체크 끝 -->
+
+                    <a href="/bbs/board.php?bo_table=0101&wr_id=<?=$row['wr_id']?>"><span class="comment fl txt"><?=$row['wr_comment']?><?php if($row['wr_comment'] > 9999) echo "+" ?></span></a>
+                    <?php
+                    //스크랩 sql
+
+                    $sql3 = " select count(*) as cnt from {$g5['scrap_table']}
+                    where mb_id = '{$member['mb_id']}'
+                    and bo_table = '0101'
+                    and wr_id = '{$row['wr_id']}' ";
+                        $row3 = sql_fetch($sql3);
+                        {
+                        if ($row3['cnt']) {
+                        
+                    ?>
+                    <a href="<?=G5_BBS_URL?>/scrap_popin.php?bo_table=0101&wr_id=<?=$row['wr_id']?>" target="_blank" onclick="win_scrap(this.href); return false;" class="cut fr txt <?php if ($row3['cnt']) echo "act" ?> "></a>
+                        <?php }else{ ?>
+                    <a href="<?=G5_BBS_URL?>/scrap_popin.php?bo_table=0101&wr_id=<?=$row['wr_id']?>" target="_blank" onclick="win_scrap(this.href); return false;" class="cut fr txt "></a>
+                        <?php } ?>
+                    <?php } ?>
+                </div>
             
-                <div>
+                <div style="margin-top:-50px;">
                     <!-- 댓글 내용 -->
                     <div class="modal_commit-top">
-                        <div>댓글</div>
+                        <div style="font-weight:bold; border-bottom:3px solid #ff4a4a; padding:3px; width:40px;">댓글</div>
                     </div>
                     <div></div>
                     <hr style="border-bottom: 2px solid rgb(255, 166, 0) !important; width: 30px !important;">                        
@@ -513,17 +497,17 @@ echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min
                             $cmt_rp = "";
                             $cmt_rp_class = "";
                             if($clist[$cci]['wr_comment_reply']!=''){
-                                $cmt_rp = "<span modal-commit-L style='display:inline-block; width:30px; height:50px; border-left:1px solid #999; border-bottom:1px solid #999;'></span>";
+                                $cmt_rp = "<span modal-commit-L style='display:inline-block; width:20px; height:30px; border-left:1px solid #bbb; border-bottom:1px solid #bbb; margin:5px;'></span>";
                                 $cmt_rp_class = "2";
                             }
                             echo "<div class='cmts".$cmt_rp_class."'>";
                             echo $cmt_rp;
                             echo get_member_profile_img($clist[$cci]['mb_id']);
-                            echo "<div class='modal-commits'>";
-                            echo "<div class='modal-commit-name".$cmt_rp_class."'>".$clist[$cci]['wr_name']."</div>";
-                            echo "<div class='modal_commit-text".$cmt_rp_class."'>".$comment."</div>";
-                            echo "<div class='modal-commit-data".$cmt_rp_class."'>".$clist[$cci]['wr_datetime']."</div>";
-                            echo "</div></div>";
+                            echo "<div style='display:inline-block; font-weight:bold;'>".$clist[$cci]['wr_name']."</div>";
+                            echo "<div style='display:inline-block; font-size:10px; color:gray; margin-left:3px;'>".$clist[$cci]['wr_datetime']."</div>";
+                            // echo "<div class='modal-commits'>";
+                            echo "<div class='cmt_contents".$cmt_rp_class."'>".$comment."</div>";
+                            echo "</div>";
                             echo "<hr style='border: 1px solid #ddd !important;'>";
                         }
                     ?>
