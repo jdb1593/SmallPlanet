@@ -746,3 +746,8 @@ footer{
   position: relative;
   right: 40px;
 }
+
+.list-a {
+  text-decoration: none;
+  color: #000;
+}
