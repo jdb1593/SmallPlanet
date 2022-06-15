@@ -103,10 +103,10 @@
 					<% } %>
 					</select>
 				</div>
-				<!-- <input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기"> -->
-				<button type="submit" onclick="checkPassword()" style="margin-top: -38px;">가입하기</button>
+				
+				<input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기" class="button">
 				<div class="close-btn">
-					<a href="index.jsp">X</a>
+					<a href="index-sub.html">X</a>
 				</div>
 			</form>
 		</div>
@@ -115,17 +115,17 @@
 		<div class="login" style="position: relative; top: 40px;">
 			<form action="post" class="login-form">
 				<label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
-				<input class="login-input" type="email" name="user_email" placeholder="이메일" required>
+				<input class="login-input" type="email" name="user_email" placeholder="이메일" required="">
 				<div class="form-space"></div>
 				<div class="login-pw">
-					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required>
+					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required="">
 					<i class="fa fa-eye fa-lg" onclick=""></i>
 					<div class="form-space" style="margin-top: -20px ;"></div>
 				</div>
-				<input onclick="" value="login">
+				<input type="button" value="login" class="button">
 			</form>
 		</div>
-	</div>
+	</div>	
 	<script src="script/login.js"></script>
 </body>
 </html>
