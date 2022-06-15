@@ -27,12 +27,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>   
-    <!-- summernote -->
-    <link rel="stylesheet" href="./summernote/summernote-lite.css">
-
-    <script src="./summernote/summernote-lite.js"></script>
-    <script src="./summernote/lang/summernote-ko-KR.js"></script>
-        
 </head>
 
 <body>
@@ -47,8 +41,8 @@
             <div class="menu">
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="data_list.html">자 료 실</a></li>
+                    <li><a class="menuNum" href="community_list.html">커뮤니티</a></li>
+                    <li><a class="menuNum" href="data_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">자 료 실</a></li>
                     <li><a class="menuNum" href="#">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
                 </ul>
@@ -72,25 +66,35 @@
         <hr class="header_line">
     </header>
     <!-- 본문 -->
-    <main>
-        <h1>글작성</h1>
-
-        <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-            <select name="board" id="list-select">
-                <option value="">게시판을 선택해 주세요.</option>
-            </select>    
-            <select name="subject" id="list-select2">
-                <option value="">말머리 선택</option>
-            </select>         
-            <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title">
-            <textarea name="content" id="summernote"></textarea>
-            <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
-        </form>
-
-        <input type="submit" value="submit" class="button submit-write">
-        
-        
+    <main>        
+        <h1>자 료 실</h1>
+        <form action="get" action="" style="padding-top:50px;"></form>
+        <table class="list-form">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>                
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="list-under-line">
+                    <td>1</td>
+                    <td>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</td>
+                    <td>홍길동</td>
+                    <td>2022-06-09</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="location">
+            <a class="button" style="float: left;">PREV</a>
+            <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
+            <a class="button"style="float: left;">NEXT</a>
+        </div>
+        <a href="./community_list_write.html" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
