@@ -69,6 +69,12 @@ table td:nth-child(5), table th:nth-child(5){
     left: 30%;
 }
 
+.search_mode {
+    position: relative;
+    top: 1px;
+    right: 80px;
+}
+
 /* 버튼 */
 
 .button {
