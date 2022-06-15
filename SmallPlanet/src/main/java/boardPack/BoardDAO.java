@@ -139,7 +139,7 @@ public class BoardDAO {
 		
 		try {
 			con = pool.getConnection();
-			sql = "select * from "+_boardName+" where num=?";
+			sql = "select * from "+_boardName+" where seq=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, _seq);
 			rs = pstmt.executeQuery();
@@ -147,6 +147,14 @@ public class BoardDAO {
 				vo.setSeq(rs.getInt("seq"));
 				vo.setRef(rs.getInt("ref"));
 				vo.setSubject(rs.getString("subject"));
+				vo.setTitle(rs.getString("title"));
+				vo.setWriter(rs.getString("writer"));
+				vo.setContent(rs.getString("content"));
+				vo.setFileName(rs.getString("fileName"));
+				vo.setFileSize(rs.getInt("fileSize"));
+				vo.setUploadDate(rs.getString("uploadDate"));
+				vo.setUpdateDate(rs.getString("updateDate"));
+				vo.setCnt(rs.getInt("cnt"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

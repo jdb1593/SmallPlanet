@@ -17,6 +17,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function read(boardName,seq){
+		document.readFrm.seq.value=seq;
+		document.readFrm.action="view_post.jsp";
+		document.readFrm.submit();
+	}
+</script>
 </head>
 <body>
 <table>
@@ -36,12 +43,16 @@
 	<tr>
 		<td><%=seq %></td>
 		<td><%=subject %></td>
-		<td><a href="#"><%=title %></a></td>
+		<td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
 		<td><%=writer %></td>
 		<td><%=uploadDate %></td>
 		<td><%=cnt %></td>
 	</tr>
 <%	} %>
 </table>
+<form name="readFrm" method="get">
+	<input type="hidden" name="seq">
+	<input type="hidden" name="boardName" value="<%=boardName %>" readonly>
+</form>
 </body>
 </html>
