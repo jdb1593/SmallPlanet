@@ -99,7 +99,7 @@ label{
 	border-radius: 5px;
 }
 
-button, .button{
+button{
 	width: 60%;
 	height: 40px;
 	margin: 10px auto;
@@ -116,7 +116,7 @@ button, .button{
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-button:hover, .button:hover{
+button:hover{
 	background: var(--button-hover);
 }
 
@@ -182,33 +182,3 @@ button:hover, .button:hover{
 	padding: 5px;
 	left: -40px;
 }
-
-.form-space {
-	width: 228px;
-    height: 23px;
-    margin-bottom: -38px;
-    position: relative;
-    top: -19px;
-    left: 61px;
-}
-input:invalid{
-	border: 1px solid red;
-  }
-
-#password-danger, #password-danger2, #password-danger3
-,#alert-success, #alert-danger {
-	color: #d92742;
-	font-size: 10px;
-	position: relative;
-    top: -19px;
-    left: 60px;
-    width: 233px;
-    margin-bottom: -35px;
-}
-
-#password-danger2 {
-	position: relative;
-	top: -39px;
-	margin-top: 40px;
-}
-

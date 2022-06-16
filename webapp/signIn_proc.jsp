@@ -3,8 +3,8 @@
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
 	request.setCharacterEncoding("utf-8");
-	String email = request.getParameter("user_email");
-	String password = request.getParameter("user_pswd");
+	String email = request.getParameter("email");
+	String password = request.getParameter("password");
 	String url = "signIn.jsp";
 	String msg = "failed";
 	

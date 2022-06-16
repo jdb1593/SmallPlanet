@@ -1,5 +1,5 @@
 <%@page import="common.UtilMgr"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/jsp; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
@@ -27,7 +27,7 @@
 	
 %>
 <!DOCTYPE html>
-<html lang="KO">
+<jsp lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -68,17 +68,17 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community_list.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="#">자 료 실</a></li>
                     <li><a class="menuNum" href="#">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
 
@@ -89,7 +89,7 @@
                     <span> </span>
                 </div>
             </div>
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+            <div class="loginJoin"><a href="./login.jsp">LOGIN / JOIN</a></div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->

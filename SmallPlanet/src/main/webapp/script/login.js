@@ -77,15 +77,6 @@ function checkPassword(){
             return false;
         }
     }
-    let signupfrm = document.signUp;
-    let birthyear =  signupfrm.birthyear.value;
-    let birthmonth =  signupfrm.birthmonth.value;
-    let birthdate =  signupfrm.birthdate.value;
-    
-    let full_birthday = [birthyear,birthmonth,birthdate];
-    signupfrm.birthday.value = full_birthday.join('-');
-    
-    signupfrm.submit();
 }
 
 
