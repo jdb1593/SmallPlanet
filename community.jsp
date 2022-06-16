@@ -15,7 +15,7 @@
 	Vector<BoardVO> vlist = null;
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">

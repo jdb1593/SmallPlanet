@@ -14,9 +14,8 @@
 	int listSize = 0;
 	Vector<BoardVO> vlist = null;
 %>
-
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -88,7 +87,6 @@
         <h1>Q & A</h1>
         <form action="get" action="" style="padding-top:50px;"></form>
         <table class="list-form">
-           
             <thead>
                 <tr>
                     <th>No.</th>
@@ -98,7 +96,7 @@
                     <th>상태</th>                
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>
                 <%
                 vlist = bDAO.getBoardList(boardName, start, end);
                 listSize = vlist.size();
@@ -116,18 +114,17 @@
                     String writerName = uVO.getName();
                     String authoroty = uVO.getAuthoroty();
             %>
-
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="view_post.jsp">이거 어떻게해요?</a></td>
+                    <td><%=subject %><a class="list-a" href="view_post.jsp"></a></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
+                    <!-- 상태로 수정해야함 -->
                     <td><%=cnt %></td>
-                </tr>
+                </tr>      
+                <%	} %>
             </tbody>
-
-            <!-- 답글 -->
             <!-- <tfoot class="answer">
                 <tr class="list-under-line">
                     <td style="font-size: 30px; position: relative; bottom: 5px;">
@@ -139,8 +136,8 @@
                     <td>답변완료</td>
                 </tr>
             </tfoot> -->
-            <%	} %>
         </table>
+        <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
         <form name="readFrm" method="get">
             <input type="hidden" name="seq">
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
@@ -167,7 +164,7 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="post.jsp?boardName=community" class="button list-write">Write</a>
+        <a href="./community_list_write.jsp" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -223,4 +220,5 @@
     <script src="./script/community_list.js"></script>
     
 </body>
+
 </html>
