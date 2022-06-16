@@ -2,10 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
+<%@page import="boardPack.BoardVO" %>
 <%
 	String email = (String)session.getAttribute("user");
 	UserVO uVO = uDAO.getUser(email);
 	String authoroty = uVO.getAuthoroty();
+	
+	String boardName = request.getParameter("boardName");
+	int seq = Integer.parseInt(request.getParameter("seq"));
+	BoardVO bVO = new BoardVO();
+	bVO = bDAO.getBoard(boardName, seq);
+	/* if(seq!=null){
+		
+	} */
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -98,7 +108,7 @@
             </select>         
             <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title" required>
             <input type="hidden" name="writer" value="<%=email %>">
-            <textarea name="content" id="summernote"></textarea>
+            <textarea required name="content" id="summernote"><%=content %></textarea>
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
 	        <input type="submit" value="submit" class="button submit-write">
         </form>

@@ -163,4 +163,35 @@ public class BoardDAO {
 		}
 		return vo;
 	}
+	
+	//게시물 삭제
+	public void deleteBoard(String _boardName,int _seq) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "select fileName from "+_boardName+" where seq = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, _seq);
+			rs = pstmt.executeQuery();
+			if (rs.next() && rs.getString(1) != null) {
+				if (!rs.getString(1).equals("")) {
+					File file = new File(SAVEFOLDER + "/" + rs.getString(1));
+					if (file.exists())//파일이 존재하면
+						UtilMgr.deleteFile(SAVEFOLDER + "/" + rs.getString(1));
+				}
+			}
+			sql = "delete from "+_boardName+" where seq=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,  _seq);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+	}
 }
