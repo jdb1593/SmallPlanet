@@ -85,7 +85,7 @@
     </header>
     <!-- 본문 -->
     <main>        
-        <h1>자유게시판</h1>
+        <h1>자 료 실</h1>
         <form action="get" action="" style="padding-top:50px;"></form>
         <table class="list-form">
             <%

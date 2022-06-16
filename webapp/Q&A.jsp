@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/jsp; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="boardPack.BoardVO" %>
 <%@page import="java.util.Vector" %>
@@ -14,6 +14,7 @@
 	int listSize = 0;
 	Vector<BoardVO> vlist = null;
 %>
+
 <!DOCTYPE html>
 <jsp lang="KO">
 
@@ -65,14 +66,13 @@
             <div class="menu">
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
-                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
-                    <li><a class="menuNum" href="Q&A.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="Q&A.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
 
-            
             <div class="loginJoin"><a href="./login.jsp">LOGIN / JOIN</a></div>
 
 
@@ -85,7 +85,7 @@
     </header>
     <!-- 본문 -->
     <main>        
-        <h1>자유게시판</h1>
+        <h1>Q & A</h1>
         <form action="get" action="" style="padding-top:50px;"></form>
         <table class="list-form">
             <%
@@ -108,30 +108,42 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>제목</th>
+                    <th>내용</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>조회</th>                
+                    <th>상태</th>                
                 </tr>
             </thead>
             <tbody>
+
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="notice.jsp"></a></td>
+                    <td><%=subject %><a class="list-a" href="notice.jsp">이거 어떻게해요?</a></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
                     <td><%=cnt %></td>
-                </tr>      
-                <%	} %>
+                </tr>
             </tbody>
+
+            <!-- 답글 -->
+            <!-- <tfoot class="answer">
+                <tr class="list-under-line">
+                    <td style="font-size: 30px; position: relative; bottom: 5px;">
+                        <span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: block; position: relative; left: 70px;"></span>
+                    </td>
+                    <td>re: 알아서 하셈</td>
+                    <td>운영자</td>
+                    <td>2022-06-09</td>
+                    <td>답변완료</td>
+                </tr>
+            </tfoot> -->
+            <%	} %>
         </table>
-        <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
         <form name="readFrm" method="get">
             <input type="hidden" name="seq">
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
         </form>
-
         <div style="display: flex; position: relative; top: 120px; right: -46px;">
             <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
                 <option value="">카테고리</option>
@@ -149,15 +161,12 @@
                 </div>
             </div>
         </div>
-        
-        
-        
         <div class="location">
             <a class="button" style="float: left;">PREV</a>
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="post.jsp?boardName=community" class="button list-write">Write</a>
+        <a href="./community_list_write.jsp" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -213,5 +222,4 @@
     <script src="./script/community_list.js"></script>
     
 </body>
-
 </html>
