@@ -88,7 +88,18 @@
         <h1>자유게시판</h1>
         <form action="get" action="" style="padding-top:50px;"></form>
         <table class="list-form">
-            <%
+            
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>                
+                </tr>
+            </thead>
+            <tbody>
+                <%
                 vlist = bDAO.getBoardList(boardName, start, end);
                 listSize = vlist.size();
                 for(int i=0;i<10;i++){
@@ -105,19 +116,9 @@
                     String writerName = uVO.getName();
                     String authoroty = uVO.getAuthoroty();
             %>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>                
-                </tr>
-            </thead>
-            <tbody>
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="notice.jsp"></a></td>
+                    <td><%=subject %><a class="list-a" href="view_post.jsp"></a></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
