@@ -12,6 +12,7 @@
 	
 	String boardName = request.getParameter("boardName");
 	String seq_str = request.getParameter("seq");
+	String ref_str = request.getParameter("ref");
 	BoardVO bVO = new BoardVO();
 	String title = "";
 	String subject = "";

@@ -28,6 +28,8 @@
 <body>
 <a href="delete_post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">삭제</a><br/>
 <a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a><br/>
+<a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a><br/>
+
 subject<p><%=subject %></p>
 title<p><%=title %></p>
 writer<p><%=writer %></p>
