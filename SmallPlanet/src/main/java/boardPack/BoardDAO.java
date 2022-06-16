@@ -194,4 +194,58 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 	}
+	
+	
+	//게시물 수정
+	public void updateBoard(HttpServletRequest _req,HttpServletResponse response) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		MultipartRequest multi = null;
+		
+		try {
+			multi = new MultipartRequest(_req, SAVEFOLDER,MAXSIZE,ENCTYPE,
+					new DefaultFileRenamePolicy());
+			String boardName = multi.getParameter("board");
+			int seq = Integer.parseInt(multi.getParameter("seq"));
+			//content
+			String content = multi.getParameter("content");
+			String title = multi.getParameter("title");
+			String subject = multi.getParameter("subject");
+			
+			con = pool.getConnection();
+			sql = "update "+boardName+" set title = ?, subject=?, content = ? where seq = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, subject);
+			pstmt.setString(3, content);
+			pstmt.setInt(4, seq);
+			pstmt.executeUpdate();
+			response.sendRedirect("view_post.jsp?boardName="+boardName+"&seq="+multi.getParameter("seq"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
+//	public void updateBoard(String _boardName,BoardVO _vo) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		String sql = null;
+//		
+//		try {
+//			con = pool.getConnection();
+//			sql = "update "+_boardName+" set title = ?, subject=?, content = ? where seq = ?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, _vo.getTitle());
+//			pstmt.setString(2, _vo.getSubject());
+//			pstmt.setString(3, _vo.getContent());
+//			pstmt.setInt(4, _vo.getSeq());
+//			pstmt.executeUpdate();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			pool.freeConnection(con, pstmt);
+//		}
+//	}
 }

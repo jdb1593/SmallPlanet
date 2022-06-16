@@ -28,6 +28,7 @@
 </script>
 </head>
 <body>
+<a href="post.jsp?boardName=community">글쓰기</a>
 <table>
 <%
 	vlist = bDAO.getBoardList(boardName, start, end);
