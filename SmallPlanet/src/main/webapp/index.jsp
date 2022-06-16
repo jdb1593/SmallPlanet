@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="userPack.UserVO" %>
+<jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
 	  request.setCharacterEncoding("utf-8");
 	  String user = (String)session.getAttribute("user");
+	  UserVO uVO = new UserVO();
+	  if(user!=null){
+	  	uVO = uDAO.getUser(user);
+	  }
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -58,16 +64,29 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="./introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html">커뮤니티</a></li>
-                    <li><a class="menuNum" href="data_list.html">자 료 실</a></li>
-                    <li><a class="menuNum" href="Q&A.html">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="./introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
 
             <div class="loginJoin">
-                <a href="./login.html">LOGIN / JOIN</a>
+            <%if(user!=null){%>
+				<p><%=user %></p>
+				<a href="logout.jsp">logout</a>
+				
+				
+				<a href="./memberInfo.html">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=user %>
+                    </a>       
+                <a href="#" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
                 
                     <!-- // 로그인 했을때 프로필 모양
                     <a href="./memberInfo.html">

@@ -66,8 +66,8 @@
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
-                    <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
-                    <li><a class="menuNum" href="Q&A.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">Q & A</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
@@ -90,10 +90,11 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>상태</th>
                     <th>내용</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>상태</th>                
+                    <th>조회수</th>                
                 </tr>
             </thead>
             <tbody>
@@ -115,12 +116,12 @@
                     String authoroty = uVO.getAuthoroty();
             %>
                 <tr class="list-under-line">
-                    <td><%=seq %></td>                    
+                    <td><%=seq %></td>          
+                    <td>상태</td>          
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
-                    <!-- 상태로 수정해야함 -->
-                    <td><%=cnt %></td>
+                    <td style="text-align: center;"><%=cnt %></td>
                 </tr>      
                 <%	} %>
             </tbody>
