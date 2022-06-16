@@ -1,30 +1,11 @@
-<%@page import="common.UtilMgr"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
-<jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
-<%@page import="boardPack.BoardVO" %>
 <%
 	String email = (String)session.getAttribute("user");
 	UserVO uVO = uDAO.getUser(email);
 	String authoroty = uVO.getAuthoroty();
-	
-	String boardName = request.getParameter("boardName");
-	String seq_str = request.getParameter("seq");
-	BoardVO bVO = new BoardVO();
-	String title = "";
-	String subject = "";
-	String content = "";
-	int seq = 0;
-	if(seq_str!=null){
-		seq = Integer.parseInt(seq_str);
-		bVO = bDAO.getBoard(boardName, seq);
-		title = bVO.getTitle();
-		subject = bVO.getSubject();
-		content = bVO.getContent();
-	}
-	
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -104,37 +85,21 @@
         <h1>글작성</h1>
 
         <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <%if(seq==0){ %>
         <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-        <%}else{ %>
-        <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-		<%} %>
-            <select name="board" id="list-select" required>
-                <option value="qnaBoard" 
-                	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",seq)%>">Q&A</option>
-                <option value="community" 
-                	<%=UtilMgr.boardSelected(boardName, "community") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "community",seq)%>">커뮤니티</option>
+            <select name="board" id="list-select">
+                <option value="community">커뮤니티</option>
+                <option value="qnaBoard">Q&A</option>
                	<%if(authoroty=="admin"){ %>
-                <option value="dataBoard" 
-                	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",seq)%>">자료실</option>
+                <option value="dataBoard">자료실</option>
                 <%} %>
             </select>    
-            <select name="subject" id="list-select2" required>
-                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %>>말머리1</option>
-                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %>>말머리2</option>
-                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %>>말머리3</option>
+            <select name="subject" id="list-select2">
+                <option value="test">말머리 선택</option>
             </select>         
-            <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
+            <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title" required>
             <input type="hidden" name="writer" value="<%=email %>">
-            <textarea required name="content" id="summernote"><%=content %></textarea>
-            <%if(seq==0){ %><!-- 처음 작성 -->
+            <textarea name="content" id="summernote"></textarea>
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
-            <%}else{ %><!-- 수정할 때 -->
-            <input type="hidden" name="seq" value="<%=seq %>">
-            <%} %>
 	        <input type="submit" value="submit" class="button submit-write">
         </form>
 
