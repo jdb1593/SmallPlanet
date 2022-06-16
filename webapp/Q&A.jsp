@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/jsp; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="boardPack.BoardVO" %>
 <%@page import="java.util.Vector" %>
@@ -90,10 +90,11 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>상태</th>
                     <th>내용</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>상태</th>                
+                    <th>조회수</th>                
                 </tr>
             </thead>
             <tbody>
@@ -115,13 +116,12 @@
                     String authoroty = uVO.getAuthoroty();
             %>
                 <tr class="list-under-line">
-                    <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="view_post.jsp"></a></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
+                    <td><%=seq %></td>          
+                    <td>상태</td>          
+                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
-                    <!-- 상태로 수정해야함 -->
-                    <td><%=cnt %></td>
+                    <td style="text-align: center;"><%=cnt %></td>
                 </tr>      
                 <%	} %>
             </tbody>
