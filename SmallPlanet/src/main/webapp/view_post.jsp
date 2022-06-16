@@ -6,18 +6,17 @@
 	request.setCharacterEncoding("utf-8");
 	int seq = Integer.parseInt(request.getParameter("seq"));
 	String boardName = request.getParameter("boardName");
-	BoardVO bVO = bDAO.getBoard(boardName, seq);
-	String title = bVO.getTitle();
-	String writer = bVO.getWriter();
-	String subject = bVO.getSubject();
-	String content = bVO.getContent();
-	int ref = bVO.getRef();
-	String fileName = bVO.getFileName();
-	int fileSize = bVO.getFileSize();
-	String uploadDate = bVO.getUploadDate();
-	String updateDate = bVO.getUpdateDate();
-	int cnt = bVO.getCnt();
-	session.setAttribute("board", bVO);//게시물을 세션에 저장
+	BoardVO vo = bDAO.getBoard(boardName, seq);
+	String title = vo.getTitle();
+	String writer = vo.getWriter();
+	String subject = vo.getSubject();
+	String content = vo.getContent();
+	int ref = vo.getRef();
+	String fileName = vo.getFileName();
+	int fileSize = vo.getFileSize();
+	String uploadDate = vo.getUploadDate();
+	String updateDate = vo.getUpdateDate();
+	int cnt = vo.getCnt();
 %>
 <!DOCTYPE html>
 <html>
@@ -26,8 +25,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="delete_post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">삭제</a><br/>
-<a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a><br/>
 subject<p><%=subject %></p>
 title<p><%=title %></p>
 writer<p><%=writer %></p>
