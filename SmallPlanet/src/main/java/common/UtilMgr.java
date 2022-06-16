@@ -23,5 +23,30 @@ public class UtilMgr {
 			file.delete();
 		}
 	}
+	
+	public static String nullString(String s) {
+		String null_str = s;
+		if(s==null) {
+			null_str = "";
+		}
+		return null_str;
+	}
+	
+	public static String boardSelected(String _boardName,String s) {
+		String selected = "";
+		if(_boardName.equals(s)) {
+			selected = "selected";
+		}
+		return selected;
+	}
+	
+	public static String boardDisable(String _boardName,String s,int _seq) {
+		String display = "";
+		//게시글 번호를 받아왔으며(수정 경로로 들어왔으며) 해당 게시글의 게시판이 아닌 경우
+		if(_seq!=0 && boardSelected(_boardName, s).equals("")) {
+			display = "display:none;";
+		}
+		return display;
+	}
 }
 
