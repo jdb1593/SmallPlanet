@@ -166,7 +166,7 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="./community_list_write.jsp" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=community" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
