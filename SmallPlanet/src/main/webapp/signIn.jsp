@@ -86,17 +86,17 @@
 				<div>
 					<%-- <input class="sign-input birth-year" type="number" name="birthyear" value="<%=birthyears %>" 
 						placeholder="년(4자)" min="1900" max="<%=sf.format(now) %>" maxlength="4" title="4자리 숫자" required> --%>
-					<input class="sign-input birth-year" type="text" id="year" name="birth" placeholder="년(4자)" 
+					<input class="sign-input birth-year" type="text" id="year" name="birthyear" placeholder="년(4자)" 
 						maxlength="4" pattern="[0-9]+" min="1900" max="<%=sf.format(now) %>" required>
 					<div id="password-danger2" style="display: none;">년도는 1900 ~ 2022 사이로 기입해주세요.</div>
-	                <select name="birthmonth" class="birth" id="mon" value="원">
+	                <select name="birthmonth" class="birth" id="mon" value="월" required>
 						<!-- <option value="">월</option> -->
 	                    <%for(int i = 1; i<=12; i++){%>                
 	                        <option value="<%=i%>"><%=i%></option>   
 	                   <% } %>
 					</select>
 						
-					<select name="birthdate" class="birth" id="day" value="일">
+					<select name="birthdate" class="birth" id="day" value="일" required>
 						<!-- <option value="">일</option> -->
 					<%for(int j = 1; j <=31; j++) {%>							
 								<option value="<%=j%>"><%=j%></option>						
@@ -116,10 +116,10 @@
 		<div class="login" style="position: relative; top: 40px;">
 			<form action="post" class="login-form">
 				<label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
-				<input class="login-input" type="email" name="user_email" placeholder="이메일" required="">
+				<input class="login-input" type="email" name="user_email" placeholder="이메일" required>
 				<div class="form-space"></div>
 				<div class="login-pw">
-					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required="">
+					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required>
 					<i class="fa fa-eye fa-lg" onclick=""></i>
 					<div class="form-space" style="margin-top: -20px ;"></div>
 				</div>
