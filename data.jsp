@@ -15,7 +15,7 @@
 	Vector<BoardVO> vlist = null;
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -65,8 +65,8 @@
             <div class="menu">
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
-                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
+                    <li><a class="menuNum" href="data.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">자 료 실</a></li>
                     <li><a class="menuNum" href="Q&A.jsp">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
@@ -213,5 +213,4 @@
     <script src="./script/community_list.js"></script>
     
 </body>
-
 </html>
