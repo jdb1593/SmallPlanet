@@ -115,9 +115,8 @@
                     String authoroty = uVO.getAuthoroty();
             %>
                 <tr class="list-under-line">
-                    <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="view_post.jsp"></a></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
+                    <td><%=seq %></td>                    
+                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
                     <!-- 상태로 수정해야함 -->
