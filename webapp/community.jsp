@@ -66,8 +66,8 @@
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
-                    <li><a class="menuNum" href="Q&A.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
@@ -99,27 +99,27 @@
                 </tr>
             </thead>
             <tbody>
-                <%
-                vlist = bDAO.getBoardList(boardName, start, end);
-                listSize = vlist.size();
-                for(int i=0;i<10;i++){
-                    if(i==listSize) break;
-                    BoardVO vo = vlist.get(i);
-                    int seq = vo.getSeq();
-                    String subject = vo.getSubject();
-                    String title = vo.getTitle();
-                    String writer = vo.getWriter();
-                    String uploadDate = vo.getUploadDate();
-                    int cnt = vo.getCnt();
-                    
-                    UserVO uVO = uDAO.getUser(writer);
-                    String writerName = uVO.getName();
-                    String authoroty = uVO.getAuthoroty();
-            %>
+	            <%
+	                vlist = bDAO.getBoardList(boardName, start, end);
+	                listSize = vlist.size();
+	                for(int i=0;i<10;i++){
+	                    if(i==listSize) break;
+	                    BoardVO vo = vlist.get(i);
+	                    int seq = vo.getSeq();
+	                    String subject = vo.getSubject();
+	                    String title = vo.getTitle();
+	                    String writer = vo.getWriter();
+	                    String uploadDate = vo.getUploadDate();
+	                    int cnt = vo.getCnt();
+	                    
+	                    UserVO uVO = uDAO.getUser(writer);
+	                    String writerName = uVO.getName();
+	                    String authoroty = uVO.getAuthoroty();
+	            %>
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><%=subject %><a class="list-a" href="view_post.jsp"></a></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
+                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
+                    	[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
                     <td><%=cnt %></td>
@@ -158,7 +158,7 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="post.jsp?boardName=community" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
