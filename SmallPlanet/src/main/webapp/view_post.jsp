@@ -30,7 +30,9 @@
 <a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a><br/>
 <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a><br/>
 
+<!-- 카테고리 -->
 subject<p><%=subject %></p>
+<!-- 제목 -->
 title<p><%=title %></p>
 writer<p><%=writer %></p>
 uploadDate<p><%=uploadDate %></p>
@@ -38,6 +40,8 @@ updateDate<p><%=updateDate %></p>
 cnt<p><%=cnt %></p>
 fileName<p><%=fileName %></p>
 fileSize<p><%=fileSize %></p>
+
+<!-- 게시글내용 -->
 content<p><%=content %></p>
 
 ref<p><%=ref %></p> <!--댓글/답글용  -->
