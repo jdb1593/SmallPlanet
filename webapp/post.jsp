@@ -1,11 +1,41 @@
+<%@page import="common.UtilMgr"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="userPack.UserVO" %>
+<jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
+<%@page import="boardPack.BoardVO" %>
+<%
+	String email = (String)session.getAttribute("user");
+	UserVO uVO = uDAO.getUser(email);
+	String authoroty = uVO.getAuthoroty();
+	
+	String boardName = request.getParameter("boardName");
+	String seq_str = request.getParameter("seq");
+	BoardVO bVO = new BoardVO();
+	String title = "";
+	String subject = "";
+	String content = "";
+	int seq = 0;
+	if(seq_str!=null){
+		seq = Integer.parseInt(seq_str);
+		bVO = bDAO.getBoard(boardName, seq);
+		title = bVO.getTitle();
+		subject = bVO.getSubject();
+		content = bVO.getContent();
+	}
+	
+%>
 <!DOCTYPE html>
-<html>
+<html lang="KO">
+
 <head>
-	<meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index-sub.css">
-    <link rel="stylesheet" href="css/community_list.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index-sub.css">
+    <link rel="stylesheet" href="./css/community_list.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Small Planet</title>
     <!-- 구글폰트 import -->
@@ -30,9 +60,11 @@
 
     <script src="./summernote/summernote-lite.js"></script>
     <script src="./summernote/lang/summernote-ko-KR.js"></script>
+        
 </head>
+
 <body>
-<header style="z-index: 1;">
+    <header style="z-index: 1;">
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
@@ -42,7 +74,7 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="#">소 개</a></li>
+                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
                     <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
                     <li><a class="menuNum" href="#">자 료 실</a></li>
                     <li><a class="menuNum" href="#">Q & A</a></li>
@@ -72,13 +104,41 @@
         <h1>글작성</h1>
 
         <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <form action="" method="post" class="summer_editor">
-            
-            <input type="text" name="title" placeholder="제목을 입력하세요" class="summer_editor_title">
-            <textarea name="editordata" id="summernote"></textarea>
+        <%if(seq==0){ %>
+        <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
+        <%}else{ %>
+        <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
+		<%} %>
+            <select name="board" id="list-select" required>
+                <option value="qnaBoard" 
+                	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
+                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",seq)%>">Q&A</option>
+                <option value="community" 
+                	<%=UtilMgr.boardSelected(boardName, "community") %> 
+                	style="<%=UtilMgr.boardDisable(boardName, "community",seq)%>">커뮤니티</option>
+               	<%if(authoroty=="admin"){ %>
+                <option value="dataBoard" 
+                	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
+                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",seq)%>">자료실</option>
+                <%} %>
+            </select>    
+            <select name="subject" id="list-select2" required>
+                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %>>말머리1</option>
+                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %>>말머리2</option>
+                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %>>말머리3</option>
+            </select>         
+            <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
+            <input type="hidden" name="writer" value="<%=email %>">
+            <textarea required name="content" id="summernote"><%=content %></textarea>
+            <%if(seq==0){ %><!-- 처음 작성 -->
+            <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
+            <%}else{ %><!-- 수정할 때 -->
+            <input type="hidden" name="seq" value="<%=seq %>">
+            <%} %>
+	        <input type="submit" value="submit" class="button submit-write">
         </form>
 
-        <button class="button submit-write" type="submit ">submit</button>
+        
         
     </main>
     <footer class="foot-container">
@@ -132,7 +192,8 @@
             </div>
         </div>
     </footer>
-    <script src="script/community_list.js"></script>
+    <script src="./script/community_list.js"></script>
     
 </body>
+
 </html>
