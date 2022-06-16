@@ -6,8 +6,10 @@
 	  request.setCharacterEncoding("utf-8");
 	  String user = (String)session.getAttribute("user");
 	  UserVO uVO = new UserVO();
+	  String userName = "";
 	  if(user!=null){
 	  	uVO = uDAO.getUser(user);
+	  	userName = uVO.getName();
 	  }
 %>
 <!DOCTYPE html>
@@ -18,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index-sub.css">
+    <link rel="stylesheet" href="css/index-sub.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Small Planet</title>
     <!-- 구글폰트 import -->
@@ -74,16 +76,12 @@
 
             <div class="loginJoin">
             <%if(user!=null){%>
-				<p><%=user %></p>
-				<a href="logout.jsp">logout</a>
-				
-				
-				<a href="./memberInfo.html">
+					<a href="memberInfo.jsp">
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
-                    <%=user %>
-                    </a>       
-                <a href="#" style="margin-left: 10px;">로그아웃</a>
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -121,6 +119,7 @@
                     <h2 class="main-title">커 뮤 니 티</h2>
                 </div>
                 <div class="box-bundle">
+                <%for(int i=0;i<8;i++){ %>
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
@@ -129,64 +128,7 @@
                         <p class="box-info" style="font-size:10px;">조회수</p>
                         <p class="box-info" style="font-size:10px;">2000-06-30</p>
                     </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                </div>
-                <div class="box-bundle">
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
+                <%} %>
                 </div>
                 <br>
                 <br>
@@ -200,30 +142,7 @@
                     <h2 class="main-title">자 료 실</h2>
                 </div>
                 <div class="box-bundle">
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
+                <%for(int i=0;i<8;i++){ %>
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
@@ -232,40 +151,7 @@
                         <p class="box-info" style="font-size:10px;">조회수</p>
                         <p class="box-info" style="font-size:10px;">2000-06-30</p>
                     </div>
-                </div>
-                <div class="box-bundle">
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">제목을 입력해 주세요</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
+                <%} %>
                 </div>
                 <br>
                 <br>
@@ -333,7 +219,7 @@
             </div>
         </div>
     </footer>
-    <script src="index-sub.js"></script>
+    <script src="script/index-sub.js"></script>
 </body>
 
 </html>
