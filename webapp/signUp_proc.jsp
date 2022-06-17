@@ -7,7 +7,6 @@
 <%
 	String email = request.getParameter("email");
 	String name = request.getParameter("name");
-	String brithyear = request.getParameter("birthday");
 	String msg = "failed";
 	String url = "signIn.jsp";
 	
