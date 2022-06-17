@@ -83,13 +83,7 @@
                 </ul>
             </div>
 
-            <!-- 검색창 -->
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" />
-                    <span> </span>
-                </div>
-            </div>
+            <!-- 검색창 -->            
             <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
 
 
