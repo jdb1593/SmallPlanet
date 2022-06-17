@@ -53,26 +53,33 @@
 </head>
 
 <body>
-    <header style="z-index: 1;">
+    <header style="z-index: 100000;">
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8;" href="index-sub.html" class="navbar_logotext">SMALLPLANET</a>
-            </div>
+                <a style="color: #5180d8;" href="index-sub.html" class="navbar_logotext">SMALLPLANET</a>                
+            </div>            
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
+                    <!-- <li><a class="menuNum auto-login" style="display: none;">ADMIN</a></li> -->
+                    <li><a class="menuNum auto-login" style="display: none;" href="./login.html">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="./introduce.html">소 개</a></li>
                     <li><a class="menuNum" href="community_list.html">커뮤니티</a></li>
                     <li><a class="menuNum" href="data_list.html">자 료 실</a></li>
                     <li><a class="menuNum" href="Q&A.html">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>                    
                 </ul>
             </div>
 
             <div class="loginJoin">
                 <a href="./login.html">LOGIN / JOIN</a>
+
+                <!-- 관리자 -->
+                <div class='btn_container'>
+                    <a class='pulse-button'>ADMIN</a>
+                </div>
 
                 <!-- // 로그인 했을때 프로필 모양
                     <a href="./memberInfo.html">
@@ -81,9 +88,8 @@
                     닉네임
                     </a>       
                     <a href="#" style="margin-left: 10px;">로그아웃</a>     -->
-
             </div>
-
+            
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
@@ -104,9 +110,7 @@
                 <div><a href=""><img class="bximg" src="./이미지/1920bximg7.jpg" alt=""></a></div>
             </div>
         </div>
-        <div class='btn_container'>
-            <a class='pulse-button'>ADMIN</a>
-        </div>
+        
         <div class="main-content1">
             <div class="title-box">
                 <h2 class="main-title">커 뮤 니 티</h2>
