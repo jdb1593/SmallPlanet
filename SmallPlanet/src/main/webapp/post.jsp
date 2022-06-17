@@ -6,10 +6,6 @@
 <jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
 <%@page import="boardPack.BoardVO" %>
 <%
-	String email = (String)session.getAttribute("user");
-	UserVO uVO = uDAO.getUser(email);
-	String authoroty = uVO.getAuthoroty();
-	
 	String boardName = request.getParameter("boardName");
 	String seq_str = request.getParameter("seq");
 	String ref_str = request.getParameter("ref");
@@ -18,12 +14,29 @@
 	String subject = "";
 	String content = "";
 	int seq = 0;
+	int ref = 0;
 	if(seq_str!=null){
 		seq = Integer.parseInt(seq_str);
 		bVO = bDAO.getBoard(boardName, seq);
 		title = bVO.getTitle();
 		subject = bVO.getSubject();
 		content = bVO.getContent();
+	}
+	
+	
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	String authoroty = "";
+	/* String url = "post.jsp?boardName="+boardName; */
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+		authoroty = uVO.getAuthority();
+	}else{
+		/* session.setAttribute("referUrl", url);
+		System.out.println(url); */
+		response.sendRedirect("signIn.jsp");
 	}
 	
 %>
@@ -69,22 +82,33 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="#">자 료 실</a></li>
-                    <li><a class="menuNum" href="#">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
-
-            <!-- 검색창 -->            
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+          
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -123,7 +147,7 @@
                 <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %>>말머리3</option>
             </select>         
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
-            <input type="hidden" name="writer" value="<%=email %>">
+            <input type="hidden" name="writer" value="<%=user %>">
             <textarea required name="content" id="summernote"><%=content %></textarea>
             <%if(seq==0){ %><!-- 처음 작성 -->
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">

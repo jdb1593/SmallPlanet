@@ -6,6 +6,7 @@
 	String email = request.getParameter("user_email");
 	String password = request.getParameter("user_pswd");
 	String url = "signIn.jsp";
+	String successUrl = (String)session.getAttribute("referUrl");
 	String msg = "failed";
 	
 	boolean result = false;
@@ -15,7 +16,7 @@
 		if(result){
 			session.setAttribute("user", email);
 			msg = "success";
-			url = "index.jsp";
+			url = successUrl!=null? successUrl:"index.jsp";
 		}
 	}
 %>

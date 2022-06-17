@@ -6,7 +6,7 @@ public class UserVO {
 	private String password;
 	private String birthday;
 	private String regDate;
-	private String authoroty;
+	private String authority;
 	
 	public String getEmail() {
 		return email;
@@ -43,10 +43,10 @@ public class UserVO {
 		this.regDate = regDate;
 	}
 	
-	public String getAuthoroty() {
-		return authoroty;
+	public String getAuthority() {
+		return authority;
 	}
-	public void setAuthoroty(String authoroty) {
-		this.authoroty = authoroty;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 }

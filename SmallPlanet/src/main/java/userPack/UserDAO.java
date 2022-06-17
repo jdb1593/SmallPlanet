@@ -115,7 +115,7 @@ private ConMgr pool;
 				vo.setPassword(rs.getString("password"));
 				vo.setBirthday(rs.getString("birthday"));
 				vo.setRegDate(rs.getString("regDate"));
-				vo.setAuthoroty(rs.getString("authority"));
+				vo.setAuthority(rs.getString("authority"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
