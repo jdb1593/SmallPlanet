@@ -20,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/index-sub.css">
+    <link rel="stylesheet" href="./css/index-sub.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Small Planet</title>
     <!-- 구글폰트 import -->
@@ -76,6 +76,7 @@
 
             <div class="loginJoin">
             <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
 					<a href="memberInfo.jsp">
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
@@ -84,16 +85,7 @@
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>
-                
-                    <!-- // 로그인 했을때 프로필 모양
-                    <a href="./memberInfo.html">
-                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
-                    <div style="position: relative; top: -30px; right: -10px;">
-                    닉네임
-                    </a>       
-                    <a href="#" style="margin-left: 10px;">로그아웃</a>     -->
-                 
+			<%} %>               
             </div>
 
 

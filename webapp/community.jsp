@@ -7,7 +7,14 @@
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
 	request.setCharacterEncoding("utf-8");
-	
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+	}
+		
 	String boardName = "community";
 	int start = 0;
 	int end = 10;
@@ -73,7 +80,19 @@
             </div>
 
             
-            <div class="loginJoin"><a href="./login.jsp">LOGIN / JOIN</a></div>
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -112,7 +131,7 @@
 	                    String uploadDate = vo.getUploadDate();
 	                    int cnt = vo.getCnt();
 	                    
-	                    UserVO uVO = uDAO.getUser(writer);
+	                    uVO = uDAO.getUser(writer);
 	                    String writerName = uVO.getName();
 	                    String authoroty = uVO.getAuthoroty();
 	            %>
