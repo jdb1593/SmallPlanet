@@ -12,7 +12,7 @@
 	Boolean refer = false;
 	if(referUrl!=null){
 		refer = referUrl.contains(domain);
-		if(refer && !referUrl.contains("signIn")){
+		if(refer && !referUrl.contains("sign")){
 			session.setAttribute("referUrl", referUrl);
 		}
 	}
