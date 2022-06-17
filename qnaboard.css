@@ -22,7 +22,7 @@ table {
 
 table tr th {
     border-bottom: 2px solid var(--text-color);
-    padding: 30px;
+    margin: 30px;
     text-align: center;
 }
 
@@ -31,27 +31,30 @@ table tbody tr td {
 }
 
 table td:first-child {
-    width: 5%;
+    width: 5px;
     text-align: center;
 }
 
 table td:nth-child(2) {
-    width: 40%;
+    width: 10px;
     text-align: center;
     
 }
 
 table td:nth-child(3), table th:nth-child(3){
-    width: 10%;
+    width: 100px;
     text-align: center;
 }
 table td:nth-child(4), table th:nth-child(4){
-    width: 15%;
+    width: 20px;
     text-align: center;
 }
 table td:nth-child(5), table th:nth-child(5){
-    width: 10%;
+    width: 20px;
     text-align: center;
+}
+table td:nth-child(6), table th:nth-child(6){
+    width: 10px;
 }
 
 .list-form {
