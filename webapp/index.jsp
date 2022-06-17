@@ -111,7 +111,7 @@
                     <h2 class="main-title">커 뮤 니 티</h2>
                 </div>
                 <div class="box-bundle">
-                <!-- <%for(int i=0;i<8;i++){ %> -->
+                <%for(int i=0;i<8;i++){ %>
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
@@ -120,63 +120,7 @@
                         <p class="box-info" style="font-size:10px;">조회수</p>
                         <p class="box-info" style="font-size:10px;">2000-06-30</p>
                     </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
-                        </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
-                    </div>
-                <!-- <%} %> -->
+                <%} %>
                 </div>
                 <br>
                 <br>
