@@ -133,7 +133,7 @@
 	                    
 	                    uVO = uDAO.getUser(writer);
 	                    String writerName = uVO.getName();
-	                    String authoroty = uVO.getAuthoroty();
+	                    String authoroty = uVO.getAuthority();
 	            %>
                 <tr class="list-under-line">
                     <td><%=seq %></td>

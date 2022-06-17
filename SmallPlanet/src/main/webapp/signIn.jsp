@@ -6,8 +6,17 @@
 	request.setCharacterEncoding("utf-8");
 	Date now = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-
-
+	
+	String domain = "http://localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
+	String referUrl = request.getHeader("Referer");
+	Boolean refer = false;
+	if(referUrl!=null){
+		refer = referUrl.contains(domain);
+		if(refer && !referUrl.contains("signIn")){
+			session.setAttribute("referUrl", referUrl);
+		}
+	}
+	
 	String emails = request.getParameter("emails");
 	String names = request.getParameter("names");
 	String birthyears = request.getParameter("birthyears");
