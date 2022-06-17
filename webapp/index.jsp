@@ -12,7 +12,7 @@
 	  	userName = uVO.getName();
 	  }
 %>
-<!DOCTYPE jsp>
+<!DOCTYPE html>
 <html lang="KO">
 
 <head>
@@ -51,41 +51,26 @@
             });
         });
     </script>
-     <style>
-        .box-img {
-            border-radius: 20px;
-        }
-
-        .a_border_none {
-            border: 0px;
-        }
-
-        .content-box {
-            border: none;
-        }
-    </style>
 
 
 </head>
 
 <body>
-    <header style="z-index: 100000;">
+    <header style="z-index: 1;">
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8;" href="index-sub.jsp" class="navbar_logotext">SMALLPLANET</a>
+                <a style="color: #5180d8;" href="index.jsp" class="navbar_logotext">SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <!-- <li><a class="menuNum auto-login" style="display: none;">ADMIN</a></li> -->
-                    <li><a class="menuNum auto-login" style="display: none;" href="./login.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="./introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
-                    <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
                     <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>                    
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
 
@@ -100,13 +85,7 @@
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>    
-
-            <!-- 관리자 -->
-            <!-- <div class='btn_container'>
-                <a class='pulse-button'>ADMIN</a>
-            </div>    -->
-                    
+			<%} %>               
             </div>
 
 
@@ -121,23 +100,18 @@
 
         <div class="slider-container">
             <div class="slider">
-                <div><a href=""><img class="bximg" src="./images/1920BXimg1.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./images/1920bximg2.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./images/1920bsimg4.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./images/1920bsimg5.png" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./images/1920bximg6.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./images/1920bximg7.jpg" alt=""></a></div>
+                <div><img class="bximg" src="./images/뉴모피즘1920.jpg" alt=""></div>
+                <div><img class="bximg" src="./images/img1920.jpg" alt=""></div>
+                <div><img class="bximg" src="./images/page1920.jpg" alt=""></div>
+                <div><img class="bximg" src="./images/애플워치1920.jpg" alt=""></div>
             </div>
-        </div>      
-        <div class='btn_container'>
-            <a class='pulse-button'>ADMIN</a>
-        </div>  
+        </div>        
             <div class="main-content1">
                 <div class="title-box">
                     <h2 class="main-title">커 뮤 니 티</h2>
                 </div>
                 <div class="box-bundle">
-                <%for(int i=0;i<8;i++){ %>
+                <!-- <%for(int i=0;i<8;i++){ %> -->
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
@@ -146,12 +120,68 @@
                         <p class="box-info" style="font-size:10px;">조회수</p>
                         <p class="box-info" style="font-size:10px;">2000-06-30</p>
                     </div>
-                <%} %>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                    <div class="bundle-content">
+                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <a href="">
+                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                        </a>
+                        <p class="box-info" style="font-size:10px;">조회수</p>
+                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                    </div>
+                <!-- <%} %> -->
                 </div>
                 <br>
                 <br>
                 <div class="wrap">
-                    <a href="./community_list.jsp" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+                    <a href="./community_list.html" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
                 </div>
             </div>
     
