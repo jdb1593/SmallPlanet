@@ -11,13 +11,44 @@
 	String emails = request.getParameter("emails");
 	String names = request.getParameter("names");
 	String birthyears = request.getParameter("birthyears");
+	
+	String emaill = request.getParameter("emaill");
+	String emaillc_str = request.getParameter("emaillc");
+	String pswdl_str = request.getParameter("pswdl");
+	boolean emaillc = true;
+	boolean pswdl = true;
+	if(emaillc_str!=null){
+		emaillc = Boolean.valueOf(request.getParameter("emaillc"));
+	}
+	if(pswdl_str!=null){
+		pswdl = Boolean.valueOf(request.getParameter("pswdl"));
+	}
+	
+	String sign_toggle = "checked";
+	
 	String checkMsg = "";
+	String checkMsgl = "";
+	String checkMsglpw = "";
+	
+	//회원가입 이메일 예외처리
 	if(emails==null){
 		emails = "";
 		names = "";
 		birthyears = "";
 	}else{
-		checkMsg = "email invailed";
+		checkMsg = "이미 존재하는 이메일입니다.";
+		sign_toggle = "";
+	}
+	
+	//로그인 이메일 예외처리
+	if(emaill==null){
+		emaill = "";
+	}
+	if(!emaillc){
+		checkMsgl = "등록되지 않은 이메일입니다.";
+	}else if(!pswdl){
+	//로그인 비밀번호 예외처리
+		checkMsglpw = "잘못된 비밀번호입니다.";
 	}
 %>
 <!DOCTYPE html>
@@ -35,35 +66,9 @@
 	 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 </head>
 <body>
-<%-- 	<!-- signup -->
-	<form name="signUp" method="post" action="signUp_proc.jsp">
-		email <input type="email" name="email" value="<%=emails %>" required><br>
-		<% if(checkMsg!=""){%>
-			<span><%=checkMsg %></span><br>
-		<% }%>
-		name <input name="name" value="<%=names %>" required><br>
-		birthday <input name="birthday" value="<%=birthyears %>" required><br>
-		password <input name="password" required><br>
-		password confirm <input name="passwordCfrm" required><br>
-		<input type="submit" value="signup">
-	</form>
-	
-	<!-- login -->
-	<form name="login" method="post" action="signIn_proc.jsp">
-		email <input name="email" required>
-		password <input name="password" required>
-		<input type="submit" value="login">
-	</form> --%>
-	
-	
-	
-	
-	
-	
-	
 	<div class="logo"><img src="images/smpLogo.png" alt="" class="logo_img"> <span style="position: relative; left: -10px;">SMALLPLANET</span></div>	
 	<div class="main">
-		<input type="checkbox" id="chk" aria-hidden="true">
+		<input type="checkbox" id="chk" aria-hidden="true" <%=sign_toggle %>>
 
 		<!-- 회원가입 -->
 		<div class="signup">
@@ -71,9 +76,6 @@
 				<label for="chk" class="signup-title" aria-hidden="true">회원 가입</label>
 				<input class="sign-input" type="text" name="name" value="<%=names %>" placeholder="이름" required>
 				<input class="sign-input" type="email" name="email" value="<%=emails %>" placeholder="이메일" required>
-				<%-- <% if(checkMsg!=""){%>
-					<span id="checkMsg"><%=checkMsg %></span>
-				<% }%> --%>
 				<div class="form-space"><%=checkMsg %></div>
 				<input class="sign-input pw" type="password" name="password" id="password_1"  
 					placeholder="비밀번호" required="" minlength="8" maxlength="20">
@@ -84,8 +86,6 @@
 				<div id="alert-success" style="display: none;">비밀번호가 일치합니다.</div>
     			<div id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</div>
 				<div>
-					<%-- <input class="sign-input birth-year" type="number" name="birthyear" value="<%=birthyears %>" 
-						placeholder="년(4자)" min="1900" max="<%=sf.format(now) %>" maxlength="4" title="4자리 숫자" required> --%>
 					<input class="sign-input birth-year" type="text" id="year" name="birthyear" placeholder="년(4자)" 
 						maxlength="4" pattern="[0-9]+" min="1900" max="<%=sf.format(now) %>" required>
 					<div id="password-danger2" style="display: none;">년도는 1900 ~ 2022 사이로 기입해주세요.</div>
@@ -114,16 +114,16 @@
 
 		<!-- 로그인 -->
 		<div class="login" style="position: relative; top: 40px;">
-			<form action="post" class="login-form">
+			<form method="post" action="signIn_proc.jsp" class="login-form">
 				<label for="chk" aria-hidden="true" style="padding-top: 10px;">로그인</label>
-				<input class="login-input" type="email" name="user_email" placeholder="이메일" required>
-				<div class="form-space"></div>
+				<input class="login-input" type="email" name="user_email" placeholder="이메일" value="<%=emaill %>" required>
+				<div class="form-space"><%=checkMsgl %></div>
 				<div class="login-pw">
 					<input class="login-input" type="password" name="user_pswd" placeholder="비밀번호" required>
 					<i class="fa fa-eye fa-lg" onclick=""></i>
-					<div class="form-space" style="margin-top: -20px ;"></div>
+					<div class="form-space" style="margin-top: -20px ;"><%=checkMsglpw %></div>
 				</div>
-				<input type="button" value="login" class="button" onkeyup="if(window.event.keyCode==13)">
+				<input type="submit" value="login" class="button">
 			</form>
 		</div>
 	</div>	
