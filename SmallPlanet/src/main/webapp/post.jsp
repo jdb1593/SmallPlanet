@@ -82,17 +82,17 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="#">자 료 실</a></li>
-                    <li><a class="menuNum" href="#">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
           
