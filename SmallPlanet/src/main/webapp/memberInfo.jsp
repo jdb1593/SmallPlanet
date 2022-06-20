@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<jsp:useBean id="uVO" class="userPack.UserVO"/>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
-<jsp:setProperty property="*" name="uVO"/>
+<%@page import="userPack.UserVO" %>
 <%
-    String email = request.getParameter("email");
-    String pw = request.getParameter("password");
-    String name = request.getParameter("name");
-    String birth = request.getParameter("birthyear");
+	request.setCharacterEncoding("utf-8");
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	String userEmail = "";
+	String userBirthday = "";
+	String userRegDate = "";
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+		userEmail = uVO.getEmail();
+		userBirthday = uVO.getBirthday();
+		userRegDate = uVO.getRegDate();
+	}
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -71,14 +78,19 @@
                 </ul>
             </div>
 
-        <!--  로그인 했을때 프로필 모양 -->
         <div class="loginJoin">
-                <a href="./memberInfo.jsp">
-                <img src="./이미지/profiledefault.png" alt="" class="profile-picture">                
-                <div style="position: relative; top: -30px; right: -10px;">
-                닉네임
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                    </div>
                 </a>       
-                <a href="#" style="margin-left: 10px;">로그아웃</a>    
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>               
             </div>
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -92,14 +104,14 @@
         <div style="padding-top: 15px;padding-bottom:  55px;" class="container info_container">
             <div class="col-lg-4">
                 <div class="jumbotron" style="padding-top: 15px;">
-                    <form method="post" action="">
+                    <form name="memberUpdate" method="post" action="member_update.jsp">
                         <h3 style="text-align: center; padding-bottom: 35px;">회원정보 수정</h3>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="이메일" name="userEmail" maxlength="50" value="<%=email%>" readonly>
+                            <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="50" value="<%=userEmail%>" readonly>
                         </div>
                         <div class="form-group">
                             <input id="password_1" type="password" class="form-control pw" placeholder="비밀번호"
-                                name="userPassword" maxlength="20" value="">
+                                name="password" maxlength="20" value="">
                             <input id="password_2" type="password" class="form-control pw" placeholder="비밀번호 확인"
                                 name="userPasswordCheck" maxlength="20" value="">
                         </div>
@@ -115,12 +127,12 @@
                         </div>
 
                         <div class=" form-group">
-                            <input type="text" class="form-control" placeholder="이름" name="userName" maxlength="20"
-                                value="<%=name%>">
+                            <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20"
+                                value="<%=userName%>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="생년월일" name="userBirthday"
-                                maxlength="20" value="<%=birth%>" readonly>
+                            <input type="text" class="form-control" placeholder="생년월일" name="birthday"
+                                maxlength="20" value="<%=userBirthday%>" readonly>
                         </div>
 
                         <input style="margin-top: 15px;" type="button" onclick="checkPassword()"
@@ -150,34 +162,37 @@
                 function checkPassword() {
                     // 비밀번호 확인
                     let pwd1 = $("#password_1").val();
-                    let pwd2 = $("#password_2").val();
-                    if (pwd1 !== pwd2) {
-                        $('#password_1').val('').focus();
-                        $('#password_2').val('').focus();
-                        return false;
+                    if(pwd1!=null){
+	                    let pwd2 = $("#password_2").val();
+	                    if (pwd1 !== pwd2) {
+	                        $('#password_1').val('').focus();
+	                        $('#password_2').val('').focus();
+	                        return false;
+	                    }
+	                    // 정규식
+	                    if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd1)) {
+	                        if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd2)) {
+	                            $("#password-danger").css('display', 'block');
+	                            $("#password-danger3").css('display', 'none');
+	                            $('#password_1').val('').focus();
+	                            $('#password_2').val('').focus();
+	                            setTimeout(function () {
+	                                $("#password-danger").css('display', 'none');
+	                            }, 5000)
+	                            return false;
+	                        }
+	                    }
+	                    if (/(\w)\1\1\1/.test(pwd1)) {
+	                        if (/(\w)\1\1\1/.test(pwd2)) {
+	                            $("#password-danger3").css('display', 'block');
+	                            $("#password-danger").css('display', 'none');
+	                            $('#password_1').val('').focus();
+	                            $('#password_2').val('').focus();
+	                            return false;
+	                        };
+	                    };
                     }
-                    // 정규식
-                    if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd1)) {
-                        if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd2)) {
-                            $("#password-danger").css('display', 'block');
-                            $("#password-danger3").css('display', 'none');
-                            $('#password_1').val('').focus();
-                            $('#password_2').val('').focus();
-                            setTimeout(function () {
-                                $("#password-danger").css('display', 'none');
-                            }, 5000)
-                            return false;
-                        }
-                    }
-                    if (/(\w)\1\1\1/.test(pwd1)) {
-                        if (/(\w)\1\1\1/.test(pwd2)) {
-                            $("#password-danger3").css('display', 'block');
-                            $("#password-danger").css('display', 'none');
-                            $('#password_1').val('').focus();
-                            $('#password_2').val('').focus();
-                            return false;
-                        };
-                    };
+                    document.memberUpdate.submit();
                 };
             </script>
             <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>

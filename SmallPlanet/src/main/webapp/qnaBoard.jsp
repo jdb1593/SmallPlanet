@@ -15,7 +15,7 @@
 		userName = uVO.getName();
 	}
 	
-	String boardName = "community";
+	String boardName = "qnaBoard";
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
@@ -124,19 +124,29 @@
                     if(i==listSize) break;
                     BoardVO vo = vlist.get(i);
                     int seq = vo.getSeq();
+                    int ref = vo.getRef();
                     String subject = vo.getSubject();
                     String title = vo.getTitle();
                     String writer = vo.getWriter();
                     String uploadDate = vo.getUploadDate();
                     int cnt = vo.getCnt();
                     
+                    Boolean status = bDAO.qnaStatus(seq);
+                    String status_str = status? "답변완료":"대기중";
+                    
                     uVO = uDAO.getUser(writer);
                     String writerName = uVO.getName();
-                    String authoroty = uVO.getAuthority();
+                    String w_authority = uVO.getAuthority();
             %>
                 <tr class="list-under-line">
-                    <td><%=seq %></td>          
-                    <td>상태</td>          
+                    <td><%=seq %></td>
+                    <%if(seq==ref){ %>          
+                    <td><%=status_str %></td>
+                    <%}else{ %>          
+                    <td style="font-size: 30px; position: relative; bottom: 5px;">
+                        <span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: block; position: relative; left: 70px;"></span>
+                    </td>
+                    <%} %>         
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
@@ -183,7 +193,7 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="./community_list_write.jsp" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">

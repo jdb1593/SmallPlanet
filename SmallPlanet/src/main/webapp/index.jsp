@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector" %>
+<%@page import="boardPack.BoardVO" %>
+<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
@@ -11,6 +14,11 @@
 	  	uVO = uDAO.getUser(user);
 	  	userName = uVO.getName();
 	  }
+	  
+	  int start = 0;
+	  int end = 10;
+	  int listSize = 0;
+	  Vector<BoardVO> vlist = null;
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -81,6 +89,7 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
+                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
@@ -111,14 +120,40 @@
                     <h2 class="main-title">커 뮤 니 티</h2>
                 </div>
                 <div class="box-bundle">
-                <%for(int i=0;i<8;i++){ %>
+                <%
+                    /* int j = 0;
+                    int k = 0; */
+	                vlist = bDAO.getBoardList("community", start, end);
+	                listSize = vlist.size();
+	                for(int i=0;i<4;i++){
+	                    if(i==listSize) break;
+	                    BoardVO vo = vlist.get(i);
+	                    int seq = vo.getSeq();
+	                    int ref = vo.getRef();
+                    	/* while(seq!=ref){
+	                    	vo = vlist.get(i+k+j);
+		                    seq = vo.getSeq();
+		                    ref = vo.getRef();
+		                    j++;
+                    	}
+                   		k = j;
+                   		j = 0; */
+	                    String subject = vo.getSubject();
+	                    String title = vo.getTitle();
+	                    String writer = vo.getWriter();
+	                    String uploadDate = vo.getUploadDate();
+	                    int cnt = vo.getCnt();
+	                    
+	                    uVO = uDAO.getUser(writer);
+	                    String writerName = uVO.getName();
+                %>
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
                         </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
+                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
                     </div>
                 <%} %>
                 </div>
@@ -134,14 +169,30 @@
                     <h2 class="main-title">자 료 실</h2>
                 </div>
                 <div class="box-bundle">
-                <%for(int i=0;i<8;i++){ %>
+                <%
+                vlist = bDAO.getBoardList("dataBoard", start, end);
+                listSize = vlist.size();
+                for(int i=0;i<4;i++){
+                    if(i==listSize) break;
+                    BoardVO vo = vlist.get(i);
+                    int seq = vo.getSeq();
+                    int ref = vo.getRef();
+                    String subject = vo.getSubject();
+                    String title = vo.getTitle();
+                    String writer = vo.getWriter();
+                    String uploadDate = vo.getUploadDate();
+                    int cnt = vo.getCnt();
+                    
+                    uVO = uDAO.getUser(writer);
+                    String writerName = uVO.getName();
+                %>
                     <div class="bundle-content">
                         <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
                         <a href="">
-                            <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
                         </a>
-                        <p class="box-info" style="font-size:10px;">조회수</p>
-                        <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
+                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
                     </div>
                 <%} %>
                 </div>

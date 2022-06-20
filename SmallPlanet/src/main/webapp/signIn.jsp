@@ -7,7 +7,7 @@
 	Date now = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	
-	String domain = "http://localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
+	String domain = "localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
 	String referUrl = request.getHeader("Referer");
 	Boolean refer = false;
 	if(referUrl!=null){
@@ -116,7 +116,7 @@
 				
 				<input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기" class="button">
 				<div class="close-btn">
-					<a href="index-sub.html">X</a>
+					<a href="index.jsp">X</a>
 				</div>
 			</form>
 		</div>

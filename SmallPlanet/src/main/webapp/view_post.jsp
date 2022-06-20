@@ -1,9 +1,22 @@
 <%@page import="boardPack.BoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.Vector" %>
+<%@page import="userPack.UserVO" %>
 <jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
+<jsp:useBean id="uDAO" class="userPack.UserDAO" />
 <%
 	request.setCharacterEncoding("utf-8");
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	String userAuthority = "";
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
+	}
+
 	int seq = Integer.parseInt(request.getParameter("seq"));
 	String boardName = request.getParameter("boardName");
 	BoardVO bVO = bDAO.getBoard(boardName, seq);
@@ -18,6 +31,13 @@
 	String updateDate = bVO.getUpdateDate();
 	int cnt = bVO.getCnt();
 	session.setAttribute("board", bVO);//게시물을 세션에 저장
+	
+	int listSize = 0;
+	Vector<BoardVO> vlist = null;
+	
+	uVO = uDAO.getUser(writer);
+    String writerName = uVO.getName();
+    String authority = uVO.getAuthority();
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -94,15 +114,28 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html">커뮤니티</a></li>
-                    <li><a class="menuNum" href="data_list.html">자 료 실</a></li>
-                    <li><a class="menuNum" href="Q&A.html">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
             
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                    </div>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -121,23 +154,29 @@
                 <!-- 제목 -->
                 <h2><%=title %></h2>        
                 <!-- 조회수 -->
-                <p style="font-size: 12px;"><%=cnt %></p>
+                <p style="font-size: 12px;">조회수 <%=cnt %></p>
             </div>
+            
+            <%if(writer.equals(user) || userAuthority.equals("admin")){ %>
             <div class="button-group" style="position: relative; top: -53px; left: 643px;">
                 <a href="delete_post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">삭제</a>
                 <a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a>
             </div>
+            <%} %>
+            
             <div class="member_info" style="display: flex;">
                 <div><a href=""><img style="margin: 0px 10px;" class="rounded-circle"
                             src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></a></div>
                 <div style="display:flex; ">
                     <div style="display: block; padding-top: 5px;">
                         <!-- 작성자 -->
-                        <div class="member_name"><a href="" style="text-decoration: none;"><%=writer %></a></div>
+                        <div class="member_name"><a href="" style="text-decoration: none;"><%=writerName %></a></div>
                         <!-- 작성일 -->
                         <div class="write_date">작성일 <%=uploadDate %></div>
+                        <%if(updateDate!=null){ %>
                         <!-- 수정일 -->
                         <div class="write_date">수정일 <%=updateDate %></div>
+                        <%} %>
                     </div>
                 </div>
             </div>
@@ -149,66 +188,66 @@
                 <!-- 게시글 내용 -->
                 <p><%=content %></p>
             </div>
+            <%if(fileName!=null){ %>
             <div style="border-bottom: 1px solid #5180d8; width: auto ;">
                 <!-- 첨부파일 이름 -->
-                <span>첨부파일<%=fileName %></span>
-                <!-- 첨부파일 크기 -->
-                <span><%=updateDate %></span>
+                <span>첨부파일 <%=fileName %>(<%=fileSize %>byte)</span>
             </div>
+            <%} %>
             
             <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
+                <%if(boardName.equals("qnaBoard")){
+                	if(userAuthority.equals("admin")){ %>
+                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+                	<%} %>
+                <%}else{ %>
+                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+                <%} %>
             </div>
         </div>
         <!-- 댓글 -->
         <section class=" mb-5" style="width: 50%;">
             <div class="card bg-light">
                 <div class="card-body">
+                <%if(user!=null){ %>
                     <!-- Comment form-->
-                    <form class="mb-4" style="display: flex">
+                    <form class="mb-4" style="display: flex" method=post action="comment.jsp">
+                    	<input type="hidden" name="board" value="<%=boardName%>">
+                    	<input type="hidden" name="ref" value="<%=ref%>">
+                    	<input type="hidden" name="writer" value="<%=user%>">
                         <!-- 댓글 쓰는 공간 -->
-                        <textarea class="form-control" rows="2" placeholder="댓글을 입력해주세요"><%=ref %></textarea>                        
-                        <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>" style="border: 0px solid gray; border-radius: 10px; background-color: #5180d8; color: white; margin-left: 5px;">답글</a><br/>
+                        <textarea name="content" class="form-control" rows="2" placeholder="댓글을 입력해주세요" required></textarea>                        
+                        <input type="submit" value="댓글" style="border: 0px solid gray; border-radius: 10px; background-color: #5180d8; color: white; margin-left: 5px;"><br/>
                     </form>
+                <%} %>
 
-                    <!-- Comment with nested comments-->
-                    <div class="d-flex mb-4">
-                        <!-- Parent comment-->
-                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
-                        <div class="ms-3">
-                            <div class="fw-bold">회원이름1</div>
-                            첫번째 댓글 입니다
-                            <!-- Child comment 1-->
-                            <div class="d-flex mt-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">회원이름2</div>
-                                    첫번째 댓글에 대한 첫번째 대댓글
-                                </div>
-                            </div>
-                            <!-- Child comment 2-->
-                            <div class="d-flex mt-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">회원이름3</div>
-                                    첫번째 댓글에 대한 두번째 대댓글
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+	                    vlist = bDAO.getCommentList(boardName, ref);
+		                listSize = vlist.size();
+                    	for(int i=0;i<listSize;i++){ 
+    	                    BoardVO vo = vlist.get(i);
+    	                    int cmt_seq = vo.getSeq();
+    	                    String cmt_writer = vo.getWriter();
+    	                    String cmt_content = vo.getContent();
+    	                    String cmt_uploadDate = vo.getUploadDate();
+    	                    String cmt_updateDate = vo.getUpdateDate();
+    	                    
+    	                    uVO = uDAO.getUser(cmt_writer);
+    	                    String cmt_writerName = uVO.getName();
+                    %>
                     <!-- Single comment-->
                     <div class="d-flex">
                         <div class="flex-shrink-0"><img class="rounded-circle"
                                 src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></div>
                         <div class="ms-3">
-                            <div class="fw-bold">회원이름4</div>
-                            두번째 댓글 입니다.
+                            <div class="fw-bold"><%=cmt_writerName %></div>
+                            <%=cmt_content %>
+                            <p><%=cmt_uploadDate %></p>
                         </div>
                     </div>
+                    <%} %>
                 </div>
             </div>
         </section>

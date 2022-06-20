@@ -10,9 +10,11 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
 	}
 	
 	String boardName = "dataBoard";
@@ -124,6 +126,7 @@
                     if(i==listSize) break;
                     BoardVO vo = vlist.get(i);
                     int seq = vo.getSeq();
+                    int ref = vo.getRef();
                     String subject = vo.getSubject();
                     String title = vo.getTitle();
                     String writer = vo.getWriter();
@@ -137,6 +140,9 @@
                 <tr class="list-under-line">
                     <td><%=seq %></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
+                    	<%if(seq!=ref){ %>
+                    	<span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: inline-block;"></span>
+                    	<%} %>
                     	[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
@@ -176,7 +182,9 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
+        <%if(userAuthority.equals("admin")){ %>
         <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
+        <%} %>
     </main>
     <footer class="foot-container">
         <div class="container">

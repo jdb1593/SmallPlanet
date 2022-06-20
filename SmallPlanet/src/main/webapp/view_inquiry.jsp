@@ -1,10 +1,10 @@
+<%@page import="boardPack.InquiryVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="boardPack.InquiryVO" %>
 <%@page import="java.util.Vector" %>
-<jsp:useBean id="iDAO" class="boardPack.InquiryDAO"/>
 <%@page import="userPack.UserVO" %>
-<jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<jsp:useBean id="iDAO" class="boardPack.InquiryDAO" />
+<jsp:useBean id="uDAO" class="userPack.UserDAO" />
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
@@ -25,23 +25,32 @@
 	</script>
 <%
 	}
-		
-	String boardName = "inquiryBoard";
-	int start = 0;
-	int end = 10;
+
+	int seq = Integer.parseInt(request.getParameter("seq"));
+	InquiryVO iVO = iDAO.getInquiry(seq);
+	String title = iVO.getTitle();
+	String writer = iVO.getWriter();
+	String email = iVO.getEmail();
+	String content = iVO.getContent();
+	String fileName = iVO.getFileName();
+	int fileSize = iVO.getFileSize();
+	String uploadDate = iVO.getUploadDate();
+	String phoneNumber = iVO.getPhoneNumber();
+	session.setAttribute("inquiry", iVO);//게시물을 세션에 저장
+	
 	int listSize = 0;
 	Vector<InquiryVO> vlist = null;
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/index-sub.css">
-    <link rel="stylesheet" href="./css/community_list.css">
+    <link rel="stylesheet" href="css/index-sub.css">
+    <link rel="stylesheet" href="css/community_list.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Small Planet</title>
     <!-- 구글폰트 import -->
@@ -60,15 +69,39 @@
     <!-- bxSlider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>   
-    <!-- 게시글 제목 클릭시 해당 게시물로 이동 -->
-    <script>
-        function read(boardName,seq){
-            document.readFrm.seq.value=seq;
-            document.readFrm.action="view_inquiry.jsp";
-            document.readFrm.submit();
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <style>
+        .notice_category {
+            padding-left: 68px;
+            padding-bottom: 10px;
         }
-    </script>
+
+        .notice_title {
+            padding-left: 65px;
+        }
+
+        .member_wrap {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .write_date {
+            font-size: 11px;
+        }
+        
+        .button-group a {
+            color: white;
+            background-color: #5180d8;
+            text-decoration: none;
+            border: 2px solid #5180d8;
+            border-radius: 10px;
+            padding: 2px;
+        }
+    </style>
 </head>
 
 <body>
@@ -76,20 +109,20 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html"
+                    class="navbar_logotext">SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
-                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
                     <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
-
             
             <div class="loginJoin">
             <%if(user!=null){%>
@@ -106,6 +139,7 @@
 			<%} %>
 			</div>
 
+
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -113,72 +147,47 @@
         </nav>
         <hr class="header_line">
     </header>
-    <!-- 본문 -->
-    <main>        
-        <h1>Admin Page</h1>
-        <form action="get" action="" style="padding-top:50px;"></form>
-        <table class="list-form">
+    <main>
+        <!-- 회원정보 -->
+        <div class="member_wrap">
+        	<div class="notice_title">
+                <!-- 제목 -->
+                <h2><%=title %></h2>        
+            </div>
             
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>             
-                </tr>
-            </thead>
-            <tbody>
-	            <%
-	                vlist = iDAO.getInquiryList(start, end);
-	                listSize = vlist.size();
-	                for(int i=0;i<10;i++){
-	                    if(i==listSize) break;
-	                    InquiryVO vo = vlist.get(i);
-	                    int seq = vo.getSeq();
-	                    String title = vo.getTitle();
-	                    String writer = vo.getWriter();
-	                    String uploadDate = vo.getUploadDate();
-	            %>
-                <tr class="list-under-line">
-                    <td><%=seq %></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
-                    	<%=title %></a></td>
-                    <td><%=writer %></td>
-                    <td><%=uploadDate %></td>
-                </tr>      
-                <%	} %>
-            </tbody>
-        </table>
-        <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
-        <form name="readFrm" method="get">
-            <input type="hidden" name="seq">
-            <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
-        </form>
-
-        <div style="display: flex; position: relative; top: 120px; right: -46px;">
-            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">카테고리</option>
-            </select>
-            <select name="" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">게시글+제목</option>
-                <option value="">제목만</option>
-                <option value="">글작성자</option>
-            </select>          
-            <!-- 검색창 -->  
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" onkeyup="if(window.event.keyCode==13)" />
-                    <span></span>
+            <div class="button-group" style="position: relative; top: -53px; left: 643px;">
+                <a href="delete_post.jsp?boardName=inquiryBoard&seq=<%=seq%>">삭제</a>
+            </div>
+            
+            <div class="member_info" style="display: flex;">
+                <div><a href=""><img style="margin: 0px 10px;" class="rounded-circle"
+                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..."></a></div>
+                <div style="display:flex; ">
+                    <div style="display: block; padding-top: 5px;">
+                        <!-- 작성자 -->
+                        <div class="member_name"><a href="" style="text-decoration: none;"><%=writer %></a></div>
+                        <div class=""><%=email %></div>
+                        <div class=""><%=phoneNumber %></div>
+                        <!-- 작성일 -->
+                        <div class="write_date">작성일 <%=uploadDate %></div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        
-        
-        <div class="location">
-            <a class="button" style="float: left;">PREV</a>
-            <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
-            <a class="button"style="float: left;">NEXT</a>
+
+        <!-- 본문 -->
+        <div style="justify-content: center; width: 50%;">
+            <div style="width: 90%; text-align: left; margin-left: 30px; padding: 30px 0px;">
+                <!-- 게시글 내용 -->
+                <p><%=content %></p>
+            </div>
+            <%if(fileName!=null){ %>
+            <div style="border-bottom: 1px solid #5180d8; width: auto ;">
+                <!-- 첨부파일 이름 -->
+                <span>첨부파일 <%=fileName %>(<%=fileSize %>byte)</span>
+            </div>
+            <%} %>
+            
         </div>
     </main>
     <footer class="foot-container">
@@ -232,8 +241,8 @@
             </div>
         </div>
     </footer>
-    <script src="./script/community_list.js"></script>
-    
+    <script src="script/community_list.js"></script>
+
 </body>
 
 </html>
