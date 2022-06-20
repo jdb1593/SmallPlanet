@@ -85,14 +85,12 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
-                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>               
-            </div>
-
+			<%} %>
+			</div>
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -174,6 +172,8 @@
 	                        if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd2)) {
 	                            $("#password-danger").css('display', 'block');
 	                            $("#password-danger3").css('display', 'none');
+	                            $("#danger").css('display', 'none');
+	                            $("#success").css('display', 'none');
 	                            $('#password_1').val('').focus();
 	                            $('#password_2').val('').focus();
 	                            setTimeout(function () {
