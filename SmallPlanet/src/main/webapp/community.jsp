@@ -20,6 +20,22 @@
 	int end = 10;
 	int listSize = 0;
 	Vector<BoardVO> vlist = null;
+	
+	String keyWord = "", keyField = "", keySub = "";
+	if (request.getParameter("keyWord") != null) {
+		keyWord = request.getParameter("keyWord");
+		keyField = request.getParameter("keyField");
+	}
+	if (request.getParameter("keySub") != null) {
+		keySub = request.getParameter("keySub");
+	}
+	if (request.getParameter("reload") != null){
+		if(request.getParameter("reload").equals("true")) {
+			keyWord = "";
+			keyField = "";
+			keySub = "";
+		}
+	}
 %>
 <!DOCTYPE html>
 <jsp lang="KO">
@@ -119,7 +135,7 @@
             </thead>
             <tbody>
 	            <%
-	                vlist = bDAO.getBoardList(boardName, start, end);
+	                vlist = bDAO.getBoardList(boardName,keyField,keySub,keyWord, start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<10;i++){
 	                    if(i==listSize) break;
@@ -155,25 +171,32 @@
             <input type="hidden" name="seq">
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
         </form>
-
-        <div style="display: flex; position: relative; top: 120px; right: -46px;">
-            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">카테고리</option>
-            </select>
-            <select name="" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">게시글+제목</option>
-                <option value="">제목만</option>
-                <option value="">글작성자</option>
-            </select>          
-            <!-- 검색창 -->  
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" onkeyup="if(window.event.keyCode==13)" />
-                    <span></span>
-                </div>
-            </div>
-        </div>
-        
+        <!-- 게시글 검색 값 폼 -->
+        <form name="searchFrm" method="post">
+			<input type="hidden" name="reload" value="true"> 
+			<!-- <input type="hidden" name="nowPage" value="1"> -->
+	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
+	            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
+	                <option value="">모든 카테고리</option>
+	                <option value="test">test1</option>
+	                <option value="test2">test2</option>
+	                <option value="test3">test3</option>
+	            </select>
+	            <select name="" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
+	                <option value="content">내용</option>
+	                <option value="title">제목</option>
+	                <option value="writer">작성자</option>
+	            </select>          
+	            <!-- 검색창 -->  
+	            <div class="search_mode">
+	                <div class="search-box">
+	                    <input type="text" onkeyup="if(window.event.keyCode==13)" onClick="javascript:check()">
+	   					<input type="hidden" name="nowPage" value="1">
+	                    <span></span>
+	                </div>
+	            </div>
+	        </div>
+        </form>
         
         
         <div class="location">
