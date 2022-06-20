@@ -38,12 +38,12 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
-	String authoroty = "";
+	String userAuthority = "";
 	/* String url = "post.jsp?boardName="+boardName; */
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
-		authoroty = uVO.getAuthority();
+		userAuthority = uVO.getAuthority();
 	}else{
 		/* session.setAttribute("referUrl", url);
 		System.out.println(url); */
@@ -148,18 +148,20 @@
                 <option value="community" 
                 	<%=UtilMgr.boardSelected(boardName, "community") %> 
                 	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>">커뮤니티</option>
-               	<%if(authoroty=="admin"){ %>
+               	<%if(userAuthority.equals("admin")){ %>
                 <option value="dataBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
                 	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>">자료실</option>
                 <%} %>
             </select>    
             <select name="subject" id="list-select2" required>
-                <option value="공지사항" <%=UtilMgr.boardSelected(subject, "test") %> 
+            	<%if(userAuthority.equals("admin")){ %>
+                <option value="공지사항" <%=UtilMgr.boardSelected(subject, "공지사항") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "공지사항",postNum)%>">공지사항</option>
-                <option value="일상" <%=UtilMgr.boardSelected(subject, "test2") %> 
+                <%} %>
+                <option value="일상" <%=UtilMgr.boardSelected(subject, "일상") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "일상",postNum)%>">일상</option>
-                <option value="도움" <%=UtilMgr.boardSelected(subject, "test3") %> 
+                <option value="도움" <%=UtilMgr.boardSelected(subject, "도움") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "도움",postNum)%>">도움</option>
             </select>
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>

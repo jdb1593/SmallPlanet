@@ -10,9 +10,11 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
 	}
 
 	int seq = Integer.parseInt(request.getParameter("seq"));
@@ -197,7 +199,7 @@
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <%if(boardName.equals("qnaBoard")){
-                	if(authority.equals("admin")){ %>
+                	if(userAuthority.equals("admin")){ %>
                 <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
                 	<%} %>
                 <%}else{ %>

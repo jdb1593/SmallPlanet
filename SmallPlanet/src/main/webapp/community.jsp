@@ -221,9 +221,9 @@
 	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
 	            <select name="keySub" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="" <%=UtilMgr.boardSelected(keySub, "") %>>모든 카테고리</option>
-	                <option value="공지사항" <%=UtilMgr.boardSelected(keySub, "") %>>공지사항</option>
-	                <option value="일상" <%=UtilMgr.boardSelected(keySub, "") %>>일상</option>
-	                <option value="도움" <%=UtilMgr.boardSelected(keySub, "") %>>도움</option>
+	                <option value="공지사항" <%=UtilMgr.boardSelected(keySub, "공지사항") %>>공지사항</option>
+	                <option value="일상" <%=UtilMgr.boardSelected(keySub, "일상") %>>일상</option>
+	                <option value="도움" <%=UtilMgr.boardSelected(keySub, "도움") %>>도움</option>
 	            </select>
 	            <select name="keyField" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="content" <%=UtilMgr.boardSelected(keyField, "content") %>>내용</option>
@@ -250,6 +250,7 @@
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
             <input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
+			<input type="hidden" name="keySub" value="<%=keySub%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
         </form>
         <!-- 게시글 검색 값 폼 -->

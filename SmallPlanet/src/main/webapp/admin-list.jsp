@@ -27,10 +27,44 @@
 	}
 		
 	String boardName = "inquiryBoard";
+	int totalRecord=0; //전체레코드수
+	int numPerPage=10; // 페이지당 레코드 수 
+	int pagePerBlock=15; //블럭당 페이지수 
+	  
+	int totalPage=0; //전체 페이지 수
+	int totalBlock=0;  //전체 블럭수 
+	
+	int nowPage=1; // 현재페이지
+	int nowBlock=1;  //현재블럭
+	
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
 	Vector<InquiryVO> vlist = null;
+	
+	String keyWord = "", keyField = "";
+	if (request.getParameter("keyWord") != null) {
+		keyWord = request.getParameter("keyWord");
+		keyField = request.getParameter("keyField");
+	}
+	if (request.getParameter("reload") != null){
+		if(request.getParameter("reload").equals("true")) {
+			keyWord = "";
+			keyField = "";
+		}
+	}
+	
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
+	 start = (nowPage * numPerPage)-numPerPage;
+	 end = numPerPage;
+	 
+	/* totalRecord = iDAO.getTotalBoard(boardName,keyField, keyWord); */
+	totalPage = (int)Math.ceil((double)totalRecord / numPerPage);  //전체페이지수
+	nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
+	  
+	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
 %>
 <!DOCTYPE html>
 <jsp lang="KO">
