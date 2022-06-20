@@ -140,8 +140,15 @@
                                                 </td>
                                                 <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
                                                         <%if(seq!=ref){ %>
-                                                            <span class=""
-                                                                style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: inline-block;"></span>
+                                                            <span class="" width: 30px; height: 30px; display:
+                                                                inline-block;"><svg style="color:blue; "
+                                                                    xmlns="http://www.w3.org/2000/svg" width="15"
+                                                                    height="15" fill="currentColor"
+                                                                    class="bi bi-arrow-return-right"
+                                                                    viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+                                                                </svg></span>
                                                             <%} %>
                                                                 [<%=subject %>]<%=title %>
                                                     </a></td>
@@ -211,7 +218,8 @@
                                                 <br>세상에 모든것들은 아주 작은 것에서 비롯되어
                                                 형태를 이루고<br> 자연과 조화를 이루어
                                                 상생합니다.
-                                                그렇게 저희 Small Planet 또한 <br>상생과 조화를 통한 협업으로 이끌어지는 팀입니다.</p>
+                                                그렇게 저희 Small Planet 또한 <br>상생과 조화를 통한 협업으로 이끌어지는 팀입니다.
+                                            </p>
                                         </div>
 
                                         <div class="col-xs-6 col-md-3">
