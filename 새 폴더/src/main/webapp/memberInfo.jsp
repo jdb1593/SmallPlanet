@@ -50,6 +50,7 @@
             margin: 5px 0px;
         }
 
+
         .info_container {
             width: 100%;
             display: flex;
@@ -85,14 +86,12 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
-                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>               
-            </div>
-
+			<%} %>
+			</div>
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -107,9 +106,9 @@
                     <form name="memberUpdate" method="post" action="member_update.jsp">
                         <h3 style="text-align: center; padding-bottom: 35px;">회원정보 수정</h3>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="이메일" name="email" maxlength="50" value="<%=userEmail%>" readonly>
-                        </div>
+                            <label>이메일</label><div class="form-control" style="background-color:#c0c0c0;"><%=userEmail%></div>
                         <div class="form-group">
+                        <label>비밀번호</label>
                             <input id="password_1" type="password" class="form-control pw" placeholder="비밀번호"
                                 name="password" maxlength="20" value="">
                             <input id="password_2" type="password" class="form-control pw" placeholder="비밀번호 확인"
@@ -120,23 +119,34 @@
                         <div style="position: relative; text-align: right;">
                             <div id="success" style="display:none; color: #000; font-size: 9px;">비밀번호가 일치합니다.</div>
                             <div id="danger" style="display:none; color: #d92742; font-weight: bold; font-size: 9px;">비밀번호가일치하지 않습니다.</div>
-                            <div id="password-danger" style="font-size:9px; display: none;">숫자+영문자+특수문자 조합으로 8자리 이상
+                            <div id="password-danger" style="font-size:9px; color:red; display: none;">숫자+영문자+특수문자 조합으로 8자리 이상
                                 사용해야 합니다.</div>
-                            <div id="password-danger3" style="font-size:9px;display:none;">같은 문자를 4번 이상 사용 하실 수
+                            <div id="password-danger3" style="font-size:9px; color:red; display:none;">같은 문자를 4번 이상 사용 하실 수
                                 없습니다.</div>
                         </div>
 
                         <div class=" form-group">
+                        <label>회원이름</label>
                             <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20"
                                 value="<%=userName%>">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="생년월일" name="birthday"
+                        <label>생년월일</label>
+<%--                             <input type="text" class="form-control" placeholder="생년월일" name="birthday"
                                 maxlength="20" value="<%=userBirthday%>" readonly>
+                        </div> --%>
+                            <div class="form-control" style="background-color:#c0c0c0;"><%=userBirthday%>
                         </div>
+                        <label>가입일자</label>
+<%--                             <input type="text" class="form-control" placeholder="가입일자" name="joindate"
+                                maxlength="20" value="<%=userRegDate%>" readonly>
+                        </div> --%>
+                            <div class="form-control" style="background-color:#c0c0c0;"><%=userRegDate%></div>
 
                         <input style="margin-top: 15px;" type="button" onclick="checkPassword()"
                             class="btn btn-primary form-control" value="수정완료">
+                        
+                        <a href="<!-- 회원탈퇴 페이지 또는 경고창 -->>"></a><input style="margin-top: 5px; border: 1px solid #ff3232; background-color:#ff3232;" type="button" class="btn btn-primary form-control" value="회원탈퇴"></a>
                     </form>
                 </div>
             </div>
@@ -174,6 +184,8 @@
 	                        if (!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd2)) {
 	                            $("#password-danger").css('display', 'block');
 	                            $("#password-danger3").css('display', 'none');
+	                            $("#danger").css('display', 'none');
+	                            $("#success").css('display', 'none');
 	                            $('#password_1').val('').focus();
 	                            $('#password_2').val('').focus();
 	                            setTimeout(function () {

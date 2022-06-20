@@ -555,8 +555,31 @@ footer{
   font-size: 8px;
   vertical-align: top;
 }
+/* 수정 */
+.box-file-input label{
+	border-radius: 5px;
+  display:inline-block;
+  background:#8AAAE5;
+  color:#fff;
+  padding:0px 15px;
+  line-height:35px;
+  cursor:pointer;
+}
 
-.filebox .upload-name {
+.box-file-input label:after{
+  content:"파일등록";
+}
+
+.box-file-input .file-input{
+  display:none;
+}
+
+.box-file-input .filename{
+  display:inline-block;
+  padding-left:10px;
+}
+/* 수정 전  */
+/* .filebox .upload-name {
   display: inline-block;
   height: 40px;
   padding: 0 10px;
@@ -582,7 +605,7 @@ footer{
   padding: 0;
   overflow: hidden;
   border: 0;
-}
+} */
 
 /* 버튼스타일 */
 .button .white {

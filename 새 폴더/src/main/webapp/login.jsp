@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SMALL PLANET </title>
-	<link rel="stylesheet" href="./login.css">
+	<link rel="stylesheet" href="./css/login.css">
 	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
 	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -15,7 +15,9 @@
 </head>
 
 <body>
-	<div class="logo"><img src="./이미지/smpLogo.png" alt="" class="logo_img"> <span style="position: relative; left: -10px;">SMALLPLANET</span></div>	
+	<div class="logo"><a href="./index.jsp"><img src="./images/smpLogo.png" alt="" class="logo_img"></a> <a
+			style="text-decoration: none;" href="./index.jsp"><span
+				style="position: relative; left: -10px; text-decoration: none; color: #5180d8;">SMALLPLANET</span></a></div>	
 	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true">
 

@@ -59,7 +59,19 @@
             });
         });
     </script>
+	    <style>
+        .box-img {
+            border-radius: 20px;
+        }
 
+        .a_border_none {
+            border: 0px;
+        }
+
+        .content-box {
+            border: none;
+        }
+    </style>
 
 </head>
 
@@ -74,7 +86,7 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="./introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
                     <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
@@ -89,13 +101,12 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
-                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>               
-            </div>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -109,10 +120,12 @@
 
         <div class="slider-container">
             <div class="slider">
-                <div><img class="bximg" src="./images/뉴모피즘1920.jpg" alt=""></div>
-                <div><img class="bximg" src="./images/img1920.jpg" alt=""></div>
-                <div><img class="bximg" src="./images/page1920.jpg" alt=""></div>
-                <div><img class="bximg" src="./images/애플워치1920.jpg" alt=""></div>
+                <div><a href=""><img class="bximg" src="./images/1920BXimg1.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg2.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bsimg4.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bsimg5.png" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg6.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg7.jpg" alt=""></a></div>
             </div>
         </div>        
             <div class="main-content1">
@@ -148,10 +161,11 @@
 	                    String writerName = uVO.getName();
                 %>
                     <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
                         <a href="">
                             <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
                         </a>
+                        	<p style="margin:0px" ><%=writerName %></p>
                         <p class="box-info" style="font-size:10px;"><%=cnt %></p>
                         <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
                     </div>
@@ -187,10 +201,11 @@
                     String writerName = uVO.getName();
                 %>
                     <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
                         <a href="">
                             <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
                         </a>
+                        	<p style="margin:0px" ><%=writerName %></p>
                         <p class="box-info" style="font-size:10px;"><%=cnt %></p>
                         <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
                     </div>

@@ -17,7 +17,7 @@ import common.UtilMgr;
 
 public class BoardDAO {
 	private ConMgr pool;
-	private static final String  SAVEFOLDER = "C:/Users/BlancPong/Desktop/Pong/결과물/Eclipse/클래스와객체이해하기/SMALL/fileUpload";
+	private static final String  SAVEFOLDER = "/Users/dabin/eclipse-workspace/project/fileupload";
 	private static final String ENCTYPE = "utf-8";
 	private static int MAXSIZE = 5*1024*1024;
 	
