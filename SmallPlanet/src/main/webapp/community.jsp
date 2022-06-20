@@ -73,6 +73,17 @@
             document.readFrm.action="view_post.jsp";
             document.readFrm.submit();
         }
+        function check() {
+        	if(window.event.keyCode==13) {
+		   	     if (document.searchFrm.keyWord.value == "") {
+		   			alert("검색어를 입력하세요.");
+		   			document.searchFrm.keyWord.focus();
+		   			return;
+		   	     }
+		   	  alert(document.searchFrm.keyWord.value);
+		   	  document.searchFrm.submit();
+        	}
+	   	 }
     </script>
 </head>
 
@@ -172,9 +183,11 @@
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
         </form>
         <!-- 게시글 검색 값 폼 -->
-        <form name="searchFrm" method="post">
+        <form name="listFrm" method="post">
 			<input type="hidden" name="reload" value="true"> 
 			<!-- <input type="hidden" name="nowPage" value="1"> -->
+		</form>
+		<form  name="searchFrm"  method="get" action="community.jsp">
 	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
 	            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="">모든 카테고리</option>
@@ -190,13 +203,14 @@
 	            <!-- 검색창 -->  
 	            <div class="search_mode">
 	                <div class="search-box">
-	                    <input type="text" onkeyup="if(window.event.keyCode==13)" onClick="javascript:check()">
-	   					<input type="hidden" name="nowPage" value="1">
+	                    <input type="text" name="keyWord" onkeyup="javascript:check()">
+	   					<!-- <input type="hidden" name="nowPage" value="1"> -->
 	                    <span></span>
 	                </div>
 	            </div>
 	        </div>
         </form>
+        
         
         
         <div class="location">
