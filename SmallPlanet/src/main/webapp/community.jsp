@@ -94,7 +94,6 @@
 			<%} %>
 			</div>
 
-
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -138,9 +137,11 @@
 	            %>
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
+                    <td style="text-align:left;"><a style="color:black; text-decoration:none;" href="javascript:read('<%=boardName %>','<%=seq %>')">
                     	<%if(seq!=ref){ %>
-                    	<span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: inline-block;"></span>
+                    	<span class="" width: 30px; height: 30px; display: inline-block;"><svg  style="color:blue; "xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+</svg>
                     	<%} %>
                     	[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>

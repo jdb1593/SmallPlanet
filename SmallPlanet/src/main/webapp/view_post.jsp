@@ -10,11 +10,9 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
-	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
-		userAuthority = uVO.getAuthority();
 	}
 
 	int seq = Integer.parseInt(request.getParameter("seq"));
@@ -157,7 +155,7 @@
                 <p style="font-size: 12px;">조회수 <%=cnt %></p>
             </div>
             
-            <%if(writer.equals(user) || userAuthority.equals("admin")){ %>
+            <%if(writer.equals(user)){ %>
             <div class="button-group" style="position: relative; top: -53px; left: 643px;">
                 <a href="delete_post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">삭제</a>
                 <a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a>
@@ -199,7 +197,7 @@
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <%if(boardName.equals("qnaBoard")){
-                	if(userAuthority.equals("admin")){ %>
+                	if(authority.equals("admin")){ %>
                 <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
                 	<%} %>
                 <%}else{ %>
