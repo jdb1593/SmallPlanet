@@ -43,6 +43,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<script>$(document).on("change", ".file-input", function(){
+	    $filename = $(this).val();
+	    if($filename == "")
+	      $filename = "파일을 선택해주세요.";
+	    $(".filename").text($filename);
+	  })
+	  </script>
 
     <script>
         $(document).ready(function () {
@@ -117,9 +124,8 @@
                 <input name="phoneNumber" class="inputs" type="tel" placeholder="'-'없이 입력해주세요" required>
                 <hr>
                 <div class="filebox">
-                    <!-- <input class="upload-name" value="" placeholder="첨부파일" readonly>
-                    <label for="file">파일찾기</label> -->
-                    <label for="file">파일찾기<input name="fileName" type="file" id="file" size="50" maxlength="50"></label>
+                    
+<div class="box-file-input"><label><input type="file" name="ev_display" class="file-input" accept="image/*"></label><span class="filename">파일을 선택해주세요.</div>
                 </div>
                 <hr>
                 <div>
