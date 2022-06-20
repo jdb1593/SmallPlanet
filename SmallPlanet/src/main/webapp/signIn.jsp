@@ -7,7 +7,7 @@
 	Date now = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	
-	String domain = "http://localhost:8000/project/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
+	String domain = "localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
 	String referUrl = request.getHeader("Referer");
 	Boolean refer = false;
 	if(referUrl!=null){

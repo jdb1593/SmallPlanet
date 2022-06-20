@@ -40,33 +40,42 @@ public class BoardDAO {
 		
 		try {
 			con = pool.getConnection();
-			if (_keyWord.equals("null") || _keyWord.equals("")) {
-				//no search
-				sql = "select * from "+_board+" where is_comment=0 order by ref desc, depth limit ?, ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, _start);
-				pstmt.setInt(2, _end);
-			} else if(_keySub.equals("null") || _keySub.equals("")) {
-				//at search
-				sql = "select * from "+_board+" where is_comment=0 and "+_keyField
-						+" like ? order by ref desc, depth limit ?, ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + _keyWord + "%");
-				pstmt.setInt(2, _start);
-				pstmt.setInt(3, _end);
+			if(_keySub.equals("null") || _keySub.equals("")) {
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select * from "+_board+" where is_comment=0 order by ref desc, depth limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, _start);
+					pstmt.setInt(2, _end);
+				}else {
+					//at search
+					sql = "select * from "+_board+" where is_comment=0 and "+_keyField
+							+" like ? order by ref desc, depth limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+					pstmt.setInt(2, _start);
+					pstmt.setInt(3, _end);
+				}
 			}else {
-				sql = "select * from "+_board+" where is_comment=0 and "+_keyField
-						+" like ? and subject like ? order by ref desc, depth limit ?, ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + _keyWord + "%");
-				pstmt.setString(2, "%" + _keySub + "%");
-				pstmt.setInt(3, _start);
-				pstmt.setInt(4, _end);
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select * from "+_board
+							+" where is_comment=0 and subject like ? order by ref desc, depth limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keySub + "%");
+					pstmt.setInt(2, _start);
+					pstmt.setInt(3, _end);
+				}else {
+					//at search
+					sql = "select * from "+_board+" where is_comment=0 and "+_keyField
+							+" like ? and subject like ? order by ref desc, depth limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+					pstmt.setString(2, "%" + _keySub + "%");
+					pstmt.setInt(3, _start);
+					pstmt.setInt(4, _end);
+				}
 			}
-			sql = "select * from "+_board+" where is_comment=0 order by ref desc, depth limit ?, ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, _start);
-			pstmt.setInt(2, _end);
 			
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -86,6 +95,57 @@ public class BoardDAO {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return vlist;
+	}
+	
+	//총 게시물 수
+	public int getTotalBoard(String _board,String _keyField,String _keySub,String _keyWord){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int total = 0;
+		
+		try {
+			con = pool.getConnection();
+			if(_keySub.equals("null") || _keySub.equals("")) {
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select count(seq) from "+_board+" where is_comment=0";
+					pstmt = con.prepareStatement(sql);
+				}else {
+					//at search
+					sql = "select count(seq) from "+_board+" where is_comment=0 and "
+							+_keyField+" like ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+				}
+			}else {
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select count(seq) from "+_board
+							+" where is_comment=0 and subject like ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keySub + "%");
+				}else {
+					//at search
+					sql = "select count(seq) from "+_board+" where is_comment=0 and "+_keyField
+							+" like ? and subject like ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+					pstmt.setString(2, "%" + _keySub + "%");
+				}
+			}
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return total;
 	}
 	
 	//게시물 등록

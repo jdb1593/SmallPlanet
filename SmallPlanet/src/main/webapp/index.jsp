@@ -136,7 +136,7 @@
                 <%
                     /* int j = 0;
                     int k = 0; */
-	                vlist = bDAO.getBoardList("community", start, end);
+	                vlist = bDAO.getBoardList("community","","","", start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<4;i++){
 	                    if(i==listSize) break;
@@ -184,7 +184,7 @@
                 </div>
                 <div class="box-bundle">
                 <%
-                vlist = bDAO.getBoardList("dataBoard", start, end);
+                vlist = bDAO.getBoardList("dataBoard","","","", start, end);
                 listSize = vlist.size();
                 for(int i=0;i<4;i++){
                     if(i==listSize) break;

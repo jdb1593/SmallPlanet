@@ -155,12 +155,12 @@
                 <%} %>
             </select>    
             <select name="subject" id="list-select2" required>
-                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "test",postNum)%>">말머리1</option>
-                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "test2",postNum)%>">말머리2</option>
-                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "test3",postNum)%>">말머리3</option>
+                <option value="공지사항" <%=UtilMgr.boardSelected(subject, "test") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "공지사항",postNum)%>">공지사항</option>
+                <option value="일상" <%=UtilMgr.boardSelected(subject, "test2") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "일상",postNum)%>">일상</option>
+                <option value="도움" <%=UtilMgr.boardSelected(subject, "test3") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "도움",postNum)%>">도움</option>
             </select>
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
             <input type="hidden" name="writer" value="<%=user %>">
