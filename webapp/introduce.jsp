@@ -77,7 +77,7 @@
                 </ul>
             </div>
 
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+            <div class="loginJoin"><a href="./signin.jsp">LOGIN / JOIN</a></div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
