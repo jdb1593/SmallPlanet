@@ -77,7 +77,19 @@
                 </ul>
             </div>
 
-            <div class="loginJoin"><a href="./signin.jsp">LOGIN / JOIN</a></div>
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
