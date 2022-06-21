@@ -71,7 +71,6 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                	<li><a class="menuNum auto-login" style="display: none;" href="./signIn.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
