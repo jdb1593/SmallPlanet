@@ -6,10 +6,6 @@
 <jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
 <%@page import="boardPack.BoardVO" %>
 <%
-	String email = (String)session.getAttribute("user");
-	UserVO uVO = uDAO.getUser(email);
-	String authoroty = uVO.getAuthoroty();
-	
 	String boardName = request.getParameter("boardName");
 	String seq_str = request.getParameter("seq");
 	String ref_str = request.getParameter("ref");
@@ -18,12 +14,40 @@
 	String subject = "";
 	String content = "";
 	int seq = 0;
+	int ref = 0;
 	if(seq_str!=null){
 		seq = Integer.parseInt(seq_str);
 		bVO = bDAO.getBoard(boardName, seq);
 		title = bVO.getTitle();
 		subject = bVO.getSubject();
 		content = bVO.getContent();
+	}
+	if(ref_str!=null){
+		ref = Integer.parseInt(ref_str);
+		bVO = bDAO.getBoard(boardName, ref);
+		subject = bVO.getSubject();
+	}
+	int postNum = 0;
+	if(seq!=0 && ref==0){
+		postNum = seq;
+	}else if(seq==0 && ref!=0){
+		postNum = ref;
+	}
+	
+	
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	String authoroty = "";
+	/* String url = "post.jsp?boardName="+boardName; */
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+		authoroty = uVO.getAuthority();
+	}else{
+		/* session.setAttribute("referUrl", url);
+		System.out.println(url); */
+		response.sendRedirect("signIn.jsp");
 	}
 	
 %>
@@ -69,22 +93,33 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.html" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.html">소 개</a></li>
-                    <li><a class="menuNum" href="community_list.html" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
-                    <li><a class="menuNum" href="#">자 료 실</a></li>
-                    <li><a class="menuNum" href="#">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.html">문의하기</a></li>
+                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
-
-            <!-- 검색창 -->            
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+          
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -99,34 +134,42 @@
         <h1>글작성</h1>
 
         <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <%if(seq==0){ %>
+        <%if(seq==0 && ref==0){ %>
         <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
+        <%}else if(ref!=0){ %>
+        <form name="insert" method="post" action="replyBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
         <%}else{ %>
         <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
 		<%} %>
             <select name="board" id="list-select" required>
                 <option value="qnaBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",seq)%>">Q&A</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",postNum)%>">Q&A</option>
                 <option value="community" 
                 	<%=UtilMgr.boardSelected(boardName, "community") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "community",seq)%>">커뮤니티</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>">커뮤니티</option>
                	<%if(authoroty=="admin"){ %>
                 <option value="dataBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",seq)%>">자료실</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>">자료실</option>
                 <%} %>
             </select>    
             <select name="subject" id="list-select2" required>
-                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %>>말머리1</option>
-                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %>>말머리2</option>
-                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %>>말머리3</option>
-            </select>         
+                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "test",postNum)%>">말머리1</option>
+                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "test2",postNum)%>">말머리2</option>
+                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "test3",postNum)%>">말머리3</option>
+            </select>
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
-            <input type="hidden" name="writer" value="<%=email %>">
+            <input type="hidden" name="writer" value="<%=user %>">
             <textarea required name="content" id="summernote"><%=content %></textarea>
             <%if(seq==0){ %><!-- 처음 작성 -->
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
+            	<%if(ref!=0){ %><!-- 답글 -->
+	            <input type="hidden" name="ref" value="<%=ref %>">
+	            <%} %>
             <%}else{ %><!-- 수정할 때 -->
             <input type="hidden" name="seq" value="<%=seq %>">
             <%} %>

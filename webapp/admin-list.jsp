@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="boardPack.BoardVO" %>
+<%@page import="boardPack.InquiryVO" %>
 <%@page import="java.util.Vector" %>
-<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
+<jsp:useBean id="iDAO" class="boardPack.InquiryDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
@@ -10,16 +10,27 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
+	}
+	
+	if(!userAuthority.equals("admin")){
+%>
+	<script>
+		alert("관리자 전용 페이지입니다.");
+		location.href="index.jsp";
+	</script>
+<%
 	}
 		
-	String boardName = "community";
+	String boardName = "inquiryBoard";
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
-	Vector<BoardVO> vlist = null;
+	Vector<InquiryVO> vlist = null;
 %>
 <!DOCTYPE html>
 <jsp lang="KO">
@@ -54,7 +65,7 @@
     <script>
         function read(boardName,seq){
             document.readFrm.seq.value=seq;
-            document.readFrm.action="view_post.jsp";
+            document.readFrm.action="view_inquiry.jsp";
             document.readFrm.submit();
         }
     </script>
@@ -65,7 +76,7 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.jsp" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
@@ -87,6 +98,7 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
+                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
@@ -112,35 +124,27 @@
                     <th>No.</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>                
+                    <th>작성일</th>             
                 </tr>
             </thead>
             <tbody>
 	            <%
-	                vlist = bDAO.getBoardList(boardName, start, end);
+	                vlist = iDAO.getInquiryList(start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<10;i++){
 	                    if(i==listSize) break;
-	                    BoardVO vo = vlist.get(i);
+	                    InquiryVO vo = vlist.get(i);
 	                    int seq = vo.getSeq();
-	                    String subject = vo.getSubject();
 	                    String title = vo.getTitle();
 	                    String writer = vo.getWriter();
 	                    String uploadDate = vo.getUploadDate();
-	                    int cnt = vo.getCnt();
-	                    
-	                    uVO = uDAO.getUser(writer);
-	                    String writerName = uVO.getName();
-	                    String authoroty = uVO.getAuthoroty();
 	            %>
                 <tr class="list-under-line">
                     <td><%=seq %></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
-                    	[<%=subject %>]<%=title %></a></td>
-                    <td><%=writerName %></td>
+                    	<%=title %></a></td>
+                    <td><%=writer %></td>
                     <td><%=uploadDate %></td>
-                    <td><%=cnt %></td>
                 </tr>      
                 <%	} %>
             </tbody>

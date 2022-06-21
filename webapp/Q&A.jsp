@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/jsp; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="boardPack.BoardVO" %>
 <%@page import="java.util.Vector" %>
@@ -7,20 +7,14 @@
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
 	request.setCharacterEncoding("utf-8");
-	String user = (String)session.getAttribute("user");
-	UserVO uVO = new UserVO();
-	String userName = "";
-	if(user!=null){
-		uVO = uDAO.getUser(user);
-		userName = uVO.getName();
-	}
 	
-	String boardName = "dataBoard";
+	String boardName = "community";
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
 	Vector<BoardVO> vlist = null;
 %>
+
 <!DOCTYPE html>
 <jsp lang="KO">
 
@@ -65,35 +59,21 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                	<li><a class="menuNum auto-login" style="display: none;" href="./signIn.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
-                    <li><a class="menuNum" href="dataBoard.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">자 료 실</a></li>
-                    <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
+                    <li><a class="menuNum" href="data.jsp">자 료 실</a></li>
+                    <li><a class="menuNum" href="Q&A.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
 
-            
-            <div class="loginJoin">
-            <%if(user!=null){%>
-             <!-- // 로그인 했을때 프로필 모양-->
-					<a href="memberInfo.jsp">
-                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
-                    <div style="position: relative; top: -30px; right: -10px;">
-                    <%=userName %>
-                </a>       
-                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
-			<%}else{ %>
-            	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>
-			</div>
+            <div class="loginJoin"><a href="./login.jsp">LOGIN / JOIN</a></div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -105,19 +85,20 @@
     </header>
     <!-- 본문 -->
     <main>        
-        <h1>자 료 실</h1>
+        <h1>Q & A</h1>
         <form action="get" action="" style="padding-top:50px;"></form>
-        <table class="list-form">            
+        <table class="list-form">
+           
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>제목</th>
+                    <th>내용</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>조회</th>                
+                    <th>상태</th>                
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 <%
                 vlist = bDAO.getBoardList(boardName, start, end);
                 listSize = vlist.size();
@@ -125,37 +106,44 @@
                     if(i==listSize) break;
                     BoardVO vo = vlist.get(i);
                     int seq = vo.getSeq();
-                    int ref = vo.getRef();
                     String subject = vo.getSubject();
                     String title = vo.getTitle();
                     String writer = vo.getWriter();
                     String uploadDate = vo.getUploadDate();
-                    int cnt = vo.getCnt();
-                    
-                    uVO = uDAO.getUser(writer);
+                    int cnt = vo.getCnt();                    
+                    UserVO uVO = uDAO.getUser(writer);
                     String writerName = uVO.getName();
                     String authoroty = uVO.getAuthority();
             %>
+
                 <tr class="list-under-line">
                     <td><%=seq %></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
-                    	<%if(seq!=ref){ %>
-                    	<span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: inline-block;"></span>
-                    	<%} %>
-                    	[<%=subject %>]<%=title %></a></td>
+                    <td><%=subject %><a class="list-a" href="view_post.jsp">이거 어떻게해요?</a></td>
+                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')"><%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
                     <td><%=cnt %></td>
-                </tr>      
-                <%	} %>
+                </tr>
             </tbody>
+
+            <!-- 답글 -->
+            <!-- <tfoot class="answer">
+                <tr class="list-under-line">
+                    <td style="font-size: 30px; position: relative; bottom: 5px;">
+                        <span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: block; position: relative; left: 70px;"></span>
+                    </td>
+                    <td>re: 알아서 하셈</td>
+                    <td>운영자</td>
+                    <td>2022-06-09</td>
+                    <td>답변완료</td>
+                </tr>
+            </tfoot> -->
+            <%	} %>
         </table>
-        <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
         <form name="readFrm" method="get">
             <input type="hidden" name="seq">
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
         </form>
-
         <div style="display: flex; position: relative; top: 120px; right: -46px;">
             <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
                 <option value="">카테고리</option>
@@ -168,20 +156,17 @@
             <!-- 검색창 -->  
             <div class="search_mode">
                 <div class="search-box">
-                    <input type="text" onkeyup="if(window.event.keyCode==13)" />
+                    <input type="text" />
                     <span></span>
                 </div>
             </div>
         </div>
-        
-        
-        
         <div class="location">
             <a class="button" style="float: left;">PREV</a>
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=community" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -237,5 +222,4 @@
     <script src="./script/community_list.js"></script>
     
 </body>
-
 </html>

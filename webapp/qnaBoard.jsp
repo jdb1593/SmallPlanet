@@ -7,8 +7,15 @@
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
 	request.setCharacterEncoding("utf-8");
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+	}
 	
-	String boardName = "community";
+	String boardName = "qnaBoard";
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
@@ -58,12 +65,13 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.jsp" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
+                	<li><a class="menuNum auto-login" style="display: none;" href="./signin.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
@@ -72,7 +80,19 @@
                 </ul>
             </div>
 
-            <div class="loginJoin"><a href="./login.jsp">LOGIN / JOIN</a></div>
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -105,19 +125,29 @@
                     if(i==listSize) break;
                     BoardVO vo = vlist.get(i);
                     int seq = vo.getSeq();
+                    int ref = vo.getRef();
                     String subject = vo.getSubject();
                     String title = vo.getTitle();
                     String writer = vo.getWriter();
                     String uploadDate = vo.getUploadDate();
                     int cnt = vo.getCnt();
                     
-                    UserVO uVO = uDAO.getUser(writer);
+                    Boolean status = bDAO.qnaStatus(seq);
+                    String status_str = status? "답변완료":"대기중";
+                    
+                    uVO = uDAO.getUser(writer);
                     String writerName = uVO.getName();
-                    String authoroty = uVO.getAuthoroty();
+                    String w_authority = uVO.getAuthority();
             %>
                 <tr class="list-under-line">
-                    <td><%=seq %></td>          
-                    <td>상태</td>          
+                    <td><%=seq %></td>
+                    <%if(seq==ref){ %>          
+                    <td><%=status_str %></td>
+                    <%}else{ %>          
+                    <td style="font-size: 30px; position: relative; bottom: 5px;">
+                        <span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: block; position: relative; left: 70px;"></span>
+                    </td>
+                    <%} %>         
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">[<%=subject %>]<%=title %></a></td>
                     <td><%=writerName %></td>
                     <td><%=uploadDate %></td>
@@ -164,7 +194,7 @@
             <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
             <a class="button"style="float: left;">NEXT</a>
         </div>
-        <a href="./community_list_write.jsp" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
