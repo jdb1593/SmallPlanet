@@ -232,7 +232,7 @@
 	                <option value="writer" <%=UtilMgr.boardSelected(keyField, "writer") %>>작성자</option>
 	            </select>          
 	            <!-- 검색창 -->  
-	            <div class="search_mode">
+	            <div class="search_mode" >
 	                <div class="search-box">
 	                    <!-- <input type="text" name="keyWord" onkeyup="javascript:check()"> -->
 	                    <input type="text" name="keyWord" value="<%=keyWord%>">
@@ -294,7 +294,7 @@
         <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
         <%} %>
     </main>
- <footer class="foot-container">
+ <footer class="foot-container" style="margin-top:100px">
         <div class="container">
             <br>
             <div class="row">
