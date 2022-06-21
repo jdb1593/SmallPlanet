@@ -7,12 +7,14 @@
 	Date now = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	
-	String domain = "http://localhost:8000/project/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
+	String domain = "localhost:8000/project/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
 	String referUrl = request.getHeader("Referer");
 	Boolean refer = false;
 	if(referUrl!=null){
-		refer = referUrl.contains(domain);
-		if(refer && !referUrl.contains("sign")){
+		refer = referUrl.contains(domain); //이전페이지가 도메인을 포함
+		//이전페이지가 로그인/회원가입/정보변경이 아님
+		if(refer && !referUrl.contains("sign") && 
+				!referUrl.contains("member") && !referUrl.contains("secession")){ 
 			session.setAttribute("referUrl", referUrl);
 		}
 	}

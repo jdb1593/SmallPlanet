@@ -86,7 +86,6 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                	<li><a class="menuNum auto-login" style="display: none;" href="./signIn.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
@@ -103,8 +102,7 @@
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
                 </a>       
-                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>   
-                            
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -114,7 +112,7 @@
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
                 <i class="fa-solid fa-bars"></i>
-            </a>           
+            </a>
         </nav>
         <hr class="header_line">
     </header>
@@ -138,7 +136,7 @@
                 <%
                     /* int j = 0;
                     int k = 0; */
-	                vlist = bDAO.getBoardList("community", start, end);
+	                vlist = bDAO.getBoardList("community","","","", start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<4;i++){
 	                    if(i==listSize) break;
@@ -176,7 +174,7 @@
                 <br>
                 <br>
                 <div class="wrap">
-                    <a href="./community_list.html" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+                    <a href="community.jsp" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
                 </div>
             </div>
     
@@ -186,7 +184,7 @@
                 </div>
                 <div class="box-bundle">
                 <%
-                vlist = bDAO.getBoardList("dataBoard", start, end);
+                vlist = bDAO.getBoardList("dataBoard","","","", start, end);
                 listSize = vlist.size();
                 for(int i=0;i<4;i++){
                     if(i==listSize) break;
@@ -216,7 +214,7 @@
                 <br>
                 <br>
                 <div class="wrap">
-                    <a href="#" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+                    <a href="dataBoard.jsp" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
                 </div>
             </div>
         

@@ -63,7 +63,7 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8;" href="index.jsp" class="navbar_logotext">SMALLPLANET</a>
+                <a style="color: #5180d8;" href="index-sub.html" class="navbar_logotext">SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
@@ -151,7 +151,7 @@
     </div>
 
 
-  <footer class="foot-container">
+ <footer class="foot-container">
         <div class="container">
             <br>
             <div class="row">

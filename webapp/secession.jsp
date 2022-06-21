@@ -10,16 +10,16 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
-	String userEmail = "";
-	String userBirthday = "";
-	String userRegDate = "";
-	if(user!=null){
-	uVO = uDAO.getUser(user);
-	userName = uVO.getName();
-	userEmail = uVO.getEmail();
-	userBirthday = uVO.getBirthday();
-	userRegDate = uVO.getRegDate();
-}
+	if(user==null || user.equals("")){
+%>
+	<script>
+		alert("로그인 후 이용가능합니다.");
+		location.href="signIn.jsp";
+	</script>
+<%
+	}else{
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -116,10 +116,12 @@
     <!-- 본문 -->
     <main style="margin-top: 200px; margin-bottom: 150px;">
     <h1>회 원 탈 퇴</h1>
-    <form class="formcolor">
+    <form class="formcolor" method="post" action="secession_proc.jsp">
 		<div class="confirm centerpoint">정말로 탈퇴하시겠습니까?</div>
 		<label style="color:white;" for="secession_confirm">비밀번호 입력</label>
-		<input id="secession_confirm" type='password' placeholder="Password"><input type="button" value="확인" class="confirm_btn" onclick="">
+		<input name="password" id="secession_confirm" type='password' placeholder="Password">
+		<input name="email" type="hidden" value="<%=user%>">
+		<input type="submit" value="확인" class="confirm_btn">
 	</form>
     </main>
  <footer class="foot-container">
@@ -178,3 +180,4 @@
     
 </body>
 </html>
+<%}%>

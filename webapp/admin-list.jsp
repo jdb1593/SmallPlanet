@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="boardPack.InquiryVO" %>
 <%@page import="java.util.Vector" %>
+<%@page import="common.UtilMgr"%>
 <jsp:useBean id="iDAO" class="boardPack.InquiryDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
@@ -27,13 +28,47 @@
 	}
 		
 	String boardName = "inquiryBoard";
+	int totalRecord=0; //전체레코드수
+	int numPerPage=10; // 페이지당 레코드 수 
+	int pagePerBlock=15; //블럭당 페이지수 
+	  
+	int totalPage=0; //전체 페이지 수
+	int totalBlock=0;  //전체 블럭수 
+	
+	int nowPage=1; // 현재페이지
+	int nowBlock=1;  //현재블럭
+	
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
 	Vector<InquiryVO> vlist = null;
+	
+	String keyWord = "", keyField = "";
+	if (request.getParameter("keyWord") != null) {
+		keyWord = request.getParameter("keyWord");
+		keyField = request.getParameter("keyField");
+	}
+	if (request.getParameter("reload") != null){
+		if(request.getParameter("reload").equals("true")) {
+			keyWord = "";
+			keyField = "";
+		}
+	}
+	
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
+	 start = (nowPage * numPerPage)-numPerPage;
+	 end = numPerPage;
+	 
+	totalRecord = iDAO.getTotalInquiry(boardName,keyField, keyWord);
+	totalPage = (int)Math.ceil((double)totalRecord / numPerPage);  //전체페이지수
+	nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
+	  
+	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -63,11 +98,31 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>   
     <!-- 게시글 제목 클릭시 해당 게시물로 이동 -->
     <script>
-        function read(boardName,seq){
+        function pageing(page) {
+			document.readFrm.nowPage.value = page;
+			document.readFrm.action="";
+			document.readFrm.submit();
+		}
+		
+		function block(value){
+			 document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1;
+			 document.readFrm.submit();
+		} 
+		
+		function read(boardName,seq){
             document.readFrm.seq.value=seq;
             document.readFrm.action="view_inquiry.jsp";
             document.readFrm.submit();
         }
+        function check() {
+	   	     if (document.searchFrm.keyWord.value == ""
+	   	    		 && document.searchFrm.keySub.value == "") {
+	   			alert("검색어를 입력하세요.");
+	   			document.searchFrm.keyWord.focus();
+	   			return;
+	   	     }
+		   	 document.searchFrm.submit();
+       	}
     </script>
 </head>
 
@@ -149,28 +204,70 @@
                 <%	} %>
             </tbody>
         </table>
+        <form  name="searchFrm"  method="get" action="community.jsp">
+	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
+	            <select name="keyField" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
+	                <option value="content" <%=UtilMgr.boardSelected(keyField, "content") %>>내용</option>
+	                <option value="title" <%=UtilMgr.boardSelected(keyField, "title") %>>제목</option>
+	                <option value="writer" <%=UtilMgr.boardSelected(keyField, "writer") %>>작성자</option>
+	            </select>          
+	            <!-- 검색창 -->  
+	            <div class="search_mode">
+	                <div class="search-box">
+	                    <!-- <input type="text" name="keyWord" onkeyup="javascript:check()"> -->
+	                    <input type="text" name="keyWord" value="<%=keyWord%>">
+	   					<input type="hidden" name="nowPage" value="1">
+	                    <span></span>
+	   					<input type="button" value="search" onclick="javascript:check()">
+	   					<%=totalRecord%>건의 게시물
+	                </div>
+	            </div>
+	        </div>
+        </form>
+        
         <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
         <form name="readFrm" method="get">
             <input type="hidden" name="seq">
             <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
+            <input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+			<input type="hidden" name="keyField" value="<%=keyField%>">
+			<input type="hidden" name="keyWord" value="<%=keyWord%>">
         </form>
-
-        <div style="display: flex; position: relative; top: 120px; right: -46px;">
-            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">카테고리</option>
-            </select>
-            <select name="" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">게시글+제목</option>
-                <option value="">제목만</option>
-                <option value="">글작성자</option>
-            </select>          
-            <!-- 검색창 -->  
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" onkeyup="if(window.event.keyCode==13)" />
-                    <span></span>
-                </div>
-            </div>
+        <!-- 게시글 검색 값 폼 -->
+        <form name="listFrm" method="post">
+			<input type="hidden" name="reload" value="true"> 
+			<input type="hidden" name="nowPage" value="1">
+		</form>
+        
+        <div class="location">
+            <!-- <a class="button" style="float: left;">PREV</a> -->
+        <%
+		  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
+		  int pageEnd = ((pageStart + pagePerBlock ) <= totalPage) ?  (pageStart + pagePerBlock): totalPage+1; 
+		  //하단 페이지 끝번호
+		  if(totalPage !=0){
+		  	if (nowBlock > 1) {
+		%>
+	  		<a class="button" href="javascript:block('<%=nowBlock-1%>')" style="float: left;">PREV</a>
+			<%}//if%>
+			
+	  		<%
+	  			for ( ; pageStart < pageEnd; pageStart++){
+	  		%>
+		     	<a href="javascript:pageing('<%=pageStart %>')"
+		     		style="float: left; padding: 5px 30px 0px 30px;"> 
+			 	<%if(pageStart==nowPage) {%><font color="blue"> <%}%>
+				<%=pageStart %>
+		 		<%if(pageStart==nowPage) {%></font> <%}%></a>
+			<%}//for%>
+			
+			<%if (totalBlock > nowBlock ) {%>
+			<a class="button" href="javascript:block('<%=nowBlock+1%>')" style="float: left;">NEXT</a>
+			<%}//if%>  
+		<%}%>
+	   
+            <!-- <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a> -->
+            <!-- <a class="button"style="float: left;">NEXT</a> -->
         </div>
         
         
@@ -181,7 +278,7 @@
             <a class="button"style="float: left;">NEXT</a>
         </div>
     </main>
- <footer class="foot-container">
+    <footer class="foot-container">
         <div class="container">
             <br>
             <div class="row">
@@ -196,19 +293,18 @@
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="./introduce.jsp">소개</a></li>
-                        <li><a href="./community.jsp">커뮤니티</a></li>
-                        <li><a href="./dataBoard.jsp">자료실</a></li>
-                        <li><a href="./qnaBoard.jsp">Q & A</a></li>
-                        <li><a href="./inquiry.jsp">문의하기</a></li>
+                        <li><a href="http://scanfcode.com/category/front-end-development/">menu1</a></li>
+                        <li><a href="http://scanfcode.com/category/back-end-development/">menu2</a></li>
+                        <li><a href="http://scanfcode.com/category/java-programming-language/">menu3</a></li>
+                        <li><a href="http://scanfcode.com/category/android/">menu4</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="https://gratis-zinc-179.notion.site/0edca8071fd94328ac9b6614af09ee45" target= "_blank">Notion</a></li>
-                        <li><a href="https://github.com/jdb1593/SmallPlanet.git" target= "_blank">GitHub</a></li>
+                        <li><a href="http://scanfcode.com/about/">Notion</a></li>
+                        <li><a href="http://scanfcode.com/contact/">GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -218,16 +314,16 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
                     <p style="color: #5b5b5b;" class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
-                        <a href="https://github.com/jdb1593/SmallPlanet.git">Small Planet</a>.
+                        <a href="노션 주소">Small Planet</a>.
                     </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="https://ko-kr.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="https://dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="https://kr.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>

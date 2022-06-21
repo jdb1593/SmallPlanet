@@ -44,12 +44,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 	<script>$(document).on("change", ".file-input", function(){
+		   
 	    $filename = $(this).val();
+
 	    if($filename == "")
 	      $filename = "파일을 선택해주세요.";
+
 	    $(".filename").text($filename);
-	  })
-	  </script>
+
+	  })</script>
 
     <script>
         $(document).ready(function () {
@@ -137,7 +140,7 @@
                     </p>
 
                 </div>
-                <div><input type="radio" required> 동의합니다.</div>
+                <div><input type="checkbox" required> 동의합니다.</div>
                 <hr>
                 <input type="submit" style="font-family: 'Black Han Sans', sans-serif;" class="button" value="SUBMIT">
             </form>
