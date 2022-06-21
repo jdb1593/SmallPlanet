@@ -36,7 +36,7 @@
 	Vector<BoardVO> vlist = null;
 	
 	uVO = uDAO.getUser(writer);
-    String writerName = uVO.getName();
+	String writerName = uVO.getName()==null? "탈퇴회원":uVO.getName();
     String authority = uVO.getAuthority();
 %>
 <!DOCTYPE html>
@@ -198,13 +198,18 @@
             <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
                 <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
-                <%if(boardName.equals("qnaBoard")){
-                	if(userAuthority.equals("admin")){ %>
-                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
-                	<%} %>
-                <%}else{ %>
-                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
-                <%} %>
+                <%
+	                if(ref==seq){
+		                if(boardName.equals("qnaBoard")){
+		                	if(userAuthority.equals("admin")){ %>
+		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+		                	<%} %>
+		                <%}else{ %>
+		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+		                <%
+		                }
+	                } 
+                %>
             </div>
         </div>
         <!-- 댓글 -->

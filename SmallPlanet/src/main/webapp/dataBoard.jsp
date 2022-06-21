@@ -63,7 +63,7 @@
 	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -95,6 +95,7 @@
     <script>
     function pageing(page) {
 		document.readFrm.nowPage.value = page;
+		document.readFrm.action="";
 		document.readFrm.submit();
 	}
 	
@@ -221,9 +222,8 @@
 	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
 	            <select name="keySub" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="" <%=UtilMgr.boardSelected(keySub, "") %>>모든 카테고리</option>
-	                <option value="공지사항" <%=UtilMgr.boardSelected(keySub, "공지사항") %>>공지사항</option>
-	                <option value="일상" <%=UtilMgr.boardSelected(keySub, "일상") %>>일상</option>
-	                <option value="도움" <%=UtilMgr.boardSelected(keySub, "도움") %>>도움</option>
+	                <option value="자체제작" <%=UtilMgr.boardSelected(keySub, "자체제작") %>>자체제작</option>
+	                <option value="기타" <%=UtilMgr.boardSelected(keySub, "기타") %>>기타</option>
 	            </select>
 	            <select name="keyField" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="content" <%=UtilMgr.boardSelected(keyField, "content") %>>내용</option>
