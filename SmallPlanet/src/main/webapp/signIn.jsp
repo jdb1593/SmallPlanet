@@ -11,8 +11,10 @@
 	String referUrl = request.getHeader("Referer");
 	Boolean refer = false;
 	if(referUrl!=null){
-		refer = referUrl.contains(domain);
-		if(refer && !referUrl.contains("sign")){
+		refer = referUrl.contains(domain); //이전페이지가 도메인을 포함
+		//이전페이지가 로그인/회원가입/정보변경이 아님
+		if(refer && !referUrl.contains("sign") && 
+				!referUrl.contains("member") && !referUrl.contains("secession")){ 
 			session.setAttribute("referUrl", referUrl);
 		}
 	}

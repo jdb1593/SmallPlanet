@@ -7,7 +7,7 @@
 	String password = request.getParameter("user_pswd");
 	String url = "signIn.jsp";
 	String successUrl = (String)session.getAttribute("referUrl");
-	String msg = "failed";
+	String msg = "로그인 실패";
 	
 	boolean result = false;
 	boolean emailCheck = uDAO.emailCheck(email);
@@ -15,7 +15,7 @@
 		result = uDAO.login(email, password);
 		if(result){
 			session.setAttribute("user", email);
-			msg = "success";
+			msg = "로그인 성공";
 			url = successUrl!=null? successUrl:"index.jsp";
 		}
 	}

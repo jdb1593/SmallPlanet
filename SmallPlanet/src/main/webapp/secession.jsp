@@ -6,50 +6,20 @@
 <jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
 <%@page import="boardPack.BoardVO" %>
 <%
-	String boardName = request.getParameter("boardName");
-	String seq_str = request.getParameter("seq");
-	String ref_str = request.getParameter("ref");
-	BoardVO bVO = new BoardVO();
-	String title = "";
-	String subject = "";
-	String content = "";
-	int seq = 0;
-	int ref = 0;
-	if(seq_str!=null){
-		seq = Integer.parseInt(seq_str);
-		bVO = bDAO.getBoard(boardName, seq);
-		title = bVO.getTitle();
-		subject = bVO.getSubject();
-		content = bVO.getContent();
-	}
-	if(ref_str!=null){
-		ref = Integer.parseInt(ref_str);
-		bVO = bDAO.getBoard(boardName, ref);
-		subject = bVO.getSubject();
-	}
-	int postNum = 0;
-	if(seq!=0 && ref==0){
-		postNum = seq;
-	}else if(seq==0 && ref!=0){
-		postNum = ref;
-	}
-	
-	
+	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
-	String userAuthority = "";
-	/* String url = "post.jsp?boardName="+boardName; */
-	if(user!=null){
+	if(user==null || user.equals("")){
+%>
+	<script>
+		alert("로그인 후 이용가능합니다.");
+		location.href="signIn.jsp";
+	</script>
+<%
+	}else{
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
-		userAuthority = uVO.getAuthority();
-	}else{
-		/* session.setAttribute("referUrl", url);
-		System.out.println(url); */
-		response.sendRedirect("signIn.jsp");
-	}
-	
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -85,7 +55,20 @@
 
     <script src="./summernote/summernote-lite.js"></script>
     <script src="./summernote/lang/summernote-ko-KR.js"></script>
-    
+        <style>
+        	.centerpoint{
+        	color:white;
+        		text-align: center;
+        		margin-bottom: 45px;
+        		font-size: 30px;
+        	}
+        	.formcolor{
+        		margin:40px 10px;
+        		background-color:#1c80ff;
+        		padding: 40px 70px;
+        		border-radius: 25px;
+        	}
+        </style>
 </head>
 
 <body>
@@ -114,8 +97,9 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
+                    <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
                 </a>       
-                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -130,82 +114,15 @@
         <hr class="header_line">
     </header>
     <!-- 본문 -->
-    <main>
-        <h1>글작성</h1>
-
-        <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <%if(seq==0 && ref==0){ %>
-        <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-        <%}else if(ref!=0){ %>
-        <form name="insert" method="post" action="replyBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-        <%}else{ %>
-        <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
-		<%} %>
-            <select name="board" id="list-select" required>
-            	<%if(boardName.equals("qnaBoard")){ %>
-                <option value="qnaBoard" 
-                	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",postNum)%>" 
-                	>Q&A</option>
-                <%} %>
-                <%if(boardName.equals("community")){ %>
-                <option value="community" 
-                	<%=UtilMgr.boardSelected(boardName, "community") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>" 
-                	>커뮤니티</option>
-                <%} %>
-               	<%if(userAuthority.equals("admin")){ %>
-                <%if(boardName.equals("dataBoard")){ %>
-                <option value="dataBoard" 
-                	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>" 
-                	>자료실</option>
-                <%} %>
-                <%} %>
-            </select>    
-            <select name="subject" id="list-select2" required>
-           	<%if(userAuthority.equals("admin")){ %>
-               <option value="공지사항" <%=UtilMgr.boardSelected(subject, "공지사항") %> 
-               	style="<%=UtilMgr.boardDisable(subject, "공지사항",postNum)%>">공지사항</option>
-               <%} %>
-            <!-- 커뮤니티 말머리 -->
-            <%if(boardName.equals("community")){ %>
-                <option class="commuSub" value="일상" <%=UtilMgr.boardSelected(subject, "일상") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "일상",postNum)%>">일상</option>
-                <option class="commuSub" value="도움" <%=UtilMgr.boardSelected(subject, "도움") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "도움",postNum)%>">도움</option>
-            <%} %>
-                	<!-- 자료실 말머리 -->
-            <%if(boardName.equals("dataBoard")){ %>
-                <option class="dataSub" value="자체제작" <%=UtilMgr.boardSelected(subject, "자체제작") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "자체제작",postNum)%>">자체제작</option>
-                <option class="dataSub" value="기타" <%=UtilMgr.boardSelected(subject, "기타") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "기타",postNum)%>">기타</option>
-            <%} %>
-                <!-- qna 말머리 -->
-            <%if(boardName.equals("qnaBoard")){ %>
-                <option class="qnaSub" value="자료요청" <%=UtilMgr.boardSelected(subject, "자료요청") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "자료요청",postNum)%>">자료요청</option>
-                <option class="qnaSub" value="건의사항" <%=UtilMgr.boardSelected(subject, "건의사항") %> 
-                	style="<%=UtilMgr.boardDisable(subject, "건의사항",postNum)%>">건의사항</option>
-            <%} %>
-            </select>
-            <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
-            <input type="hidden" name="writer" value="<%=user %>">
-            <textarea required name="content" id="summernote"><%=content %></textarea>
-            <%if(seq==0){ %><!-- 처음 작성 -->
-            <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
-            	<%if(ref!=0){ %><!-- 답글 -->
-	            <input type="hidden" name="ref" value="<%=ref %>">
-	            <%} %>
-            <%}else{ %><!-- 수정할 때 -->
-            <input type="hidden" name="seq" value="<%=seq %>">
-            <%} %>
-	        <input type="submit" value="submit" class="button submit-write">
-        </form>
-
-        
-        
+    <main style="margin-top: 200px; margin-bottom: 150px;">
+    <h1>회 원 탈 퇴</h1>
+    <form class="formcolor" method="post" action="secession_proc.jsp">
+		<div class="confirm centerpoint">정말로 탈퇴하시겠습니까?</div>
+		<label style="color:white;" for="secession_confirm">비밀번호 입력</label>
+		<input name="password" id="secession_confirm" type='password' placeholder="Password">
+		<input name="email" type="hidden" value="<%=user%>">
+		<input type="submit" value="확인" class="confirm_btn">
+	</form>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -262,3 +179,4 @@
     
 </body>
 </html>
+<%}%>

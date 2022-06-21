@@ -242,6 +242,7 @@
 	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
 	            <select name="keySub" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="" <%=UtilMgr.boardSelected(keySub, "") %>>모든 카테고리</option>
+	                <option value="공지사항" <%=UtilMgr.boardSelected(keySub, "공지사항") %>>공지사항</option>
 	                <option value="자료요청" <%=UtilMgr.boardSelected(keySub, "자료요청") %>>자료요청</option>
 	                <option value="건의사항" <%=UtilMgr.boardSelected(keySub, "건의사항") %>>건의사항</option>
 	            </select>

@@ -9,13 +9,19 @@
 	String userEmail = "";
 	String userBirthday = "";
 	String userRegDate = "";
-	if(user!=null){
+	if(user==null || user.equals("")){
+%>
+	<script>
+		alert("로그인 후 이용가능합니다.");
+		location.href="signIn.jsp";
+	</script>
+<%
+	}else{
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
 		userEmail = uVO.getEmail();
 		userBirthday = uVO.getBirthday();
 		userRegDate = uVO.getRegDate();
-	}
 %>
 <!DOCTYPE html>
 <html lang="KO">
@@ -106,7 +112,8 @@
                     <form name="memberUpdate" method="post" action="member_update.jsp">
                         <h3 style="text-align: center; padding-bottom: 35px;">회원정보 수정</h3>
                         <div class="form-group">
-                            <label>이메일</label><div class="form-control" style="background-color:#c0c0c0;"><%=userEmail%></div>
+                            <label>이메일</label>
+                            <input type="email" name="email" value="<%=userEmail%>" class="form-control" style="background-color:#c0c0c0;" readonly>
                         <div class="form-group">
                         <label>비밀번호</label>
                             <input id="password_1" type="password" class="form-control pw" placeholder="비밀번호"
@@ -128,7 +135,7 @@
                         <div class=" form-group">
                         <label>회원이름</label>
                             <input type="text" class="form-control" placeholder="이름" name="name" maxlength="20"
-                                value="<%=userName%>">
+                                value="<%=userName%>" readonly>
                         </div>
                         <div class="form-group">
                         <label>생년월일</label>
@@ -146,7 +153,8 @@
                         <input style="margin-top: 15px;" type="button" onclick="checkPassword()"
                             class="btn btn-primary form-control" value="수정완료">
                         
-                        <a href="<!-- 회원탈퇴 페이지 또는 경고창 -->>"></a><input style="margin-top: 5px; border: 1px solid #ff3232; background-color:#ff3232;" type="button" class="btn btn-primary form-control" value="회원탈퇴"></a>
+                        <a href="secession.jsp" style="margin-top: 5px; border: 1px solid #ff3232; 
+                        	background-color:#ff3232;" class="btn btn-primary form-control">회원탈퇴</a>
                     </form>
                 </div>
             </div>
@@ -264,3 +272,4 @@
     <script src="script/community_list.js"></script>
 </body>
 </html>
+<%}%>

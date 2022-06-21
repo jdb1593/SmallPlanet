@@ -174,7 +174,7 @@
                 <br>
                 <br>
                 <div class="wrap">
-                    <a href="./community_list.html" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+                    <a href="community.jsp" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
                 </div>
             </div>
     
@@ -214,7 +214,7 @@
                 <br>
                 <br>
                 <div class="wrap">
-                    <a href="#" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+                    <a href="dataBoard.jsp" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
                 </div>
             </div>
         

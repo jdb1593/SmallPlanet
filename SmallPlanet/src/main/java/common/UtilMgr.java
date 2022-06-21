@@ -49,4 +49,14 @@ public class UtilMgr {
 		}
 		return display;
 	}
+	
+	public static String con(String s) {
+		String str = null;
+		try {
+			str = new String(s.getBytes("8859_1"), "ksc5601");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
 }

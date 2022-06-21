@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import boardPack.BoardVO;
 import common.ConMgr;
 import common.UtilMgr;
 
@@ -133,28 +134,21 @@ private ConMgr pool;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
-		String updatePw = "";
-		Boolean pwNull = false;
+		boolean pwNull = false;
 		
 		try {
-			pwNull = _vo.getPassword()==null;
-			if(!pwNull) {
-				updatePw = ",password=?";
-			}
 			con = pool.getConnection();
-			sql = "update users set name=?"+updatePw+" where email = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, _vo.getName());
+			pwNull = (_vo.getPassword()==null || _vo.getPassword().equals(""));
 			if(!pwNull) {
-				pstmt.setString(2, _vo.getPassword());
-				pstmt.setString(3, _vo.getEmail());
-			}else {
+				sql = "update users set password=? where email = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, _vo.getPassword());
 				pstmt.setString(2, _vo.getEmail());
+				if(pstmt.executeUpdate()==1) {
+					flag = true;
+				}
 			}
 			
-			if(pstmt.executeUpdate()==1) {
-				flag = true;
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -164,22 +158,39 @@ private ConMgr pool;
 	}
 	
 	//탈퇴
-	public void deleteUser(String _email) {
+	public boolean deleteUser(String _email,String _password) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		ResultSet rs = null;
+		boolean flag = false;
+		boolean pwNull = false;
+		boolean pwChk = false;
 
 		try {
 			con = pool.getConnection();
-			sql = "delete from users where email=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,  _email);
-			pstmt.executeUpdate();
+			pwNull = (_password==null || _password.equals(""));
+			if(!pwNull) {
+				sql = "select name from users where email = ? and password = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,  _email);
+				pstmt.setString(2,  _password);
+				rs = pstmt.executeQuery();
+				pwChk = rs.next();
+				if(pwChk) {
+					sql = "delete from users where email=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1,  _email);
+					if(pstmt.executeUpdate()==1) {
+						flag = true;
+					}
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
+		return flag;
 	}
 }

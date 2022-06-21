@@ -140,7 +140,7 @@
                     </p>
 
                 </div>
-                <div><input type="radio" required> 동의합니다.</div>
+                <div><input type="checkbox" required> 동의합니다.</div>
                 <hr>
                 <input type="submit" style="font-family: 'Black Han Sans', sans-serif;" class="button" value="SUBMIT">
             </form>

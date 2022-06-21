@@ -1,6 +1,9 @@
 package boardPack;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +11,8 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -488,5 +493,58 @@ public class BoardDAO {
 				pool.freeConnection(con, pstmt,rs);
 			}
 			return status;
+		}
+		
+		//조회수 증가
+		public void cntUp(String _boardname,int _seq) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "update "+_boardname+" set cnt=cnt+1 where seq=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, _seq);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+		}
+		
+		//파일 다운로드
+		public void downLoad(HttpServletRequest req, HttpServletResponse res,
+				JspWriter out, PageContext pageContext) {
+			try {
+				String filename = req.getParameter("fileName");
+				File file = new File(UtilMgr.con(SAVEFOLDER + File.separator+ filename));
+				byte b[] = new byte[(int) file.length()];
+				res.setHeader("Accept-Ranges", "bytes");
+				String strClient = req.getHeader("User-Agent");
+				if (strClient.indexOf("MSIE6.0") != -1) {
+					res.setContentType("application/smnet;charset=euc-kr");
+					res.setHeader("Content-Disposition", "fileName=" + filename + ";");
+				} else {
+					res.setContentType("application/smnet;charset=euc-kr");
+					res.setHeader("Content-Disposition", "attachment;fileName="+ filename + ";");
+				}
+				out.clear();
+				out = pageContext.pushBody();
+				if (file.isFile()) {
+					BufferedInputStream fin = new BufferedInputStream(
+							new FileInputStream(file));
+					BufferedOutputStream outs = new BufferedOutputStream(
+							res.getOutputStream());
+					int read = 0;
+					while ((read = fin.read(b)) != -1) {
+						outs.write(b, 0, read);
+					}
+					outs.close();
+					fin.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 }

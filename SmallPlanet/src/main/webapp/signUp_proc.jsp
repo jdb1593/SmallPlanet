@@ -8,14 +8,14 @@
 	String email = request.getParameter("email");
 	String name = request.getParameter("name");
 	String brithyear = request.getParameter("birthyear");
-	String msg = "failed";
+	String msg = "회원가입 실패";
 	String url = "signIn.jsp";
 	
 	boolean emailCheck = uDAO.emailCheck(email);
 	if(!emailCheck){
 		boolean result = uDAO.insertUser(uVO);
 		if(result){
-			msg = "success";
+			msg = "회원가입 성공";
 		}		
 	}
 	

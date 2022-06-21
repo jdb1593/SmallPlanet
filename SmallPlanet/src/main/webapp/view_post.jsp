@@ -16,11 +16,26 @@
 		userName = uVO.getName();
 		userAuthority = uVO.getAuthority();
 	}
-
+	
+	String nowPage = request.getParameter("nowPage");
+    String keyField = request.getParameter("keyField");
+    String keySub = request.getParameter("keySub");
+    String keyWord = request.getParameter("keyWord");
 	int seq = Integer.parseInt(request.getParameter("seq"));
 	String boardName = request.getParameter("boardName");
+	bDAO.cntUp(boardName, seq);
 	BoardVO bVO = bDAO.getBoard(boardName, seq);
 	String title = bVO.getTitle();
+	
+	if(title==null){
+	%>
+		<script>
+			alert("존재하지 않는 게시글입니다.");
+			history.back();
+		</script>
+	<%	
+	}else{
+		
 	String writer = bVO.getWriter();
 	String subject = bVO.getSubject();
 	String content = bVO.getContent();
@@ -100,6 +115,15 @@
             padding: 2px;
         }
     </style>
+    <script>
+	    function list(){
+		    document.listFrm.submit();
+		 } 
+	    function down(fileName){
+			 document.downFrm.fileName.value=fileName;
+			 document.downFrm.submit();
+		}
+    </script>
 </head>
 
 <body>
@@ -188,12 +212,24 @@
                 <!-- 게시글 내용 -->
                 <p><%=content %></p>
             </div>
-            <%if(fileName!=null){ %>
+            <%if(fileName!=null && user!=null){ %>
             <div style="border-bottom: 1px solid #5180d8; width: auto ;">
                 <!-- 첨부파일 이름 -->
-                <span>첨부파일 <%=fileName %>(<%=fileSize %>byte)</span>
+                <span>첨부파일 <a href="javascript:down('<%=fileName%>')"><%=fileName %>(<%=fileSize %>KB)</a></span>
             </div>
             <%} %>
+            <form name="downFrm" action="download.jsp" method="post">
+				<input type="hidden" name="fileName">
+			</form>
+			
+			<form name="listFrm" method="get" action="<%=boardName%>.jsp">
+				<input type="hidden" name="nowPage" value="<%=nowPage%>">
+				<input type="hidden" name="keySub" value="<%=keySub%>">
+				<%if(!(keyWord==null || keyWord.equals(""))){ %>
+				<input type="hidden" name="keyField" value="<%=keyField%>">
+				<input type="hidden" name="keyWord" value="<%=keyWord%>">
+				<%}%>
+			</form>
             
             <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
                 <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
@@ -210,6 +246,7 @@
 		                }
 	                } 
                 %>
+                <a href="javascript:list()" >목록으로</a>
             </div>
         </div>
         <!-- 댓글 -->
@@ -313,3 +350,4 @@
 </body>
 
 </html>
+<%}%>
