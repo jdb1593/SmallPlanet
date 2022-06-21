@@ -22,17 +22,28 @@
 		subject = bVO.getSubject();
 		content = bVO.getContent();
 	}
+	if(ref_str!=null){
+		ref = Integer.parseInt(ref_str);
+		bVO = bDAO.getBoard(boardName, ref);
+		subject = bVO.getSubject();
+	}
+	int postNum = 0;
+	if(seq!=0 && ref==0){
+		postNum = seq;
+	}else if(seq==0 && ref!=0){
+		postNum = ref;
+	}
 	
 	
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
-	String authoroty = "";
+	String userAuthority = "";
 	/* String url = "post.jsp?boardName="+boardName; */
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
-		authoroty = uVO.getAuthority();
+		userAuthority = uVO.getAuthority();
 	}else{
 		/* session.setAttribute("referUrl", url);
 		System.out.println(url); */
@@ -123,34 +134,44 @@
         <h1>글작성</h1>
 
         <!-- form 안에 에디터를 사용하는 경우(보통 이 경우를 많이 사용하는듯) -->
-        <%if(seq==0){ %>
+        <%if(seq==0 && ref==0){ %>
         <form name="insert" method="post" action="insertBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
+        <%}else if(ref!=0){ %>
+        <form name="insert" method="post" action="replyBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
         <%}else{ %>
         <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
 		<%} %>
             <select name="board" id="list-select" required>
                 <option value="qnaBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",seq)%>">Q&A</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",postNum)%>">Q&A</option>
                 <option value="community" 
                 	<%=UtilMgr.boardSelected(boardName, "community") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "community",seq)%>">커뮤니티</option>
-               	<%if(authoroty=="admin"){ %>
+                	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>">커뮤니티</option>
+               	<%if(userAuthority.equals("admin")){ %>
                 <option value="dataBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",seq)%>">자료실</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>">자료실</option>
                 <%} %>
             </select>    
             <select name="subject" id="list-select2" required>
-                <option value="test" <%=UtilMgr.boardSelected(subject, "test") %>>말머리1</option>
-                <option value="test2" <%=UtilMgr.boardSelected(subject, "test2") %>>말머리2</option>
-                <option value="test3" <%=UtilMgr.boardSelected(subject, "test3") %>>말머리3</option>
-            </select>         
+            	<%if(userAuthority.equals("admin")){ %>
+                <option value="공지사항" <%=UtilMgr.boardSelected(subject, "공지사항") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "공지사항",postNum)%>">공지사항</option>
+                <%} %>
+                <option value="일상" <%=UtilMgr.boardSelected(subject, "일상") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "일상",postNum)%>">일상</option>
+                <option value="도움" <%=UtilMgr.boardSelected(subject, "도움") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "도움",postNum)%>">도움</option>
+            </select>
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
             <input type="hidden" name="writer" value="<%=user %>">
             <textarea required name="content" id="summernote"><%=content %></textarea>
             <%if(seq==0){ %><!-- 처음 작성 -->
             <input type="file" name="fileName" size="50" maxlength="50" class="file-upload">
+            	<%if(ref!=0){ %><!-- 답글 -->
+	            <input type="hidden" name="ref" value="<%=ref %>">
+	            <%} %>
             <%}else{ %><!-- 수정할 때 -->
             <input type="hidden" name="seq" value="<%=seq %>">
             <%} %>

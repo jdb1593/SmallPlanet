@@ -5,13 +5,13 @@
 <jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
 <jsp:setProperty property="*" name="bVO"/>
 <%
+	String boardName = request.getParameter("board");
+	int ref = Integer.parseInt(request.getParameter("ref"));
 	String msg = "failed";
-	String url = "signIn.jsp";
+	String url = "view_post.jsp?boardName="+boardName+"&seq="+ref;
 	
-
-		/* boolean result = bDAO.insertBoard(bVO); */
-	/* 	if(result){
-			msg = "success";
-		}	 */	
-
+	bDAO.commentBoard(boardName,bVO);
 %>
+<script>
+	location.href = "<%=url%>";
+</script>

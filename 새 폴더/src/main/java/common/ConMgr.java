@@ -6,9 +6,9 @@ import java.util.*;
 public class ConMgr {
 	private Vector connections = new Vector(10);
     private String _driver = "com.mysql.cj.jdbc.Driver",
-    _url = "jdbc:mysql://127.0.0.1:3307/smallplanet?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true",
+    _url = "jdbc:mysql://127.0.0.1:3306/smallplanet?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true",
     _user = "root",
-    _password = "1234";
+    _password = "12341234";
     private boolean _traceOn = true;
     private boolean initialized = false;
     private int _openConnections = 10;

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="boardPack.BoardVO" %>
+<%@page import="boardPack.InquiryVO" %>
 <%@page import="java.util.Vector" %>
-<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
+<jsp:useBean id="iDAO" class="boardPack.InquiryDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
@@ -10,16 +10,61 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
+	}
+	
+	if(!userAuthority.equals("admin")){
+%>
+	<script>
+		alert("관리자 전용 페이지입니다.");
+		location.href="index.jsp";
+	</script>
+<%
 	}
 		
-	String boardName = "community";
+	String boardName = "inquiryBoard";
+	int totalRecord=0; //전체레코드수
+	int numPerPage=10; // 페이지당 레코드 수 
+	int pagePerBlock=15; //블럭당 페이지수 
+	  
+	int totalPage=0; //전체 페이지 수
+	int totalBlock=0;  //전체 블럭수 
+	
+	int nowPage=1; // 현재페이지
+	int nowBlock=1;  //현재블럭
+	
 	int start = 0;
 	int end = 10;
 	int listSize = 0;
-	Vector<BoardVO> vlist = null;
+	Vector<InquiryVO> vlist = null;
+	
+	String keyWord = "", keyField = "";
+	if (request.getParameter("keyWord") != null) {
+		keyWord = request.getParameter("keyWord");
+		keyField = request.getParameter("keyField");
+	}
+	if (request.getParameter("reload") != null){
+		if(request.getParameter("reload").equals("true")) {
+			keyWord = "";
+			keyField = "";
+		}
+	}
+	
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	}
+	 start = (nowPage * numPerPage)-numPerPage;
+	 end = numPerPage;
+	 
+	/* totalRecord = iDAO.getTotalBoard(boardName,keyField, keyWord); */
+	totalPage = (int)Math.ceil((double)totalRecord / numPerPage);  //전체페이지수
+	nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
+	  
+	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
 %>
 <!DOCTYPE html>
 <jsp lang="KO">
@@ -54,7 +99,7 @@
     <script>
         function read(boardName,seq){
             document.readFrm.seq.value=seq;
-            document.readFrm.action="view_post.jsp";
+            document.readFrm.action="view_inquiry.jsp";
             document.readFrm.submit();
         }
     </script>
@@ -65,7 +110,7 @@
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index-sub.jsp" class="navbar_logotext" >SMALLPLANET</a>
+                <a style="color: #5180d8; border-bottom: 2px solid transparent;" href="index.jsp" class="navbar_logotext" >SMALLPLANET</a>
             </div>
 
             <!-- nav 메뉴 -->
@@ -87,6 +132,7 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
+                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
 			<%}else{ %>
@@ -112,35 +158,27 @@
                     <th>No.</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>                
+                    <th>작성일</th>             
                 </tr>
             </thead>
             <tbody>
 	            <%
-	                vlist = bDAO.getBoardList(boardName, start, end);
+	                vlist = iDAO.getInquiryList(start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<10;i++){
 	                    if(i==listSize) break;
-	                    BoardVO vo = vlist.get(i);
+	                    InquiryVO vo = vlist.get(i);
 	                    int seq = vo.getSeq();
-	                    String subject = vo.getSubject();
 	                    String title = vo.getTitle();
 	                    String writer = vo.getWriter();
 	                    String uploadDate = vo.getUploadDate();
-	                    int cnt = vo.getCnt();
-	                    
-	                    uVO = uDAO.getUser(writer);
-	                    String writerName = uVO.getName();
-	                    String authoroty = uVO.getAuthority();
 	            %>
                 <tr class="list-under-line">
                     <td><%=seq %></td>
                     <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
-                    	[<%=subject %>]<%=title %></a></td>
-                    <td><%=writerName %></td>
+                    	<%=title %></a></td>
+                    <td><%=writer %></td>
                     <td><%=uploadDate %></td>
-                    <td><%=cnt %></td>
                 </tr>      
                 <%	} %>
             </tbody>

@@ -1,10 +1,12 @@
 package userPack;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import common.ConMgr;
+import common.UtilMgr;
 
 public class UserDAO {
 private ConMgr pool;
@@ -123,5 +125,61 @@ private ConMgr pool;
 			pool.freeConnection(con, pstmt, rs);
 		}
 		return vo;
+	}
+	
+	//정보변경
+	public boolean updateUser(UserVO _vo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		String updatePw = "";
+		Boolean pwNull = false;
+		
+		try {
+			pwNull = _vo.getPassword()==null;
+			if(!pwNull) {
+				updatePw = ",password=?";
+			}
+			con = pool.getConnection();
+			sql = "update users set name=?"+updatePw+" where email = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, _vo.getName());
+			if(!pwNull) {
+				pstmt.setString(2, _vo.getPassword());
+				pstmt.setString(3, _vo.getEmail());
+			}else {
+				pstmt.setString(2, _vo.getEmail());
+			}
+			
+			if(pstmt.executeUpdate()==1) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	
+	//탈퇴
+	public void deleteUser(String _email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+
+		try {
+			con = pool.getConnection();
+			sql = "delete from users where email=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,  _email);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
 	}
 }

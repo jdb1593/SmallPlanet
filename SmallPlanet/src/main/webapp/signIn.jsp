@@ -7,7 +7,7 @@
 	Date now = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy");
 	
-	String domain = "http://localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
+	String domain = "localhost/SmallPlanet/"; //로컬에서 돌리려면 환경에 맞춰 변화 필요
 	String referUrl = request.getHeader("Referer");
 	Boolean refer = false;
 	if(referUrl!=null){
@@ -75,7 +75,9 @@
 	 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 </head>
 <body>
-	<div class="logo"><img src="images/smpLogo.png" alt="" class="logo_img"> <span style="position: relative; left: -10px;">SMALLPLANET</span></div>	
+	<div class="logo"><a href="./index.jsp"><img src="./images/smpLogo.png" alt="" class="logo_img"></a> <a
+			style="text-decoration: none;" href="./index.jsp"><span
+				style="position: relative; left: -10px; text-decoration: none; color: #5180d8;">SMALLPLANET</span></a></div>	
 	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true" <%=sign_toggle %>>
 
@@ -92,7 +94,7 @@
 				<div id="password-danger3" style="display: none;">같은 문자를 4번 이상 사용 하실 수 없습니다.</div>
 				<input class="sign-input pw" type="password" name="passwordCfrm" id="password_2" 
 					placeholder="비밀번호 확인" required="" minlength="8" maxlength="20">
-				<div id="alert-success" style="display: none;">비밀번호가 일치합니다.</div>
+				<div id="alert-success" style="display: none; color: black;">비밀번호가 일치합니다.</div>
     			<div id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</div>
 				<div>
 					<input class="sign-input birth-year" type="text" id="year" name="birthyear" placeholder="년(4자)" 
@@ -116,7 +118,7 @@
 				
 				<input type="button" onclick="checkPassword()" style="margin-top: -38px;" value="가입하기" class="button">
 				<div class="close-btn">
-					<a href="index-sub.html">X</a>
+					<a href="index.jsp">X</a>
 				</div>
 			</form>
 		</div>

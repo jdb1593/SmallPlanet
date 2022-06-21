@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="boardPack.BoardVO" %>
+<%@page import="java.util.Vector" %>
+<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
+<%@page import="userPack.UserVO" %>
+<jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<%
+	request.setCharacterEncoding("utf-8");
+	String user = (String)session.getAttribute("user");
+	UserVO uVO = new UserVO();
+	String userName = "";
+	if(user!=null){
+		uVO = uDAO.getUser(user);
+		userName = uVO.getName();
+	}
+%>
 <!DOCTYPE html>
 <html lang="KO">
 
@@ -28,6 +43,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<script>$(document).on("change", ".file-input", function(){
+		   
+	    $filename = $(this).val();
+
+	    if($filename == "")
+	      $filename = "파일을 선택해주세요.";
+
+	    $(".filename").text($filename);
+
+	  })</script>
 
     <script>
         $(document).ready(function () {
@@ -63,7 +88,19 @@
                 </ul>
             </div>
 
-            <div class="loginJoin"><a href="./login.html">LOGIN / JOIN</a></div>
+            <div class="loginJoin">
+            <%if(user!=null){%>
+             <!-- // 로그인 했을때 프로필 모양-->
+					<a href="memberInfo.jsp">
+                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    <%=userName %>
+                </a>       
+                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+			<%}else{ %>
+            	<a href="signIn.jsp">LOGIN / JOIN</a>
+			<%} %>
+			</div>
 
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
@@ -76,22 +113,22 @@
     <main>
         <br>
         <div class="inquiry-form">
-            <form action="">
+            <form method="post" action="insertInquiry" enctype="multipart/form-data">
+            	<input name="writer" type="hidden" value="<%=request.getRemoteAddr()%>">
                 <h3 class="inq-title">문의 등록</h3>
                 <hr>
                 <div class="p">제 목</div>
-                <input class="inputs" type="text" placeholder="제목을 입력하세요" required><br><br>
+                <input name="title" class="inputs" type="text" placeholder="제목을 입력하세요" required><br><br>
                 <div class="p">E-MAIL</div>
-                <input class="inputs" type="email" placeholder="ex) abc@abc.com" required><br><br>
+                <input name="email" class="inputs" type="email" placeholder="ex) abc@abc.com" required><br><br>
                 <div class="p">내 용</div>
-                <textarea class="inputs" name="" id="" cols="30" rows="10" required></textarea>
+                <textarea name="content" class="inputs" name="" id="" cols="30" rows="10" required></textarea>
                 <div class="p">연 락 처</div>
-                <input class="inputs" type="tel" placeholder="'-'없이 입력해주세요" required>
+                <input name="phoneNumber" class="inputs" type="tel" placeholder="'-'없이 입력해주세요" required>
                 <hr>
                 <div class="filebox">
-                    <!-- <input class="upload-name" value="" placeholder="첨부파일" readonly>
-                    <label for="file">파일찾기</label> -->
-                    <label for="file">파일찾기<input type="file" id="file" size="50" maxlength="50"></label>
+                    
+<div class="box-file-input"><label><input type="file" name="ev_display" class="file-input" accept="image/*"></label><span class="filename">파일을 선택해주세요.</div>
                 </div>
                 <hr>
                 <div>
@@ -103,9 +140,9 @@
                     </p>
 
                 </div>
-                <div><input type="radio"> 동의합니다.</div>
+                <div><input type="radio" required> 동의합니다.</div>
                 <hr>
-                <a href="" style="font-family: 'Black Han Sans', sans-serif;" class="button">SUBMIT</a>
+                <input type="submit" style="font-family: 'Black Han Sans', sans-serif;" class="button" value="SUBMIT">
             </form>
         </div>
     </main>
@@ -142,7 +179,7 @@
 
                     </ul>
                 </div>
-            </div>
+            </div> 
             <hr>
         </div>
         <div class="container">

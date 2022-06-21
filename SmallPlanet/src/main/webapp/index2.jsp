@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector" %>
-<%@page import="boardPack.BoardVO" %>
-<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
 <%
@@ -14,13 +11,8 @@
 	  	uVO = uDAO.getUser(user);
 	  	userName = uVO.getName();
 	  }
-	  
-	  int start = 0;
-	  int end = 10;
-	  int listSize = 0;
-	  Vector<BoardVO> vlist = null;
 %>
-<!DOCTYPE html>
+<!DOCTYPE jsp>
 <html lang="KO">
 
 <head>
@@ -42,7 +34,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <!-- icon images -->
+    <!-- icon 이미지 -->
     <script src="https://kit.fontawesome.com/cd6c1c6007.js" crossorigin="anonymous"></script>
     <!-- bxSlider -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
@@ -59,7 +51,7 @@
             });
         });
     </script>
-	    <style>
+    <style>
         .box-img {
             border-radius: 20px;
         }
@@ -72,42 +64,56 @@
             border: none;
         }
     </style>
-
 </head>
 
 <body>
-    <header style="z-index: 1;">
+    <header style="z-index: 100000;">
         <!-- Logo -->
         <nav class="navbar">
             <div class="navbar_logo">
-                <a style="color: #5180d8;" href="index.jsp" class="navbar_logotext">SMALLPLANET</a>
-            </div>
+                <a style="color: #5180d8;" href="index.jsp" class="navbar_logotext">SMALLPLANET</a>                
+            </div>            
 
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                    <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
+                    <!-- <li><a class="menuNum auto-login" style="display: none;">ADMIN</a></li> -->
+                    <li><a class="menuNum auto-login" style="display: none;" href="./login.jsp">LOGIN / JOIN</a></li>
+                    <li><a class="menuNum" href="./introduce.jsp">소 개</a></li>
                     <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
                     <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
                     <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
-                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
+                    <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>                    
                 </ul>
             </div>
 
             <div class="loginJoin">
-            <%if(user!=null){%>
-             <!-- // 로그인 했을때 프로필 모양-->
-					<a href="memberInfo.jsp">
-                    <img src="./images/profiledefault.png" alt="" class="profile-picture">                
-                    <div style="position: relative; top: -30px; right: -10px;">
-                    <%=userName %>
-                </a>       
-                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
-			<%}else{ %>
-            	<a href="signIn.jsp">LOGIN / JOIN</a>
-			<%} %>
-			</div>
+                <%if(user!=null){%>
+                    <!-- // 로그인 했을때 프로필 모양-->
+                           <a href="memberInfo.jsp">
+                           <img src="./images/profiledefault.png" alt="" class="profile-picture">                
+                           <div style="position: relative; top: -30px; right: -10px;">
+                           <%=userName %>
+                       </a>       
+                       <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+                   <%}else{ %>
+                       <a href="signIn.jsp">LOGIN / JOIN</a>
+                   <%} %>  
 
+                <!-- 관리자 -->
+                <!-- <div class='btn_container'>
+                    <a class='pulse-button'>ADMIN</a>
+                </div> -->
+
+                <!-- // 로그인 했을때 프로필 모양
+                    <a href="./memberInfo.jsp">
+                    <img src="./이미지/profiledefault.png" alt="" class="profile-picture">                
+                    <div style="position: relative; top: -30px; right: -10px;">
+                    닉네임
+                    </a>       
+                    <a href="#" style="margin-left: 10px;">로그아웃</a>     -->
+            </div>
+            
 
             <!-- 해상도 낮아지면 생기는 버튼 -->
             <a href="#" class="navbar_toggleBtn">
@@ -127,98 +133,55 @@
                 <div><a href=""><img class="bximg" src="./images/1920bximg6.jpg" alt=""></a></div>
                 <div><a href=""><img class="bximg" src="./images/1920bximg7.jpg" alt=""></a></div>
             </div>
-        </div>        
-            <div class="main-content1">
-                <div class="title-box">
-                    <h2 class="main-title">커 뮤 니 티</h2>
-                </div>
-                <div class="box-bundle">
-                <%
-                    /* int j = 0;
-                    int k = 0; */
-	                vlist = bDAO.getBoardList("community","","","", start, end);
-	                listSize = vlist.size();
-	                for(int i=0;i<4;i++){
-	                    if(i==listSize) break;
-	                    BoardVO vo = vlist.get(i);
-	                    int seq = vo.getSeq();
-	                    int ref = vo.getRef();
-                    	/* while(seq!=ref){
-	                    	vo = vlist.get(i+k+j);
-		                    seq = vo.getSeq();
-		                    ref = vo.getRef();
-		                    j++;
-                    	}
-                   		k = j;
-                   		j = 0; */
-	                    String subject = vo.getSubject();
-	                    String title = vo.getTitle();
-	                    String writer = vo.getWriter();
-	                    String uploadDate = vo.getUploadDate();
-	                    int cnt = vo.getCnt();
-	                    
-	                    uVO = uDAO.getUser(writer);
-	                    String writerName = uVO.getName();
-                %>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
-                        </a>
-                        	<p style="margin:0px" ><%=writerName %></p>
-                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
-                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
-                    </div>
-                <%} %>
-                </div>
-                <br>
-                <br>
-                <div class="wrap">
-                    <a href="./community_list.html" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
-                </div>
-            </div>
-    
-            <div class="main-content2">
-                <div class="title-box">
-                    <h2 class="main-title">자 료 실</h2>
-                </div>
-                <div class="box-bundle">
-                <%
-                vlist = bDAO.getBoardList("dataBoard","","","", start, end);
-                listSize = vlist.size();
-                for(int i=0;i<4;i++){
-                    if(i==listSize) break;
-                    BoardVO vo = vlist.get(i);
-                    int seq = vo.getSeq();
-                    int ref = vo.getRef();
-                    String subject = vo.getSubject();
-                    String title = vo.getTitle();
-                    String writer = vo.getWriter();
-                    String uploadDate = vo.getUploadDate();
-                    int cnt = vo.getCnt();
-                    
-                    uVO = uDAO.getUser(writer);
-                    String writerName = uVO.getName();
-                %>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
-                        </a>
-                        	<p style="margin:0px" ><%=writerName %></p>
-                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
-                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
-                    </div>
-                <%} %>
-                </div>
-                <br>
-                <br>
-                <div class="wrap">
-                    <a href="#" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
-                </div>
-            </div>
+        </div>
         
-        
+        <div class="main-content1">
+            <div class="title-box">
+                <h2 class="main-title">커 뮤 니 티</h2>
+            </div>
+            <div class="box-bundle">
+            <%for(int i=0;i<8;i++){ %>
+                <div class="bundle-content">
+                    <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                    <a href="">
+                        <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                    </a>
+                    <p class="box-info" style="font-size:10px;">조회수</p>
+                    <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                </div>
+            <%} %>
+            </div>
+            <br>
+            <br>
+            <div class="wrap">
+                <a href="./community_list.html" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+            </div>
+        </div>
+
+        <div class="main-content2">
+            <div class="title-box">
+                <h2 class="main-title">자 료 실</h2>
+            </div>
+            <div class="box-bundle">
+            <%for(int i=0;i<8;i++){ %>
+                <div class="bundle-content">
+                    <div class="content-box"><a href=""><img class="box-img" src="#" alt=""></a></div>
+                    <a href="">
+                        <p class="box-info" style="font-size:21px;">ㅎㅇ</p>
+                    </a>
+                    <p class="box-info" style="font-size:10px;">조회수</p>
+                    <p class="box-info" style="font-size:10px;">2000-06-30</p>
+                </div>
+            <%} %>
+            </div>
+            <br>
+            <br>
+            <div class="wrap">
+                <a href="#" class="button">M&nbspO&nbspR&nbspE&nbsp&nbsp&nbsp&nbsp&nbsp +</a>
+            </div>
+        </div>
+
+
 
     </main>
     <footer class="foot-container">
