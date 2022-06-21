@@ -85,7 +85,7 @@
 
     <script src="./summernote/summernote-lite.js"></script>
     <script src="./summernote/lang/summernote-ko-KR.js"></script>
-        
+    
 </head>
 
 <body>
@@ -142,27 +142,53 @@
         <form name="insert" method="post" action="updateBoard" enctype="multipart/form-data" class="summer_editor" style="width: auto;">
 		<%} %>
             <select name="board" id="list-select" required>
+            	<%if(boardName.equals("qnaBoard")){ %>
                 <option value="qnaBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "qnaBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",postNum)%>">Q&A</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "qnaBoard",postNum)%>" 
+                	>Q&A</option>
+                <%} %>
+                <%if(boardName.equals("community")){ %>
                 <option value="community" 
                 	<%=UtilMgr.boardSelected(boardName, "community") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>">커뮤니티</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "community",postNum)%>" 
+                	>커뮤니티</option>
+                <%} %>
                	<%if(userAuthority.equals("admin")){ %>
+                <%if(boardName.equals("dataBoard")){ %>
                 <option value="dataBoard" 
                 	<%=UtilMgr.boardSelected(boardName, "dataBoard") %> 
-                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>">자료실</option>
+                	style="<%=UtilMgr.boardDisable(boardName, "dataBoard",postNum)%>" 
+                	>자료실</option>
+                <%} %>
                 <%} %>
             </select>    
             <select name="subject" id="list-select2" required>
+            <!-- 커뮤니티 말머리 -->
+            <%if(boardName.equals("community")){ %>
             	<%if(userAuthority.equals("admin")){ %>
-                <option value="공지사항" <%=UtilMgr.boardSelected(subject, "공지사항") %> 
+                <option class="commuSub" value="공지사항" <%=UtilMgr.boardSelected(subject, "공지사항") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "공지사항",postNum)%>">공지사항</option>
                 <%} %>
-                <option value="일상" <%=UtilMgr.boardSelected(subject, "일상") %> 
+                <option class="commuSub" value="일상" <%=UtilMgr.boardSelected(subject, "일상") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "일상",postNum)%>">일상</option>
-                <option value="도움" <%=UtilMgr.boardSelected(subject, "도움") %> 
+                <option class="commuSub" value="도움" <%=UtilMgr.boardSelected(subject, "도움") %> 
                 	style="<%=UtilMgr.boardDisable(subject, "도움",postNum)%>">도움</option>
+            <%} %>
+                	<!-- 자료실 말머리 -->
+            <%if(boardName.equals("dataBoard")){ %>
+                <option class="dataSub" value="자체제작" <%=UtilMgr.boardSelected(subject, "자체제작") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "자체제작",postNum)%>">자체제작</option>
+                <option class="dataSub" value="기타" <%=UtilMgr.boardSelected(subject, "기타") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "기타",postNum)%>">기타</option>
+            <%} %>
+                <!-- qna 말머리 -->
+            <%if(boardName.equals("qnaBoard")){ %>
+                <option class="qnaSub" value="자료요청" <%=UtilMgr.boardSelected(subject, "자료요청") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "자료요청",postNum)%>">자료요청</option>
+                <option class="qnaSub" value="건의사항" <%=UtilMgr.boardSelected(subject, "건의사항") %> 
+                	style="<%=UtilMgr.boardDisable(subject, "건의사항",postNum)%>">건의사항</option>
+            <%} %>
             </select>
             <input type="text" name="title" placeholder="제목을 입력하세요" value="<%=title %>" class="summer_editor_title" required>
             <input type="hidden" name="writer" value="<%=user %>">

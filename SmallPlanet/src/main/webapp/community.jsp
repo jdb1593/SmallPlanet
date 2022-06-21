@@ -93,6 +93,7 @@
     <script>
 	    function pageing(page) {
 			document.readFrm.nowPage.value = page;
+			document.readFrm.action="";
 			document.readFrm.submit();
 		}
 		
@@ -191,7 +192,7 @@
 	                    int cnt = vo.getCnt();
 	                    
 	                    uVO = uDAO.getUser(writer);
-	                    String writerName = uVO.getName();
+	                    String writerName = uVO.getName()==null? "탈퇴회원":uVO.getName();
 	                    String w_authority = uVO.getAuthority();
 	            %>
                 <tr class="list-under-line">
@@ -235,7 +236,7 @@
 	                <div class="search-box">
 	                    <!-- <input type="text" name="keyWord" onkeyup="javascript:check()"> -->
 	                    <input type="text" name="keyWord" value="<%=keyWord%>">
-	   					<input type="hidden" name="nowPage" value="<%=nowPage%>">
+	   					<input type="hidden" name="nowPage" value="1">
 	                    <span></span>
 	   					<input type="button" value="search" onclick="javascript:check()">
 	   					<%=totalRecord%>건의 게시물

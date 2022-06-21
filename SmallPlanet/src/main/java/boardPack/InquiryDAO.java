@@ -61,6 +61,39 @@ public class InquiryDAO {
 			return vlist;
 		}
 		
+		//총 게시물 수
+		public int getTotalInquiry(String _board,String _keyField,String _keyWord){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int total = 0;
+			
+			try {
+				con = pool.getConnection();
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select count(seq) from "+_board;
+					pstmt = con.prepareStatement(sql);
+				}else {
+					//at search
+					sql = "select count(seq) from "+_board+" where "+_keyField+" like ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+				}
+				
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					total = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return total;
+		}
+		
 		//게시물 등록
 		public void insertInquiry(HttpServletRequest _req,HttpServletResponse response) {
 			Connection con = null;
