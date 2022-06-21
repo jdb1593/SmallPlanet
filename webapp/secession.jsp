@@ -1,28 +1,28 @@
+<%@page import="common.UtilMgr"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="boardPack.BoardVO" %>
-<%@page import="java.util.Vector" %>
-<jsp:useBean id="bDAO" class="boardPack.BoardDAO"/>
 <%@page import="userPack.UserVO" %>
 <jsp:useBean id="uDAO" class="userPack.UserDAO"/>
+<jsp:useBean id="bDAO" class="boardPack.BoardDAO" />
+<%@page import="boardPack.BoardVO" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userEmail = "";
+	String userBirthday = "";
+	String userRegDate = "";
 	if(user!=null){
-		uVO = uDAO.getUser(user);
-		userName = uVO.getName();
-	}
-	
-	String boardName = "dataBoard";
-	int start = 0;
-	int end = 10;
-	int listSize = 0;
-	Vector<BoardVO> vlist = null;
+	uVO = uDAO.getUser(user);
+	userName = uVO.getName();
+	userEmail = uVO.getEmail();
+	userBirthday = uVO.getBirthday();
+	userRegDate = uVO.getRegDate();
+}
 %>
 <!DOCTYPE html>
-<jsp lang="KO">
+<html lang="KO">
 
 <head>
     <meta charset="UTF-8">
@@ -50,14 +50,25 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>   
-    <!-- 게시글 제목 클릭시 해당 게시물로 이동 -->
-    <script>
-        function read(boardName,seq){
-            document.readFrm.seq.value=seq;
-            document.readFrm.action="view_post.jsp";
-            document.readFrm.submit();
-        }
-    </script>
+    <!-- summernote -->
+    <link rel="stylesheet" href="./summernote/summernote-lite.css">
+
+    <script src="./summernote/summernote-lite.js"></script>
+    <script src="./summernote/lang/summernote-ko-KR.js"></script>
+        <style>
+        	.centerpoint{
+        	color:white;
+        		text-align: center;
+        		margin-bottom: 45px;
+        		font-size: 30px;
+        	}
+        	.formcolor{
+        		margin:40px 10px;
+        		background-color:#1c80ff;
+        		padding: 40px 70px;
+        		border-radius: 25px;
+        	}
+        </style>
 </head>
 
 <body>
@@ -71,16 +82,14 @@
             <!-- nav 메뉴 -->
             <div class="menu">
                 <ul class="navbar_menu">
-                	<li><a class="menuNum auto-login" style="display: none;" href="./signIn.jsp">LOGIN / JOIN</a></li>
                     <li><a class="menuNum" href="introduce.jsp">소 개</a></li>
-                    <li><a class="menuNum" href="community.jsp">커뮤니티</a></li>
-                    <li><a class="menuNum" href="dataBoard.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;">자 료 실</a></li>
+                    <li><a class="menuNum" href="community.jsp" style="border-bottom: 2px solid #5180d8; padding-bottom: 42px;" >커뮤니티</a></li>
+                    <li><a class="menuNum" href="dataBoard.jsp">자 료 실</a></li>
                     <li><a class="menuNum" href="qnaBoard.jsp">Q & A</a></li>
                     <li><a class="menuNum" href="inquiry.jsp">문의하기</a></li>
                 </ul>
             </div>
-
-            
+          
             <div class="loginJoin">
             <%if(user!=null){%>
              <!-- // 로그인 했을때 프로필 모양-->
@@ -88,8 +97,9 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
+                    <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
                 </a>       
-                <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -104,84 +114,13 @@
         <hr class="header_line">
     </header>
     <!-- 본문 -->
-    <main>        
-        <h1>자 료 실</h1>
-        <form action="get" action="" style="padding-top:50px;"></form>
-        <table class="list-form">            
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>                
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                vlist = bDAO.getBoardList(boardName, start, end);
-                listSize = vlist.size();
-                for(int i=0;i<10;i++){
-                    if(i==listSize) break;
-                    BoardVO vo = vlist.get(i);
-                    int seq = vo.getSeq();
-                    int ref = vo.getRef();
-                    String subject = vo.getSubject();
-                    String title = vo.getTitle();
-                    String writer = vo.getWriter();
-                    String uploadDate = vo.getUploadDate();
-                    int cnt = vo.getCnt();
-                    
-                    uVO = uDAO.getUser(writer);
-                    String writerName = uVO.getName();
-                    String authoroty = uVO.getAuthority();
-            %>
-                <tr class="list-under-line">
-                    <td><%=seq %></td>
-                    <td><a href="javascript:read('<%=boardName %>','<%=seq %>')">
-                    	<%if(seq!=ref){ %>
-                    	<span class="" style="border-left: 1px solid #000; border-bottom: 1px solid #000; width: 10px; height: 10px; display: inline-block;"></span>
-                    	<%} %>
-                    	[<%=subject %>]<%=title %></a></td>
-                    <td><%=writerName %></td>
-                    <td><%=uploadDate %></td>
-                    <td><%=cnt %></td>
-                </tr>      
-                <%	} %>
-            </tbody>
-        </table>
-        <!-- 게시글 읽을때 필요한 정보값을 넘겨주기 위한 폼 -->
-        <form name="readFrm" method="get">
-            <input type="hidden" name="seq">
-            <input type="hidden" name="boardName" value="<%=boardName %>" readonly>
-        </form>
-
-        <div style="display: flex; position: relative; top: 120px; right: -46px;">
-            <select name="" id="" style="margin-right: 10px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">카테고리</option>
-            </select>
-            <select name="" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
-                <option value="">게시글+제목</option>
-                <option value="">제목만</option>
-                <option value="">글작성자</option>
-            </select>          
-            <!-- 검색창 -->  
-            <div class="search_mode">
-                <div class="search-box">
-                    <input type="text" onkeyup="if(window.event.keyCode==13)" />
-                    <span></span>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        <div class="location">
-            <a class="button" style="float: left;">PREV</a>
-            <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
-            <a class="button"style="float: left;">NEXT</a>
-        </div>
-        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
+    <main style="margin-top: 200px; margin-bottom: 150px;">
+    <h1>회 원 탈 퇴</h1>
+    <form class="formcolor">
+		<div class="confirm centerpoint">정말로 탈퇴하시겠습니까?</div>
+		<label style="color:white;" for="secession_confirm">비밀번호 입력</label>
+		<input id="secession_confirm" type='password' placeholder="Password"><input type="button" value="확인" class="confirm_btn" onclick="">
+	</form>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -237,5 +176,4 @@
     <script src="./script/community_list.js"></script>
     
 </body>
-
 </html>

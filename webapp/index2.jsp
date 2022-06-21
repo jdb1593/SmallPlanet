@@ -20,7 +20,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="index-sub.css">
+    <link rel="stylesheet" href="./css/index-sub.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>Small Planet</title>
     <!-- 구글폰트 import -->
@@ -126,12 +126,12 @@
 
         <div class="slider-container">
             <div class="slider">
-                <div><a href=""><img class="bximg" src="./이미지/1920BXimg1.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./이미지/1920bximg2.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./이미지/1920bsimg4.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./이미지/1920bsimg5.png" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./이미지/1920bximg6.jpg" alt=""></a></div>
-                <div><a href=""><img class="bximg" src="./이미지/1920bximg7.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920BXimg1.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg2.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bsimg4.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bsimg5.png" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg6.jpg" alt=""></a></div>
+                <div><a href=""><img class="bximg" src="./images/1920bximg7.jpg" alt=""></a></div>
             </div>
         </div>
         

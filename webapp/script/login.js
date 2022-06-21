@@ -47,6 +47,8 @@ function checkPassword(){
         if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/.test(pwd2)){  
         $("#password-danger").css('display', 'block');
         $("#password-danger3").css('display', 'none');
+        	                            $("#alert-success").css('display', 'none');
+	                            $("#alert-danger").css('display', 'none');
         $('#password_1').val('').focus();
         $('#password_2').val('').focus();
         setTimeout(function() {
