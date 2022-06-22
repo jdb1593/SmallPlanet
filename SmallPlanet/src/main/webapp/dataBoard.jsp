@@ -21,7 +21,7 @@
 	String boardName = "dataBoard";
 	int totalRecord=0; //전체레코드수
 	int numPerPage=10; // 페이지당 레코드 수 
-	int pagePerBlock=15; //블럭당 페이지수 
+	int pagePerBlock=5; //블럭당 페이지수 
 	  
 	int totalPage=0; //전체 페이지 수
 	int totalBlock=0;  //전체 블럭수 

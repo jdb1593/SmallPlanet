@@ -245,7 +245,7 @@
 	                if(ref==seq){
 		                if(boardName.equals("qnaBoard")){
 		                	if(userAuthority.equals("admin")){ %>
-		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>&nowPage=<%=nowPage %>&keyField=<%=keyField %>&keySub=<%=keySub %>&keyWord=<%=keyWord %>">답글</a>
 		                	<%} %>
 		                <%}else if(boardName.equals("dataBoard")){%>
 		                	<span></span>

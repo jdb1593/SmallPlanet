@@ -60,6 +60,13 @@
                 auto: true,
             });
         });
+        
+        function read(boardName,seq){
+            document.readFrm.boardName.value=boardName;
+            document.readFrm.seq.value=seq;
+            document.readFrm.action="view_post.jsp";
+            document.readFrm.submit();
+        }
     </script>
 	    <style>
         .box-img {
@@ -167,15 +174,15 @@
 	                    uVO = uDAO.getUser(writer);
 	                    String writerName = uVO.getName();
                 %>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
-                        </a>
-                        	<p style="margin:0px" ><%=writerName %></p>
-                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
-                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
-                    </div>
+                	<a href="javascript:read('community','<%=seq %>')" style="text-decoration:none; color:black;">
+	                    <div class="bundle-content">
+	                        <div class="content-box"><img class="box-img" src="./images/dummyimg.png" alt=""></div>
+	                        <p class="box-info" style="font-size:21px; color:#0d6efd;">[<%=subject %>]<%=title %></p>
+	                        <p style="margin:0px;" ><%=writerName %></p>
+	                        <p class="box-info" style="font-size:10px;">조회수 <%=cnt %></p>
+	                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
+	                    </div>
+                    </a>
                 <%} %>
                 </div>
                 <br>
@@ -207,15 +214,15 @@
                     uVO = uDAO.getUser(writer);
                     String writerName = uVO.getName();
                 %>
-                    <div class="bundle-content">
-                        <div class="content-box"><a href=""><img class="box-img" src="./images/dummyimg.png" alt=""></a></div>
-                        <a href="">
-                            <p class="box-info" style="font-size:21px;">[<%=subject %>]<%=title %></p>
-                        </a>
-                        	<p style="margin:0px" ><%=writerName %></p>
-                        <p class="box-info" style="font-size:10px;"><%=cnt %></p>
-                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
-                    </div>
+                    <a href="javascript:read('dataBoard','<%=seq %>')" style="text-decoration:none; color:black;">
+	                    <div class="bundle-content">
+	                        <div class="content-box"><img class="box-img" src="./images/dummyimg.png" alt=""></div>
+	                        <p class="box-info" style="font-size:21px; color:#0d6efd;">[<%=subject %>]<%=title %></p>
+	                        <p style="margin:0px;" ><%=writerName %></p>
+	                        <p class="box-info" style="font-size:10px;">조회수 <%=cnt %></p>
+	                        <p class="box-info" style="font-size:10px;"><%=uploadDate %></p>
+	                    </div>
+                    </a>
                 <%} %>
                 </div>
                 <br>
@@ -225,6 +232,14 @@
                 </div>
             </div>
         
+        <form name="readFrm" method="get">
+            <input type="hidden" name="seq">
+            <input type="hidden" name="boardName" value="" readonly>
+            <input type="hidden" name="nowPage" value="1"> 
+			<input type="hidden" name="keyField" value=""> 
+			<input type="hidden" name="keySub" value=""> 
+			<input type="hidden" name="keyWord" value="">
+        </form>
         
 
     </main>
