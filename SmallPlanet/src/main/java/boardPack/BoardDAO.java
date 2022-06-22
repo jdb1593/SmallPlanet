@@ -168,6 +168,10 @@ public class BoardDAO {
 			multi = new MultipartRequest(_req, SAVEFOLDER,MAXSIZE,ENCTYPE,
 					new DefaultFileRenamePolicy());
 			String boardName = multi.getParameter("board");
+			int nowPage = Integer.parseInt(multi.getParameter("nowPage"));
+			String keyField = multi.getParameter("keyField");
+			String keySub = multi.getParameter("keySub");
+			String keyWord = multi.getParameter("keyWord");
 			
 			con = pool.getConnection();
 //			sql = "select max(seq) from "+boardName;
@@ -227,7 +231,8 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			
 			//리다이렉트
-			response.sendRedirect("view_post.jsp?boardName="+boardName+"&seq="+seq);
+			response.sendRedirect(boardName+".jsp?nowPage="+nowPage+"&keyField="+keyField
+					+"&keySub="+keySub+"&keyWord="+keyWord);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -317,6 +322,10 @@ public class BoardDAO {
 				String content = multi.getParameter("content");
 				String title = multi.getParameter("title");
 				String subject = multi.getParameter("subject");
+				int nowPage = Integer.parseInt(multi.getParameter("nowPage"));
+				String keyField = multi.getParameter("keyField");
+				String keySub = multi.getParameter("keySub");
+				String keyWord = multi.getParameter("keyWord");
 
 				con = pool.getConnection();
 				sql = "update "+boardName+" set title = ?, subject=?, content = ?, updateDate=current_timestamp where seq = ?";
@@ -326,7 +335,9 @@ public class BoardDAO {
 				pstmt.setString(3, content);
 				pstmt.setInt(4, seq);
 				pstmt.executeUpdate();
-				response.sendRedirect("view_post.jsp?boardName="+boardName+"&seq="+multi.getParameter("seq"));
+				response.sendRedirect("view_post.jsp?boardName="+boardName+"&seq="+multi.getParameter("seq")
+						+"&nowPage="+nowPage+"&keyField="+keyField
+						+"&keySub="+keySub+"&keyWord="+keyWord);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -350,6 +361,10 @@ public class BoardDAO {
 						new DefaultFileRenamePolicy());
 				String boardName = multi.getParameter("board");
 				int ref = Integer.parseInt(multi.getParameter("ref"));
+				int nowPage = Integer.parseInt(multi.getParameter("nowPage"));
+				String keyField = multi.getParameter("keyField");
+				String keySub = multi.getParameter("keySub");
+				String keyWord = multi.getParameter("keyWord");
 				
 				con = pool.getConnection();
 				sql = "select depth from "+boardName+" where seq=?";
@@ -375,7 +390,8 @@ public class BoardDAO {
 				pstmt.executeUpdate();
 				
 				//리다이렉트
-				response.sendRedirect(boardName+".jsp");
+				response.sendRedirect(boardName+".jsp?nowPage="+nowPage+"&keyField="+keyField
+						+"&keySub="+keySub+"&keyWord="+keyWord);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -393,7 +409,7 @@ public class BoardDAO {
 				sql = "insert "+_boardName+"(ref,is_comment,is_comment_reply,writer,content,depth)"
 						+" values(?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, _vo.getRef()); //원글 참조번호
+				pstmt.setInt(1, _vo.getSeq()); //원글 참조번호
 				pstmt.setInt(2, 1);
 				pstmt.setInt(3, 0);
 				pstmt.setString(4, _vo.getWriter()); //현재 유저

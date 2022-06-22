@@ -11,9 +11,11 @@
 	String user = (String)session.getAttribute("user");
 	UserVO uVO = new UserVO();
 	String userName = "";
+	String userAuthority = "";
 	if(user!=null){
 		uVO = uDAO.getUser(user);
 		userName = uVO.getName();
+		userAuthority = uVO.getAuthority();
 	}
 		
 	String boardName = "community";
@@ -148,6 +150,11 @@
                     <%=userName %>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+                <%if(userAuthority.equals("admin")){ %>
+                <div class='btn_container'>
+                    <a href="admin-list.jsp" class='pulse-button'>ADMIN</a>
+                </div>
+                <%} %>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -290,7 +297,8 @@
             <!-- <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a> -->
             <!-- <a class="button"style="float: left;">NEXT</a> -->
         </div>
-        <a href="post.jsp?boardName=<%=boardName %>" class="button list-write">Write</a>
+        <a href="post.jsp?boardName=<%=boardName %>&nowPage=<%=nowPage %>&keyField=<%=keyField %>&keySub=<%=keySub %>&keyWord=<%=keyWord %>" 
+        	class="button list-write">Write</a>
     </main>
     <footer class="foot-container">
         <div class="container">
@@ -307,18 +315,19 @@
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/front-end-development/">menu1</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">menu2</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">menu3</a></li>
-                        <li><a href="http://scanfcode.com/category/android/">menu4</a></li>
+                        <li><a href="./introduce.jsp">소개</a></li>
+                        <li><a href="./community.jsp">커뮤니티</a></li>
+                        <li><a href="./dataBoard.jsp">자료실</a></li>
+                        <li><a href="./qnaBoard.jsp">Q & A</a></li>
+                        <li><a href="./inquiry.jsp">문의하기</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/about/">Notion</a></li>
-                        <li><a href="http://scanfcode.com/contact/">GitHub</a></li>
+                        <li><a href="https://gratis-zinc-179.notion.site/0edca8071fd94328ac9b6614af09ee45" target= "_blank">Notion</a></li>
+                        <li><a href="https://github.com/jdb1593/SmallPlanet.git" target= "_blank">GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -328,16 +337,16 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
                     <p style="color: #5b5b5b;" class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
-                        <a href="노션 주소">Small Planet</a>.
+                        <a href="https://github.com/jdb1593/SmallPlanet.git">Small Planet</a>.
                     </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="https://ko-kr.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="https://dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="https://kr.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>

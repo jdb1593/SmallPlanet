@@ -30,7 +30,7 @@ public class InquiryDAO {
 		}
 		
 		//게시물 목록
-		public Vector<InquiryVO> getInquiryList(int _start,int _end){
+		public Vector<InquiryVO> getInquiryList(String _keyField,String _keyWord,int _start,int _end){
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -39,10 +39,21 @@ public class InquiryDAO {
 			
 			try {
 				con = pool.getConnection();
-				sql = "select * from inquiryBoard order by seq desc limit ?, ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, _start);
-				pstmt.setInt(2, _end);
+				if (_keyWord.equals("null") || _keyWord.equals("")) {
+					//no search
+					sql = "select * from inquiryBoard order by seq desc limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, _start);
+					pstmt.setInt(2, _end);
+				}else {
+					//at search
+					sql = "select * from inquiryBoard where "+_keyField
+							+" like ? order by seq desc limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + _keyWord + "%");
+					pstmt.setInt(2, _start);
+					pstmt.setInt(3, _end);
+				}
 				
 				rs = pstmt.executeQuery();
 				while (rs.next()) {

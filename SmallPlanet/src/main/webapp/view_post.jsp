@@ -153,9 +153,13 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
-                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+                <%if(userAuthority.equals("admin")){ %>
+                <div class='btn_container'>
+                    <a href="admin-list.jsp" class='pulse-button'>ADMIN</a>
+                </div>
+                <%} %>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -181,7 +185,7 @@
                 <p style="font-size: 12px;">조회수 <%=cnt %></p>
             </div>
             
-            <%if(writer.equals(user)){ %>
+            <%if(writer.equals(user) || userAuthority.equals("admin")){ %>
             <div class="button-group" style="position: relative; top: -53px; left: 643px;">
                 <a href="delete_post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">삭제</a>
                 <a href="post.jsp?boardName=<%=boardName%>&seq=<%=seq%>">수정</a>
@@ -232,16 +236,21 @@
 			</form>
             
             <div style="margin-left: 30px; padding-top: 30px; padding-bottom: 20px;">
-                <span>좋아요수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
-                <span>댓글수</span><button style="margin: 0px 15px;"><img src="" alt=""></button>
+            <%
+	            vlist = bDAO.getCommentList(boardName, seq);
+	            listSize = vlist.size(); 
+            %>
+                <span>댓글수 <%=listSize %></span>
                 <%
 	                if(ref==seq){
 		                if(boardName.equals("qnaBoard")){
 		                	if(userAuthority.equals("admin")){ %>
 		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
 		                	<%} %>
+		                <%}else if(boardName.equals("dataBoard")){%>
+		                	<span></span>
 		                <%}else{ %>
-		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>">답글</a>
+		                <a href="post.jsp?boardName=<%=boardName%>&ref=<%=ref%>&nowPage=<%=nowPage %>&keyField=<%=keyField %>&keySub=<%=keySub %>&keyWord=<%=keyWord %>">답글</a>
 		                <%
 		                }
 	                } 
@@ -255,19 +264,25 @@
                 <div class="card-body">
                 <%if(user!=null){ %>
                     <!-- Comment form-->
-                    <form class="mb-4" style="display: flex" method=post action="comment.jsp">
+                    <form name="commentFrm" class="mb-4" style="display: flex" method=post action="comment.jsp">
+                    	<input type="hidden" name="nowPage" value="<%=nowPage%>">
+						<input type="hidden" name="keySub" value="<%=keySub%>">
+						<%if(!(keyWord==null || keyWord.equals(""))){ %>
+						<input type="hidden" name="keyField" value="<%=keyField%>">
+						<input type="hidden" name="keyWord" value="<%=keyWord%>">
+						<%}%>
                     	<input type="hidden" name="board" value="<%=boardName%>">
-                    	<input type="hidden" name="ref" value="<%=ref%>">
+                    	<input type="hidden" name="seq" value="<%=seq%>">
                     	<input type="hidden" name="writer" value="<%=user%>">
                         <!-- 댓글 쓰는 공간 -->
                         <textarea name="content" class="form-control" rows="2" placeholder="댓글을 입력해주세요" required></textarea>                        
                         <input type="submit" value="댓글" style="border: 0px solid gray; border-radius: 10px; background-color: #5180d8; color: white; margin-left: 5px;"><br/>
                     </form>
+                <%}else{ %>
+                	<div>댓글을 작성하려면 로그인 해 주세요.</div>
                 <%} %>
 
                     <%
-	                    vlist = bDAO.getCommentList(boardName, ref);
-		                listSize = vlist.size();
                     	for(int i=0;i<listSize;i++){ 
     	                    BoardVO vo = vlist.get(i);
     	                    int cmt_seq = vo.getSeq();
@@ -309,18 +324,19 @@
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/front-end-development/">menu1</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">menu2</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">menu3</a></li>
-                        <li><a href="http://scanfcode.com/category/android/">menu4</a></li>
+                        <li><a href="./introduce.jsp">소개</a></li>
+                        <li><a href="./community.jsp">커뮤니티</a></li>
+                        <li><a href="./dataBoard.jsp">자료실</a></li>
+                        <li><a href="./qnaBoard.jsp">Q & A</a></li>
+                        <li><a href="./inquiry.jsp">문의하기</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/about/">Notion</a></li>
-                        <li><a href="http://scanfcode.com/contact/">GitHub</a></li>
+                        <li><a href="https://gratis-zinc-179.notion.site/0edca8071fd94328ac9b6614af09ee45" target= "_blank">Notion</a></li>
+                        <li><a href="https://github.com/jdb1593/SmallPlanet.git" target= "_blank">GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -330,16 +346,16 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
                     <p style="color: #5b5b5b;" class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
-                        <a href="노션 주소">Small Planet</a>.
+                        <a href="https://github.com/jdb1593/SmallPlanet.git">Small Planet</a>.
                     </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="https://ko-kr.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="https://dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="https://kr.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>

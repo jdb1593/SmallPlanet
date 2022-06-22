@@ -6,9 +6,14 @@
 <jsp:setProperty property="*" name="bVO"/>
 <%
 	String boardName = request.getParameter("board");
-	int ref = Integer.parseInt(request.getParameter("ref"));
+	int seq = Integer.parseInt(request.getParameter("seq"));
+	String nowPage = request.getParameter("nowPage");
+    String keyField = request.getParameter("keyField");
+    String keySub = request.getParameter("keySub");
+    String keyWord = request.getParameter("keyWord");
 	String msg = "failed";
-	String url = "view_post.jsp?boardName="+boardName+"&seq="+ref;
+	String url = "view_post.jsp?boardName="+boardName+"&seq="+seq+"&nowPage="+nowPage
+			+"&keyField="+keyField+"&keySub="+keySub+"&keyWord="+keyWord;
 	
 	bDAO.commentBoard(boardName,bVO);
 %>

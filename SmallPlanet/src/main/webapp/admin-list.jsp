@@ -115,8 +115,7 @@
             document.readFrm.submit();
         }
         function check() {
-	   	     if (document.searchFrm.keyWord.value == ""
-	   	    		 && document.searchFrm.keySub.value == "") {
+	   	     if (document.searchFrm.keyWord.value == "") {
 	   			alert("검색어를 입력하세요.");
 	   			document.searchFrm.keyWord.focus();
 	   			return;
@@ -153,9 +152,13 @@
                     <img src="./images/profiledefault.png" alt="" class="profile-picture">                
                     <div style="position: relative; top: -30px; right: -10px;">
                     <%=userName %>
-                    </div>
                 </a>       
                 <a href="logout.jsp" style="margin-left: 10px;">로그아웃</a>
+                <%if(userAuthority.equals("admin")){ %>
+                <div class='btn_container'>
+                    <a href="admin-list.jsp" class='pulse-button'>ADMIN</a>
+                </div>
+                <%} %>
 			<%}else{ %>
             	<a href="signIn.jsp">LOGIN / JOIN</a>
 			<%} %>
@@ -184,7 +187,7 @@
             </thead>
             <tbody>
 	            <%
-	                vlist = iDAO.getInquiryList(start, end);
+	                vlist = iDAO.getInquiryList(keyField,keyWord,start, end);
 	                listSize = vlist.size();
 	                for(int i=0;i<10;i++){
 	                    if(i==listSize) break;
@@ -204,7 +207,7 @@
                 <%	} %>
             </tbody>
         </table>
-        <form  name="searchFrm"  method="get" action="community.jsp">
+        <form  name="searchFrm"  method="get" action="admin-list.jsp">
 	        <div style="display: flex; position: relative; top: 120px; right: -46px;">
 	            <select name="keyField" id="" style="margin-right: 100px; border-radius: 10px; border: 1px solid #5180d8;">
 	                <option value="content" <%=UtilMgr.boardSelected(keyField, "content") %>>내용</option>
@@ -240,7 +243,6 @@
 		</form>
         
         <div class="location">
-            <!-- <a class="button" style="float: left;">PREV</a> -->
         <%
 		  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
 		  int pageEnd = ((pageStart + pagePerBlock ) <= totalPage) ?  (pageStart + pagePerBlock): totalPage+1; 
@@ -265,17 +267,6 @@
 			<a class="button" href="javascript:block('<%=nowBlock+1%>')" style="float: left;">NEXT</a>
 			<%}//if%>  
 		<%}%>
-	   
-            <!-- <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a> -->
-            <!-- <a class="button"style="float: left;">NEXT</a> -->
-        </div>
-        
-        
-        
-        <div class="location">
-            <a class="button" style="float: left;">PREV</a>
-            <a href="" style="float: left; padding: 5px 30px 0px 30px;">1</a>
-            <a class="button"style="float: left;">NEXT</a>
         </div>
     </main>
     <footer class="foot-container">
@@ -293,18 +284,19 @@
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Categories</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/front-end-development/">menu1</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">menu2</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">menu3</a></li>
-                        <li><a href="http://scanfcode.com/category/android/">menu4</a></li>
+                        <li><a href="./introduce.jsp">소개</a></li>
+                        <li><a href="./community.jsp">커뮤니티</a></li>
+                        <li><a href="./dataBoard.jsp">자료실</a></li>
+                        <li><a href="./qnaBoard.jsp">Q & A</a></li>
+                        <li><a href="./inquiry.jsp">문의하기</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
                     <h6 style="color: #5b5b5b;">Quick Links</h6>
                     <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/about/">Notion</a></li>
-                        <li><a href="http://scanfcode.com/contact/">GitHub</a></li>
+                        <li><a href="https://gratis-zinc-179.notion.site/0edca8071fd94328ac9b6614af09ee45" target= "_blank">Notion</a></li>
+                        <li><a href="https://github.com/jdb1593/SmallPlanet.git" target= "_blank">GitHub</a></li>
                     </ul>
                 </div>
             </div>
@@ -314,16 +306,16 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
                     <p style="color: #5b5b5b;" class="copyright-text">Copyright &copy; 2022 All Rights Reserved by
-                        <a href="노션 주소">Small Planet</a>.
+                        <a href="https://github.com/jdb1593/SmallPlanet.git">Small Planet</a>.
                     </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="https://ko-kr.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/?lang=ko"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="https://dribbble.com/"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="https://kr.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
